@@ -58,9 +58,10 @@ buildExpired = false
   author = "SiO₂"
   DateFormat = "2006-01-02"
 
-  # 主题色：dark / light / auto（auto = 跟随系统）
-  # 页头右上角有切换按钮，访客可以自己切
-  defaultTheme = "dark"
+  # 首次打开时用哪套配色：dark / light / auto（auto = 跟随系统设置）
+  #   只影响「第一次来访」——访客手动切过之后，浏览器会记住他自己的选择。
+  #   页头右上角一直有切换按钮，随时能换。
+  defaultTheme = "light"
   disableThemeToggle = false
 
   ShowReadingTime = true
