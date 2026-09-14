@@ -1,0 +1,204 @@
+# ============================================================
+#  Hugo 站点配置
+#  标了 TODO 的地方是必须改的，其余可以先不管。
+# ============================================================
+
+# TODO 1: 改成你的 GitHub Pages 地址，格式 https://<你的用户名>.github.io/
+#         如果以后绑定了自己的域名，就改成 https://你的域名/
+#         结尾的斜杠不能少。
+#         注：GitHub Actions 构建时会用真实地址覆盖这一行，所以填错也不影响
+#         线上部署，但本地预览的相对链接会不对。
+baseURL = "https://YOURNAME.github.io/"
+
+# TODO 2: 站点名（浏览器标签页和页头显示的名字）
+title = "RE Notes"
+
+theme = "PaperMod"
+
+locale = "zh-cn"
+defaultContentLanguage = "zh-cn"
+hasCJKLanguage = true          # 中文的字数统计、摘要截断靠它
+enableRobotsTXT = true
+enableEmoji = true
+
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+# 每页显示多少篇文章
+[pagination]
+  pagerSize = 12
+
+# JSON 输出是站内搜索的数据源，不要删
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# 分类法：tags / categories 是内置的，events 是我给你加的自定义维度，
+# 用来按 CTF 赛事归档（例如 events = ["2026 强网杯"]）
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  event = "events"
+
+[params]
+  env = "production"
+
+  # 首页列出哪些目录下的文章。
+  # 必须显式写出来，否则 PaperMod 默认只认 posts，首页会一片空白。
+  # 注意：以后新增一个内容目录，都要在这里加一项，
+  #       否则那个目录的文章不会出现在首页列表里。
+  mainSections = ["writeups", "notes", "musings"]
+
+  # "全部文章"页不受上面限制，把所有文章按时间倒序汇总在一起
+  ShowAllPagesInArchive = true
+
+  title = "RE Notes"
+  description = "CTF 逆向工程 writeup 与逆向技术笔记"
+  keywords = ["CTF", "Reverse Engineering", "逆向", "Writeup", "安全"]
+  author = "SiO₂"
+  DateFormat = "2006-01-02"
+
+  # 主题色：dark / light / auto（auto = 跟随系统）
+  # 页头右上角有切换按钮，访客可以自己切
+  defaultTheme = "dark"
+  disableThemeToggle = false
+
+  ShowReadingTime = true
+  ShowWordCount = true
+  ShowCodeCopyButtons = true    # 代码块右上角复制按钮，写 writeup 必需品
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowRssButtonInSectionTermList = false   # 关掉列表页标题旁的 RSS 图标
+                                           # （RSS 本身还在，只是不显示入口）
+  ShowShareButtons = false
+  hidemeta = false
+  hideSummary = false
+  disableScrollToTop = false
+  disableSpecial1stPost = false
+  UseHugoToc = true
+  showtoc = true                # 默认在文章右侧/顶部显示目录
+  tocopen = true                # 目录默认展开（侧边栏形式展开才有意义）
+
+  # 数学公式（密码学、算法逆向会用到）。
+  # 打开后全站每个页面都会加载 KaTeX，所以默认关。
+  # 需要时把这里改成 true，并在文章 front matter 里写 math = true。
+  math = false
+
+  # 首页头像：图片放在 static/images/ 下，这里写站内路径。
+  # 不想要头像就把这一行删掉或留空。
+  avatar = "/images/avatar.jpg"
+
+  # 首页「写在前面」。支持 Markdown，段落之间空一行。
+  #   位置在签名下方（见 layouts/_partials/home_info.html）。
+  #   不想显示就整段删掉或留空。
+  foreword = """
+欢迎大家来到我的博客！我是 HNU 的密码生，也是 HnuSec 的一员，这里会随机掉落一些碎片。
+
+不要过于相信一个人的视角，记得多多对比多多总结，让我们共同进步！
+
+最后，希望你度过美好的一天！
+"""
+
+  # 首页左栏显示的名字和签名。
+  #   Title   = 你的名字（它和页头的站点名是两回事：
+  #             站点名在文件开头的 title 字段，改名互不影响）
+  #   Content = 签名（「泉涓涓而始流」出自陶渊明《归去来兮辞》）
+  [params.homeInfoParams]
+    Title = "SiO₂"
+    Content = """
+泉涓涓而始流
+"""
+  [params.assets]
+    disableHLJS = true          # 用 Hugo 内置 Chroma，不加载 highlight.js
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/uaooo"
+    title = "SiO₂"
+
+  [[params.socialIcons]]
+    name = "email"
+    url = "mailto:1814683382@qq.com"
+    title = "Email"
+
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 1
+    keys = ["title", "permalink", "summary", "content"]
+
+# ------------------------------------------------------------
+#  顶部导航栏
+# ------------------------------------------------------------
+[[menu.main]]
+  identifier = "writeups"
+  name = "Writeups"
+  url = "/writeups/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "notes"
+  name = "逆向笔记"
+  url = "/notes/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "musings"
+  name = "随笔"
+  url = "/musings/"
+  weight = 25
+
+[[menu.main]]
+  identifier = "archives"
+  name = "全部文章"
+  url = "/archives/"
+  weight = 30
+
+[[menu.main]]
+  identifier = "search"
+  name = "搜索"
+  url = "/search/"
+  weight = 40
+
+[[menu.main]]
+  identifier = "about"
+  name = "关于"
+  url = "/about/"
+  weight = 70
+
+# ------------------------------------------------------------
+#  Markdown 渲染
+# ------------------------------------------------------------
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true             # 允许在 md 里直接写 HTML
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      table = true
+      strikethrough = true
+      linkify = true
+      typographer = false
+  [markup.highlight]
+    noClasses = false           # 必须 false：PaperMod 自带 Chroma 样式表
+    codeFences = true
+    guessSyntax = true          # 代码块没标语言时自动猜；asm 建议手动标
+    lineNos = false
+    lineNumbersInTable = true
+    tabWidth = 4
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5

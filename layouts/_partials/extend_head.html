@@ -1,0 +1,17 @@
+{{- /* 这个脚本必须放在 <head> 里、尽早同步执行：
+       在浏览器开始绘制之前就给 <html> 打上标记，
+       这样首页签名的打字机动画才能被干净地跳过，
+       否则会先看到它打一遍再被隐藏，反而更乱。 */ -}}
+<script>
+    (function () {
+        // 和开场动画用同一套判断（见 extend_footer.html）：
+        // 只有「从站内别的页面点回来」才跳过签名动画，
+        // 刷新（F5）和第一次进站都照常逐字打一遍。
+        var ref = document.referrer || '';
+        var cameFromInsidePage = ref.indexOf(location.origin) === 0 && ref !== location.href;
+
+        if (cameFromInsidePage) {
+            document.documentElement.classList.add('skip-typing');
+        }
+    })();
+</script>

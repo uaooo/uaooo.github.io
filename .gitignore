@@ -1,0 +1,26 @@
+# Hugo 构建产物，不需要进仓库
+public/
+resources/_gen/
+.hugo_build.lock
+
+# 飞书 API 凭据，绝对不能提交到仓库
+.feishu.env
+.feishu.env.*
+
+# 飞书导出的中间产物与转换脚本（本地留着，不进仓库）
+_feishu_raw/
+_feishu_md/
+_feishu_export.py
+_feishu_convert.py
+_feishu.env
+
+# 编辑器/系统
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+
+# 导入工具的中间产物（inbox/.gitkeep 会保留这个目录本身）
+inbox/_done/
+inbox/_work/
+__pycache__/

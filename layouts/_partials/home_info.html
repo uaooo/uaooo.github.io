@@ -1,0 +1,34 @@
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+
+    {{- /* 头像：在 hugo.toml 的 [params] 里配 avatar 路径 */}}
+    {{- with site.Params.avatar }}
+    <div class="home-avatar">
+        <img src="{{ . | relURL }}" alt="avatar" loading="lazy">
+    </div>
+    {{- end }}
+
+    <header class="entry-header">
+        <h1>{{ .Title | markdownify }}</h1>
+    </header>
+
+    {{- /* 签名 */}}
+    <div class="entry-content md-content">
+        {{ $opts := dict "display" "block" }}
+        {{ .Content | $.Page.RenderString $opts }}
+    </div>
+
+    <footer class="entry-footer">
+        {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+    </footer>
+
+    {{- /* 「写在前面」：位置在签名下面，内容在 hugo.toml 的 foreword 参数里改 */}}
+    {{- with site.Params.foreword }}
+    <div class="home-foreword">
+        <div class="home-foreword-title">写在前面</div>
+        <div class="home-foreword-body">{{ . | markdownify }}</div>
+    </div>
+    {{- end }}
+
+</article>
+{{- end -}}

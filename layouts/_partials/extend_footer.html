@@ -1,0 +1,148 @@
+{{- /* 开场画面：只在首页显示。
+       原因：每次点开一篇文章都播一遍 1.5 秒的开场，很快就会让人烦。
+       淡出完全由 CSS 动画（delay + forwards）完成，不依赖 JS ——
+       即使脚本挂了，画面也一定会自己消失，不会把页面永久盖住。
+       想让所有页面都播：把下面这行 if 删掉即可。 */ -}}
+{{- if .IsHome }}
+<div id="intro" aria-hidden="true">
+    {{- /* 背景图：先清晰亮相，再慢慢放大模糊压暗，给内容让位 */ -}}
+    <div class="intro-bg"></div>
+
+    <div class="intro-content">
+        {{- /* 第一幕：头像偏左上、名字偏右下，形成对角；演完一起退场 */ -}}
+        <div class="intro-scene-1">
+            <img class="intro-avatar" src="/images/avatar.jpg" alt="">
+            <div class="intro-name">SiO₂</div>
+        </div>
+
+        {{- /* 第二幕：一句话，逐字打出 */ -}}
+        <div class="intro-greet">终于与你相遇</div>
+    </div>
+</div>
+<script>
+    // 开场动画什么时候播：
+    //   · 第一次进站（地址栏打开、从外站链接进来） → 播
+    //   · 按 F5 / Ctrl+R 刷新                     → 播
+    //   · 站内点来点去（比如从文章页点回首页）      → 不播
+    //
+    // 判断办法是看 referrer：
+    //   · 站内导航：referrer 是本站的「另一个」地址
+    //   · 刷新    ：referrer 就是当前地址本身（Chrome/Edge 的行为）
+    //   · 首次进站：referrer 为空
+    // 之所以不用 sessionStorage，正是因为它区分不了「刷新」和「站内返回」。
+    //
+    // 脚本紧跟在这个 div 后面、同步执行，此时页面还没开始绘制，
+    // 所以删除元素不会造成「闪一下再消失」。
+    (function () {
+        var intro = document.getElementById('intro');
+        if (!intro) return;
+
+        var ref = document.referrer || '';
+        var cameFromInsidePage = ref.indexOf(location.origin) === 0 && ref !== location.href;
+
+        if (cameFromInsidePage) {
+            intro.parentNode.removeChild(intro);
+        }
+    })();
+</script>
+{{- end }}
+
+{{- /* 目录滚动高亮：滚到哪一节，侧边目录对应那行就加粗 */ -}}
+<script>
+    // 排查用：按 F12 打开控制台，看到这行说明加载的是最新版本
+    console.log('[blog] 脚本已加载 · 目录高亮生效中');
+
+    // 排查用：在控制台手打 anim() 回车，就能手动重播一次入场动画。
+    //   注意：Edge 会拦截「粘贴代码」，要手打，或者先输入「允许粘贴」放行。
+    window.anim = function () {
+        var sel = '.home-info .home-avatar, .home-info .entry-header, ' +
+            '.home-info .entry-content, .home-info .entry-footer, .post-entry';
+        document.querySelectorAll(sel).forEach(function (el) {
+            el.style.animation = 'none';
+            void el.offsetWidth;          // 强制重排，动画才能重新开始
+            el.style.animation = '';
+        });
+        console.log('[blog] 已重播入场动画 —— 盯着页面顶部看');
+    };
+
+    // 排查用：把入场动画的真实状态打出来
+    window.addEventListener('load', function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        console.log('[blog] 系统「减少动态效果」= ' + (reduce ? '已开启（这会导致动画被禁用）' : '未开启'));
+
+        var avatar = document.querySelector('.home-info .home-avatar');
+        if (avatar) {
+            var cs = getComputedStyle(avatar);
+            console.log('[blog] 头像动画 => name=' + cs.animationName +
+                ' duration=' + cs.animationDuration +
+                ' delay=' + cs.animationDelay);
+        } else {
+            console.log('[blog] 当前页面没有头像元素（不是首页？）');
+        }
+    });
+
+    (function () {
+        var toc = document.querySelector('.post-single details.toc');
+        if (!toc) return;
+
+        var links = Array.prototype.slice.call(toc.querySelectorAll('.inner a[href^="#"]'));
+        if (links.length === 0) return;
+
+        // 把目录项和正文里的标题配对；找不到对应标题的项直接丢掉
+        var items = links.map(function (a) {
+            var id = decodeURIComponent(a.getAttribute('href').slice(1));
+            var el = document.getElementById(id);
+            return el ? { link: a, el: el } : null;
+        }).filter(Boolean);
+
+        if (items.length === 0) return;
+
+        var current = null;
+
+        // 标题相对整个文档的位置（offsetTop 在嵌套结构里靠不住）
+        function topOf(el) {
+            return el.getBoundingClientRect().top + window.scrollY;
+        }
+
+        function setActive(item) {
+            if (current === item) return;
+            if (current) current.link.classList.remove('toc-active');
+            item.link.classList.add('toc-active');
+            current = item;
+        }
+
+        function update() {
+            var line = window.scrollY + 140;   // 判定线：视口上方留一段，符合直觉
+            var found = items[0];
+
+            for (var i = 0; i < items.length; i++) {
+                if (topOf(items[i].el) <= line) {
+                    found = items[i];
+                } else {
+                    break;
+                }
+            }
+
+            // 已经滚到页面底部时，高亮最后一项，避免最后一节永远点不亮
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+                found = items[items.length - 1];
+            }
+
+            setActive(found);
+        }
+
+        // 用 rAF 节流，滚动时不掉帧
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(function () {
+                update();
+                ticking = false;
+            });
+        }, { passive: true });
+
+        window.addEventListener('resize', update);
+        update();
+    })();
+</script>

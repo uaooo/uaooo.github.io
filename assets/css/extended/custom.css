@@ -1,0 +1,964 @@
+/* ==========================================================
+   自定义样式：照片背景 + 毛玻璃
+   PaperMod 会自动加载 assets/css/extended/ 下的所有 CSS，
+   并排在主题样式之后，所以这里的规则能覆盖主题默认值。
+   改完存盘浏览器会自动刷新，不用重启预览。
+   ========================================================== */
+
+/* ----------------------------------------------------------
+   可调参数：想微调背景只改这一段就够了
+   ---------------------------------------------------------- */
+:root {
+    /* ---------- 背景照片 ----------
+       换图：把图片丢进 static/images/，改下面这行的文件名即可。
+       想换回默认渐变：把这里改回 none，并把 --bg-dim 改回 transparent。 */
+    --bg-photo: url("/images/bg.jpg");
+
+    /* 照片上方的遮罩。这是「背景清晰度」和「文字可读性」之间的总闸门：
+       数值小 = 照片更清楚，但没卡片覆盖的文字（比如首页顶部）会变难读。 */
+    --bg-dim: rgba(255, 255, 255, 0.48);
+
+    /* 背景照片本身的模糊。0 = 完全不糊 */
+    --bg-photo-blur: 1px;
+
+    /* 默认背景：两层柔光 + 一层主渐变（把 --bg-photo 设为 none 时才会露出来） */
+    --bg-gradient:
+        radial-gradient(1200px 620px at 12% -8%, #dce8f7 0%, transparent 60%),
+        radial-gradient(920px 520px at 96% 4%, #e7dcf6 0%, transparent 55%),
+        linear-gradient(160deg, #f5f8fc 0%, #e9eff8 50%, #f2f5fa 100%);
+
+    --glow-opacity: 0;           /* 光斑：用照片时保持 0 */
+
+    /* 毛玻璃模糊半径。卡片越透明，越要靠它保证文字读得清 —— 和 --entry 一起调 */
+    --glass-blur: 22px;
+
+    --theme: transparent;        /* 让 body 背景透明，露出上面两层 */
+
+    /* 卡片底色。数字越小 = 越透明 = 照片越明显 */
+    --entry: rgba(255, 255, 255, 0.30);
+
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --pagination-fg: rgb(255, 255, 255);
+
+    /* ---------- 代码块配色 ----------
+       重要：PaperMod 在 md-content.css 里用
+         background: var(--code-block-bg) !important
+       来画代码块底色，所以改 .chroma 的背景是没用的，
+       必须改这两个变量才生效。 */
+    --code-block-bg: #e8ebf0;    /* 代码块底色：偏灰的浅色，纯白太晃眼 */
+    --code-bg: #dde2e9;          /* 行内 `code` 的底色 */
+}
+
+:root[data-theme="dark"] {
+    --bg-gradient:
+        radial-gradient(1100px 600px at 8% -12%, #16283f 0%, transparent 60%),
+        radial-gradient(900px 520px at 97% -4%, #251b3e 0%, transparent 55%),
+        linear-gradient(160deg, #090d15 0%, #0e1422 45%, #0a0f1a 100%);
+
+    --glow-opacity: 0;
+    --glass-blur: 22px;
+
+    /* 暗色主题下用深色遮罩压暗照片。这个值比亮色敏感：
+       调太小，正文会直接读不清 */
+    --bg-dim: rgba(9, 13, 21, 0.38);
+
+    --theme: transparent;
+    --entry: rgba(28, 31, 38, 0.34);
+    --glass-border: rgba(255, 255, 255, 0.07);
+    --pagination-fg: rgb(24, 25, 28);
+
+    /* 夜间代码块：默认是 #2e2e33，偏深，这里提亮一档 */
+    --code-block-bg: #2c313c;
+    --code-bg: #343a46;
+}
+
+/* ----------------------------------------------------------
+   背景层
+   ---------------------------------------------------------- */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image:
+        linear-gradient(var(--bg-dim), var(--bg-dim)),
+        var(--bg-photo),
+        var(--bg-gradient);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    filter: blur(var(--bg-photo-blur));
+    transform: scale(1.02);
+}
+
+/* 柔和光斑（用照片时 --glow-opacity 为 0，等于关闭） */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: var(--glow-opacity);
+    background:
+        radial-gradient(38rem 38rem at 16% 20%, rgba(88, 166, 255, 0.12), transparent 62%),
+        radial-gradient(32rem 32rem at 84% 10%, rgba(168, 85, 247, 0.10), transparent 60%),
+        radial-gradient(44rem 30rem at 50% 108%, rgba(34, 211, 238, 0.08), transparent 66%);
+}
+
+/* ----------------------------------------------------------
+   卡片：改成纯半透明，不做毛玻璃
+   ----------------------------------------------------------
+   之前用了 backdrop-filter 把卡片后面的背景糊掉（毛玻璃），
+   视觉上卡片会显得"厚"、像一块磨砂板压在上面。
+
+   现在去掉模糊，只留半透明 —— 背景照片会清晰地透过来，
+   卡片只是一层淡淡的色。
+   ---------------------------------------------------------- */
+.post-entry,
+.searchResults li,
+details.toc,
+.searchbox input {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.post-entry,
+.searchResults li,
+.searchbox input {
+    background: var(--entry);
+    border-color: var(--glass-border);
+}
+
+/* 列表页原本铺了一层灰底，透明化才能透出背景 */
+.list {
+    background: transparent;
+}
+
+/* ----------------------------------------------------------
+   修正：分页按钮的文字原本取 var(--theme)
+   而 --theme 已被改成 transparent，不补这一句按钮上的字会消失
+   ---------------------------------------------------------- */
+.pagination a {
+    color: var(--pagination-fg);
+}
+
+/* 同理：浏览器自动填充的遮罩原本也取 var(--theme)，透明后遮不住
+   Chrome 的黄底，改用实色 */
+:root {
+    --autofill-bg: rgb(255, 255, 255);
+}
+
+:root[data-theme="dark"] {
+    --autofill-bg: rgb(31, 34, 42);
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+    box-shadow: 0 0 0 50px var(--autofill-bg) inset;
+}
+
+
+/* ==========================================================
+   首页头像
+   ========================================================== */
+.home-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.1rem;
+}
+
+.home-avatar img {
+    width: 120px;              /* 想改头像大小改这里，两行一起改 */
+    height: 120px;
+    border-radius: 50%;        /* 正圆；想要圆角方形改成 16px 之类 */
+    object-fit: cover;
+    border: 3px solid var(--glass-border);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 560px) {
+    .home-avatar img {
+        width: 96px;
+        height: 96px;
+    }
+}
+
+/* 首页顶部信息区：整个区块不加卡片底色，
+   让背景照片在这里完整体现（全站背景最明显的地方） */
+.home-info {
+    background: transparent;
+    border-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+
+/* ==========================================================
+   「写在前面」区块（首页最上方）
+   ========================================================== */
+.home-foreword {
+    max-width: 660px;
+    margin: 0 auto 1.6rem;
+    padding: 0.9rem 1.15rem;
+    text-align: left;
+
+    font-size: 0.93rem;
+    line-height: 1.7;
+    color: var(--content);
+
+    /* 左侧一道竖线，像引用块；底色比卡片略实一点，保证读得清 */
+    border-left: 3px solid var(--primary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: var(--entry);
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
+}
+
+.home-foreword-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    opacity: 0.85;
+    margin-bottom: 0.3rem;
+}
+
+.home-foreword p {
+    margin: 0;
+}
+
+.home-foreword p + p {
+    margin-top: 0.5rem;
+}
+
+
+/* ==========================================================
+   文章目录：宽屏时固定到正文右侧
+   ----------------------------------------------------------
+   窄屏（< 1280px）保持 PaperMod 原本的内联折叠块。
+     right = 50vw - 正文半宽(360) - 目录宽(240) - 间距(24)
+   ========================================================== */
+:root {
+    --toc-width: 240px;
+}
+
+@media (min-width: 1280px) {
+    .post-single details.toc {
+        position: fixed;
+        top: 96px;
+        right: max(16px, calc(50vw - 624px));
+        width: var(--toc-width);
+        max-height: calc(100vh - 140px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+
+        margin: 0;
+        padding: 0 0 0.5rem;
+        font-size: 0.85rem;
+        line-height: 1.55;
+
+        background: var(--entry);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius);
+        backdrop-filter: blur(var(--glass-blur)) saturate(1.5);
+        -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.5);
+    }
+
+    /* 折叠箭头去掉，侧边栏里它没有意义 */
+    .post-single details.toc > summary {
+        cursor: default;
+        padding: 0.6rem 1rem 0.4rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .post-single details.toc > summary::marker,
+    .post-single details.toc > summary::-webkit-details-marker {
+        display: none;
+        content: "";
+    }
+
+    .post-single details.toc .inner {
+        padding: 0 1rem;
+    }
+
+    .post-single details.toc .inner ul {
+        padding-inline-start: 0.85rem;
+        margin: 0;
+    }
+
+    .post-single details.toc .inner li {
+        margin: 0.18rem 0;
+    }
+
+    .post-single details.toc .inner a {
+        color: var(--secondary);
+        text-decoration: none;
+        display: block;
+        padding: 0.1rem 0;
+        border-left: 2px solid transparent;
+        padding-left: 0.45rem;
+        margin-left: -0.45rem;
+    }
+
+    .post-single details.toc .inner a:hover {
+        color: var(--primary);
+        border-left-color: var(--primary);
+    }
+
+    .post-single details.toc::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .post-single details.toc::-webkit-scrollbar-thumb {
+        background: var(--tertiary);
+        border-radius: 3px;
+    }
+
+    .post-single details.toc::-webkit-scrollbar-track {
+        background: transparent;
+    }
+}
+
+
+/* ==========================================================
+   入场动画
+   ----------------------------------------------------------
+   实测反馈：0.7 秒太快，肉眼几乎捕捉不到，所以放慢到 1.1 秒、
+   位移加大到 32px，让"浮现"这个过程真的看得见。
+
+   没有用 @media (prefers-reduced-motion) 做降级 ——
+   它会让系统里关掉动画的用户完全看不到效果。
+   ========================================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(32px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 首页名片区：头像 → 名字 → 简介 → 图标 依次浮现 */
+.home-info .home-avatar,
+.home-info .entry-header,
+.home-info .entry-content,
+.home-info .entry-footer {
+    animation: fadeInUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.home-info .home-avatar {
+    animation-delay: 0.10s;
+}
+
+.home-info .entry-header {
+    animation-delay: 0.26s;
+}
+
+.home-info .entry-content {
+    animation-delay: 0.42s;
+}
+
+.home-info .entry-footer {
+    animation-delay: 0.58s;
+}
+
+/* 「写在前面」最先出现 */
+.home-foreword {
+    animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.02s;
+}
+
+/* 文章列表卡片：一串串冒出来 */
+.post-entry {
+    animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.post-entry:nth-child(2) {
+    animation-delay: 0.20s;
+}
+
+.post-entry:nth-child(3) {
+    animation-delay: 0.32s;
+}
+
+.post-entry:nth-child(4) {
+    animation-delay: 0.44s;
+}
+
+.post-entry:nth-child(5) {
+    animation-delay: 0.56s;
+}
+
+.post-entry:nth-child(6) {
+    animation-delay: 0.68s;
+}
+
+.post-entry:nth-child(7) {
+    animation-delay: 0.80s;
+}
+
+.post-entry:nth-child(n+8) {
+    animation-delay: 0.92s;
+}
+
+/* 文章页正文淡入（侧边目录不参与，避免抖动） */
+.post-single > .post-header,
+.post-single > .post-content {
+    animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.post-single > .post-content {
+    animation-delay: 0.12s;
+}
+
+
+/* ==========================================================
+   目录里「当前所在章节」的高亮
+   ========================================================== */
+.post-single details.toc .inner a.toc-active {
+    color: var(--primary);
+    font-weight: 700;
+    border-left-color: var(--primary);
+}
+
+
+/* ==========================================================
+   「最新文章」分隔线
+   ----------------------------------------------------------
+   放在「个人信息区」和「文章列表」之间，视觉上长这样：
+
+        —————————  最新文章  —————————
+
+   两侧是渐隐的细线，中间是字距拉开的小标题。
+   目的是让人一眼明白：上面是我的自我介绍，下面是文章。
+   ========================================================== */
+/* ==========================================================
+   首页信息区：左右两栏
+   ----------------------------------------------------------
+   左栏（220px）  头像 + 名字 + 签名 + 社交图标，上下排列、居中
+   右栏（自适应）  写在前面
+
+   窄屏（< 880px）自动退回「上下单栏」——
+   手机上两栏会把签名和前言都挤成一条，反而更难读。
+   ========================================================== */
+.home-info {
+    text-align: center;
+}
+
+@media (min-width: 880px) {
+
+    .home-info {
+        display: grid;
+        grid-template-columns: 220px minmax(0, 1fr);
+        column-gap: 2.8rem;
+        align-items: center;
+        text-align: left;
+    }
+
+    /* 左栏：四样东西各占一行 */
+    .home-info > .home-avatar,
+    .home-info > .entry-header,
+    .home-info > .entry-content,
+    .home-info > .entry-footer {
+        grid-column: 1;
+        text-align: center;
+    }
+
+    .home-info > .home-avatar {
+        grid-row: 1;
+    }
+
+    .home-info > .entry-header {
+        grid-row: 2;
+    }
+
+    .home-info > .entry-content {
+        grid-row: 3;
+    }
+
+    .home-info > .entry-footer {
+        grid-row: 4;
+    }
+
+    /* 右栏：写在前面，纵向跨满左栏整列 */
+    .home-info > .home-foreword {
+        grid-column: 2;
+        grid-row: 1 / 5;
+        align-self: center;
+        margin: 0;
+        max-width: none;
+        text-align: left;
+    }
+}
+
+/* 前言本体样式（宽屏窄屏都用） */
+.home-foreword {
+    max-width: 620px;
+    margin: 2.2rem auto 1.4rem;
+    text-align: left;
+}
+
+/* 左栏内部间距收紧 */
+.home-info .entry-header h1 {
+    margin: 0.25rem 0 0.3rem;
+}
+
+.home-info .entry-content {
+    margin-bottom: 0.8rem;
+}
+
+
+/* ==========================================================
+   开场画面（splash）
+   ----------------------------------------------------------
+   页面加载时先全屏显示这一屏（猫 + 站名 + 签名），
+   约 1.5 秒后自动淡出，把正文露出来。
+
+   关键点：淡出完全靠 CSS 的 animation-delay + forwards 完成，
+   不依赖 JavaScript。即使脚本加载失败，画面也一定会自己消失 ——
+   用 JS 控制的话一旦报错，整个网站就被这块遮罩永久盖住了。
+   ========================================================== */
+#intro {
+    --intro-bg: #eef2f7;
+    --intro-fg: #2a3038;
+
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.1rem;
+
+    background: var(--intro-bg);
+    animation: introOut 0.75s ease 1.5s forwards;
+}
+
+:root[data-theme="dark"] #intro {
+    --intro-bg: #0b1018;
+    --intro-fg: #e6e8ec;
+}
+
+@keyframes introOut {
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* 猫：身体用前景色，眼睛鼻子用背景色抠出来，
+   所以亮色下是「深猫浅眼」，暗色下反过来，两种主题都看得清 */
+.intro-cat {
+    width: 104px;
+    height: auto;
+    color: var(--intro-fg);
+    animation: introPop 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.intro-cat-eye {
+    fill: var(--intro-bg);
+}
+
+.intro-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--intro-fg);
+    animation: introPop 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.intro-sub {
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
+    color: var(--intro-fg);
+    opacity: 0.55;
+    animation: introPop 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+
+@keyframes introPop {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ==========================================================
+   代码块配色：改成半透明 + 磨砂
+   ----------------------------------------------------------
+   之前用的是实色，白天太白、夜间太黑 —— 因为实色没有"环境色"，
+   永远是一块死板的纯色。
+
+   改成半透明后，底下背景照片的颜色会透上来一点点，
+   再用 backdrop-filter 把透出来的画面糊掉，
+   于是代码块既有柔和的色调，又不影响读代码。
+
+   写在文件末尾是为了覆盖前面 :root 里的实色定义。
+   ========================================================== */
+:root {
+    --code-block-bg: rgba(236, 239, 244, 0.66);
+    --code-bg: rgba(230, 235, 242, 0.72);
+}
+
+:root[data-theme="dark"] {
+    --code-block-bg: rgba(46, 52, 64, 0.60);
+    --code-bg: rgba(54, 61, 74, 0.66);
+}
+
+/* 透出来的背景必须糊掉，否则照片的花纹会干扰读代码 */
+.md-content pre,
+.md-content .chroma,
+.md-content div.highlight {
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+
+
+/* ==========================================================
+   开场画面：图片 → 头像与名字 → 一句话
+   ----------------------------------------------------------
+   三幕，总时长约 4 秒：
+
+     0.00s  背景图淡入，先清晰亮相
+     0.35s  图片开始放大、模糊、压暗
+     0.65s  头像出现（偏左上）
+     0.90s  名字出现（偏右下，和头像形成对角）
+     1.85s  头像和名字一起退场
+     2.35s  「终于与你相遇」逐字打出
+     3.35s  整块淡出
+
+   要调节奏就统一缩放这几个时间点。
+   ========================================================== */
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation: introOut 0.65s ease 3.35s forwards;
+}
+
+/* 背景图：先清晰，再渐渐「沉」下去。
+   inset 用负值是为了给放大和模糊留余量，否则边缘会露出空白。 */
+.intro-bg {
+    position: absolute;
+    inset: -6%;
+    background-image: url("/images/intro.jpg");
+    background-size: cover;
+    background-position: center 30%;
+    /* 这张是深色剧照，人物在上半部分，取景偏上一点正好 */
+    animation: introBg 3.35s ease forwards;
+}
+
+@keyframes introBg {
+    0% {
+        opacity: 0;
+        transform: scale(1.02);
+        filter: blur(0) brightness(1);
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    28% {
+        transform: scale(1.04);
+        filter: blur(0) brightness(1);
+    }
+
+    70% {
+        transform: scale(1.1);
+        filter: blur(12px) brightness(0.55);
+    }
+
+    100% {
+        transform: scale(1.16);
+        filter: blur(18px) brightness(0.4);
+    }
+}
+
+/* 内容层 */
+.intro-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 820px;
+    padding: 0 8%;
+}
+
+/* ---------- 第一幕：头像 + 名字 ---------- */
+.intro-scene-1 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    animation: introSceneOut 0.42s ease 1.85s forwards;
+}
+
+/* 退场：淡出 + 上移 + 变糊，比单纯消失有「谢幕」感 */
+@keyframes introSceneOut {
+    to {
+        opacity: 0;
+        filter: blur(7px);
+        transform: translateY(-14px);
+    }
+}
+
+/* 头像：偏左上 */
+.intro-avatar {
+    align-self: flex-start;
+    margin-left: 18%;              /* 横向偏移：调大 = 头像往中间靠 */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 26px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    animation: introAvatarIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
+}
+
+@keyframes introAvatarIn {
+    from {
+        opacity: 0;
+        transform: scale(0.86) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 名字：偏右下，和头像形成对角 */
+.intro-name {
+    align-self: flex-end;
+    margin-right: 18%;             /* 横向偏移：调大 = 名字往中间靠 */
+    margin-top: 0.4rem;            /* 垂直间距，留一丢丢 */
+    font-size: 3.1rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: #fff;
+    text-shadow:
+        0 0 30px rgba(255, 255, 255, 0.4),
+        0 6px 36px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    animation: introNameIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+}
+
+/* 从「放大 + 模糊」收缩成清晰，像镜头对焦 */
+@keyframes introNameIn {
+    from {
+        opacity: 0;
+        transform: scale(1.6);
+        filter: blur(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+/* ---------- 第二幕：一句话，逐字打出 ----------
+   宽度必须把 letter-spacing 算进去：
+     6 个字 × (1em + 0.06em) = 6.36em
+   所以容器要给 6.4em。之前写的 6em 装不下，
+   最后一个字会被裁掉一截 —— 这就是「没打印完」的原因。 */
+.intro-greet {
+    display: block;
+    margin: 2.6rem auto 0;
+    width: 6.4em;
+    overflow: hidden;
+    white-space: nowrap;
+
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+    border-right: 2px solid rgba(255, 255, 255, 0.9);
+
+    animation:
+        introTyping 0.8s steps(6, end) 2.35s both,
+        introCaret 0.65s step-end 2.35s 3;
+}
+
+@keyframes introTyping {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 6.4em;
+    }
+}
+
+@keyframes introCaret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+
+/* ==========================================================
+   首页签名的打字机效果
+   ----------------------------------------------------------
+   时间点很关键：开场画面要演到 3.35 秒才淡出，
+   所以这里必须等到 3.6 秒之后才开始打字 ——
+   否则你还在看开场，签名就已经在背后偷偷打完了，
+   等你进到首页只看到一行静止的字，等于白做。
+   ========================================================== */
+.home-info .entry-content p {
+    display: block;
+    width: 7em;
+    margin: 0 auto;
+    font-size: 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--primary);
+    animation:
+        homeTyping 0.9s steps(7, end) 3.6s both,
+        homeCaret 0.65s step-end 3.6s 3;
+}
+
+@keyframes homeTyping {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 7em;
+    }
+}
+
+@keyframes homeCaret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+
+/* ==========================================================
+   修正：亮色模式下代码块的文字颜色
+   ----------------------------------------------------------
+   这里踩过一个坑。PaperMod 自带的 Chroma 配色里有这么一条：
+
+       .chroma { color: #cad3f5 }     ← 浅色文字，为深色底设计
+
+   我给它换成 GitHub Light 的浅色底时，改了背景、也改了各种
+   token（关键字、字符串、注释……）的颜色，**却漏了这条基础 color**。
+   结果代码块里那些没被 token 包裹的纯文本（中文、空格之类）
+   仍然继承主题的浅色 —— 压在浅色底上就完全看不清了。
+
+   补上这一条即可。顺带把底色再调透一档。
+   ========================================================== */
+:root[data-theme="light"] .chroma {
+    color: #24292f;              /* 代码块的默认文字色（深灰） */
+}
+
+/* 代码块底色再透一点：这个值越小，底下的背景照片越明显 */
+:root {
+    --code-block-bg: rgba(236, 239, 244, 0.5);
+    --code-bg: rgba(230, 235, 242, 0.6);
+}
+
+:root[data-theme="dark"] {
+    --code-block-bg: rgba(46, 52, 64, 0.5);
+    --code-bg: rgba(54, 61, 74, 0.56);
+}
+
+
+/* ==========================================================
+   从站内返回首页时，跳过签名的打字机
+   ----------------------------------------------------------
+   .skip-typing 由 layouts/_partials/extend_head.html 里的脚本加上：
+   开场动画已经播过（说明不是新开网站，是从站内点回来的），
+   签名就直接显示，不再逐字打一遍。
+   ========================================================== */
+.skip-typing .home-info .entry-content p {
+    width: auto;
+    border-right: none;
+    animation: none;
+}
+
+
+/* ==========================================================
+   代码块配色：第二轮修正
+   ----------------------------------------------------------
+   问题：亮色模式下仍有一部分代码文字发灰、看不清。
+
+   原因：GitHub Light 那套配色是「按 token 类型」上色的
+   （关键字红、函数紫、字符串深蓝……），但代码里总有一些片段
+   不属于任何 token —— 缩进、空格、某些标识符。
+   它们继承 .chroma 的默认 color，而那条规则被主题里更强的
+   选择器压住了，于是掉回浅色。
+
+   解法：用 !important 把默认文字色钉死。
+   已经单独定义过的 token 不受影响 —— 它们的颜色直接作用在
+   子元素上，优先级天然高于父元素的继承值。
+   ========================================================== */
+html[data-theme="light"] .chroma,
+html[data-theme="light"] .chroma code {
+    color: #24292f !important;
+}
+
+/* 给几个 GitHub Light 没明确指定的 token 类补兜底色，
+   免得它们又掉回浅色 */
+html[data-theme="light"] .chroma .n,
+html[data-theme="light"] .chroma .nx,
+html[data-theme="light"] .chroma .p,
+html[data-theme="light"] .chroma .o,
+html[data-theme="light"] .chroma .w {
+    color: #24292f;
+}
+
+
+/* ==========================================================
+   夜间模式：整体提亮一档
+   ----------------------------------------------------------
+   原来的值偏暗，压在压暗过的照片背景上显得发黑。
+   ========================================================== */
+:root[data-theme="dark"] {
+    /* 代码块底色：46,52,64 -> 58,65,80 */
+    --code-block-bg: rgba(58, 65, 80, 0.5);
+    --code-bg: rgba(64, 72, 88, 0.56);
+}
+
+/* ----------------------------------------------------------
+   卡片底色：两个模式都调透
+   ----------------------------------------------------------
+   去掉毛玻璃之后，卡片身上只剩「一层颜色」了，
+   所以要更透才显得轻盈 —— 背景照片会直接透过来。
+
+   数字越小越透。如果发现文字开始难认，就往回调
+   （0.35 左右通常是个舒服的平衡点）。
+   ---------------------------------------------------------- */
+:root {
+    --entry: rgba(255, 255, 255, 0.22);
+}
+
+:root[data-theme="dark"] {
+    --entry: rgba(48, 53, 64, 0.30);
+}
