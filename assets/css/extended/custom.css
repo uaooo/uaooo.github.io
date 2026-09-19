@@ -934,6 +934,37 @@ html[data-theme="light"] .chroma .w {
     color: #24292f;
 }
 
+/* ==========================================================
+   别再把中文染成红色（err token）
+   ----------------------------------------------------------
+   写 writeup 时经常拿中文当变量名或注释，例如：
+       密文块 = Encrypt(明文块 XOR 上一块密文)
+
+   Chroma 的 C / Python 词法分析器只认 ASCII 标识符，
+   碰到中文就判定成「语法错误」，打上 err 这个 token。
+   而两套配色都把 err 涂得很刺眼：
+       亮色 (GitHub Light) : 暗红底 #82071e + 近白字 #f6f8fa
+       暗色 (PaperMod)     : 亮红字 #ed8796
+   于是一篇中文伪代码里会红一大片，像是满屏报错。
+
+   可它根本不是语法错误，只是「非 ASCII 标识符」而已。
+   这里把 err 抹成正文同色、去掉底色 —— 博客里的代码块
+   是给人读的，不需要 IDE 那样的报错提示。
+
+   注意 !important 是必需的：亮色那条规则写在
+   chroma-light.css，选择器是 :root[data-theme="light"] .chroma .err
+   （四个 class），比这里（三个 class + 一个元素）优先级高。
+   ========================================================== */
+html[data-theme="light"] .chroma .err {
+    color: #24292f !important;
+    background-color: transparent !important;
+}
+
+html[data-theme="dark"] .chroma .err {
+    color: #cad3f5 !important;
+    background-color: transparent !important;
+}
+
 
 /* ==========================================================
    夜间模式：整体提亮一档
