@@ -200,10 +200,12 @@ def main():
         print()
     print("=" * 60)
     print("导入完成。接下来：")
-    print("  1. 双击 serve.cmd 预览（草稿也能看到）")
-    print("  2. 在 Obsidian 里调整内容和标题")
-    print("  3. 满意后把 front matter 里的 draft 改成 false")
-    print("  4. 双击 publish.cmd 发布")
+    print("  1. 双击 serve.cmd 预览（它带 --buildDrafts，草稿也能看到）")
+    print("  2. 用记事本 / VS Code 打开刚生成的那个 .md，改标题和正文")
+    print("  3. 【必须】把开头的 draft = true 改成 draft = false")
+    print("       不改的话线上构建会跳过它：本地预览看得见，")
+    print("       线上博客永远找不到 —— 别在这里踩坑。")
+    print("  4. 双击 publish.cmd 发布，约 1 分钟后线上生效")
 
 
 if __name__ == "__main__":
