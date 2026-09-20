@@ -106,7 +106,9 @@ def front_matter(title: str, section: str) -> str:
         "+++\n"
         f"title = '{title}'\n"
         f"date = '{now}'\n"
-        "draft = true\n"
+        # 行尾这句提示是刻意写进正文里的：打开 md 第一眼就能看到
+        # 该改哪一行，不用再去翻说明文档。
+        "draft = true    # 内容改完后改成 false，否则线上博客看不到这篇\n"
         "summary = ''\n"
         "tags = []\n"
         f"showtoc = {toc}\n"
@@ -171,9 +173,11 @@ def process_one(src: Path, section: str) -> str:
     shutil.move(str(src), str(target))
     shutil.rmtree(work, ignore_errors=True)
 
+    # 这里打印完整绝对路径，而不是 content/notes/xxx.md 这种相对写法：
+    # 要改的就是这个文件，把路径直接复制到资源管理器地址栏就能打开。
     return (f"[成功] {title}\n"
-            f"        文章: content/{section}/{slug}.md\n"
-            f"        图片: {n_img} 张 -> static/images/{slug}/")
+            f"        文章: {out}\n"
+            f"        图片: {n_img} 张 -> {img_dst}")
 
 
 def main():
@@ -200,11 +204,15 @@ def main():
         print()
     print("=" * 60)
     print("导入完成。接下来：")
-    print("  1. 双击 serve.cmd 预览（它带 --buildDrafts，草稿也能看到）")
-    print("  2. 用记事本 / VS Code 打开刚生成的那个 .md，改标题和正文")
+    print("  1. 双击 serve.cmd 预览（它带 --buildDrafts，所以草稿也看得到）")
+    print("  2. 用记事本打开上面「文章:」那一行的完整路径，改标题和正文")
+    print("     ！！不要去 inbox 或 inbox\\_done 里找文件 ！！")
+    print("        那里放的是飞书原件和它处理完的存档，")
+    print("        改那边博客不会有任何变化。")
+    print("        要改的永远是 content\\<分类>\\ 里的那一份。")
     print("  3. 【必须】把开头的 draft = true 改成 draft = false")
-    print("       不改的话线上构建会跳过它：本地预览看得见，")
-    print("       线上博客永远找不到 —— 别在这里踩坑。")
+    print("       不改的话线上构建会直接跳过它：本地预览看得见，")
+    print("       线上博客永远找不到 —— 最容易踩的就是这个坑。")
     print("  4. 双击 publish.cmd 发布，约 1 分钟后线上生效")
 
 
