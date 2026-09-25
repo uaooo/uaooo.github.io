@@ -20,9 +20,12 @@ _feishu.env
 Thumbs.db
 desktop.ini
 
-# 导入工具的中间产物（inbox/.gitkeep 会保留这个目录本身）
-inbox/_done/
-inbox/_work/
+# inbox 是投递口：里面放的是还没处理的飞书导出件。
+# 这些属于草稿，不该跟着 publish.cmd 一起进公开仓库。
+# 只留 .gitkeep 占住这个空目录。
+# （踩过一次：放在 inbox 根目录的 .md 被 git add -A 一起提交上去了）
+inbox/*
+!inbox/.gitkeep
 __pycache__/
 
 # 临时下架的文章素材。
