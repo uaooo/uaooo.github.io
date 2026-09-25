@@ -1,7 +1,7 @@
 +++
 title = 'Moectf 2026 -1'
 date = '2026-09-12T12:00:00+08:00'
-draft = false
+draft = true    # 比赛未结束，暂时下架；赛后改回 false 即可重新发布
 summary = ''
 tags = []
 showtoc = true

@@ -24,3 +24,9 @@ desktop.ini
 inbox/_done/
 inbox/_work/
 __pycache__/
+
+# 临时下架的文章素材。
+# static/ 下的文件会被 Hugo 无条件复制上线，跟文章是不是 draft 无关，
+# 所以比赛没结束时，把相关图片从 static/images/ 挪到这里，
+# 就不会出现在 public/ 里，也不会被提交进仓库。
+_offline/
