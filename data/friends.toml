@@ -12,7 +12,7 @@
 [[friends]]
 name = "MarioYang525"
 url = "https://marioyang525.github.io/"
-desc = "特别厉害的 re 手"
+desc = "特别厉害的 web 手"
 avatar = "/images/friends/mario.png"
 
 [[friends]]
@@ -32,3 +32,9 @@ name = "漫宿骄盛"
 url = "https://www.cnblogs.com/msjs"
 desc = "超级厉害的 re 手 是我的偶像"
 avatar = "/images/friends/msjs.png"
+
+[[friends]]
+name = "Lamb"
+url = "https://lamb-fish.github.io/"
+desc = "crypto 大手子"
+avatar = "/images/friends/lamb.jpg"

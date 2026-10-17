@@ -20,7 +20,6 @@
         <div class="friend-body">
             <div class="friend-name">{{ .name }}</div>
             <div class="friend-desc">{{ .desc }}</div>
-            <div class="friend-url">{{ replaceRE `^https?://` "" .url | replaceRE `/$` "" }}</div>
         </div>
     </a>
     {{- end }}
