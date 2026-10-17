@@ -724,7 +724,13 @@ textarea:-webkit-autofill {
    ========================================================== */
 #intro {
     --intro-bg: #eef2f7;
-    --intro-fg: #2a3038;
+
+    /* 白字 + 深色描边：开屏图是彩色插画，
+       名字可能压在深绿树冠、灰色狼身上，也可能落在浅色留白里。
+       纯深色字在暗部不明显，纯白字在亮部会消失 ——
+       所以用白填充配深色描边，两边都吃得开。 */
+    --intro-fg: #ffffff;
+    --intro-outline: rgba(24, 32, 44, 0.62);
 
     position: fixed;
     inset: 0;
@@ -741,10 +747,10 @@ textarea:-webkit-autofill {
 
 :root[data-theme="dark"] #intro {
     --intro-bg: #0b1018;
-    /* 开屏图现在是白底插画，不是原来的深色剧照。
-       夜间模式若还用浅色文字，压在白图上会完全看不见，
-       所以这里把文字固定成深色。 */
-    --intro-fg: #2a3038;
+    /* 开屏图是彩色插画，白天夜间都用「白字 + 深描边」，
+       否则总有一种模式下文字会糊进背景。 */
+    --intro-fg: #ffffff;
+    --intro-outline: rgba(0, 0, 0, 0.72);
 }
 
 @keyframes introOut {
@@ -967,10 +973,11 @@ textarea:-webkit-autofill {
     font-size: 3.1rem;
     font-weight: 500;
     letter-spacing: 0.03em;
-    /* 开屏图换成白底插画后，白字会完全看不见，改用深色；
-       阴影也从「白色发光」换成一层极淡的深色投影。 */
     color: var(--intro-fg);
-    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    /* 描边画在填充下层，笔画不会被吃细 */
+    -webkit-text-stroke: 1.5px var(--intro-outline);
+    paint-order: stroke fill;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.38);
     opacity: 0;
     animation: introNameIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
 }
@@ -1013,6 +1020,9 @@ textarea:-webkit-autofill {
     font-weight: 500;
     letter-spacing: 0.06em;
     color: var(--intro-fg);
+    -webkit-text-stroke: 1px var(--intro-outline);
+    paint-order: stroke fill;
+    text-shadow: 0 3px 14px rgba(0, 0, 0, 0.38);
     border-right: 2px solid var(--intro-fg);
 
     animation:
