@@ -742,7 +742,10 @@ textarea:-webkit-autofill {
 
 :root[data-theme="dark"] #intro {
     --intro-bg: #0b1018;
-    --intro-fg: #e6e8ec;
+    /* 开屏图现在是白底插画，不是原来的深色剧照。
+       夜间模式若还用浅色文字，压在白图上会完全看不见，
+       所以这里把文字固定成深色。 */
+    --intro-fg: #2a3038;
 }
 
 @keyframes introOut {
@@ -865,8 +868,9 @@ textarea:-webkit-autofill {
     inset: -6%;
     background-image: url("/images/intro.jpg");
     background-size: cover;
-    background-position: center 30%;
-    /* 这张是深色剧照，人物在上半部分，取景偏上一点正好 */
+    background-position: center center;
+    /* 现在这张是接近方形的猫图，主体在正中；
+       之前那版是深色剧照、人物偏上，才用的 30%。 */
     animation: introBg 3.35s ease forwards;
 }
 
