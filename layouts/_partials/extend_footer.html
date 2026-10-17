@@ -175,7 +175,10 @@
 {{- /* 标签页右侧的标签导航。
        只在 /tags/（Kind=taxonomy）和 /tags/<标签>/（Kind=term）出现，
        文章页不插入，免得和右侧目录抢位置。 */ -}}
-{{- if hasPrefix .RelPermalink "/tags/" }}
+{{- /* 用 Kind + Plural 判断，不依赖 RelPermalink 的尾部斜杠：
+       本地 Hugo 生成的是 /tags/，CI 环境下可能没有尾斜杠，
+       hasPrefix 会因此静默失效（踩过一次）。 */ -}}
+{{- if and (in (slice "taxonomy" "term") .Kind) (eq .Data.Plural "tags") }}
 <nav class="tag-nav" aria-label="标签导航">
     <div class="tag-nav-title">标签</div>
     {{- range site.Taxonomies.tags }}
