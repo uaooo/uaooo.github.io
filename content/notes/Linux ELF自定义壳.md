@@ -3,7 +3,7 @@ title = 'Linux ELF自定义壳'
 date = '2026-10-02T12:00:00+08:00'
 draft = false
 summary = ''
-tags = []
+tags = ["脱壳", "Linux", "ELF"]
 showtoc = true
 +++
 参考文章：https://blog\.csdn\.net/chen1415886044/article/details/159553914

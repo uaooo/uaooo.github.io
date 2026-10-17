@@ -3,7 +3,7 @@ title = 'python逆向'
 date = '2026-09-30T12:00:00+08:00'
 draft = false
 summary = ''
-tags = []
+tags = ["Python", "逆向"]
 showtoc = true
 +++
 参考文章：

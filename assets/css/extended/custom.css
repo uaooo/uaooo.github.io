@@ -283,23 +283,29 @@ textarea:-webkit-autofill {
         padding: 0 1rem;
     }
 
+    /* 缩进压小：目录现在会展开到 H6，6 层用 0.85rem 会挤成一条斜线 */
     .post-single details.toc .inner ul {
-        padding-inline-start: 0.85rem;
+        padding-inline-start: 0.5rem;
         margin: 0;
     }
 
     .post-single details.toc .inner li {
-        margin: 0.18rem 0;
+        margin: 0.12rem 0;
     }
 
+    /* 所有层级字号一致：层级靠缩进和加粗区分，不靠把字缩小。
+       行高也收紧一点，长目录才放得下。 */
     .post-single details.toc .inner a {
         color: var(--secondary);
         text-decoration: none;
         display: block;
+        font-size: 0.875rem;
+        line-height: 1.45;
         padding: 0.1rem 0;
         border-left: 2px solid transparent;
         padding-left: 0.45rem;
         margin-left: -0.45rem;
+        word-break: break-word;
     }
 
     .post-single details.toc .inner a:hover {
@@ -319,6 +325,31 @@ textarea:-webkit-autofill {
     .post-single details.toc::-webkit-scrollbar-track {
         background: transparent;
     }
+}
+
+
+/* ==========================================================
+   正文里的深层标题字号
+   ----------------------------------------------------------
+   PaperMod 把 h4/h5/h6 写死成 16px / 14px / 12px，而正文是
+   16px —— 也就是说 H6 比正文还小两档。飞书导出的文章偏偏爱
+   用很深的层级，于是后半段看起来像一整片注释。
+
+   这里把它们抬到接近正文的尺寸，层级改由字重区分：
+       h4 = 18px（半粗）
+       h5 = 17px
+       h6 = 16px（和正文同大，靠加粗区分）
+   ========================================================== */
+.md-content h4 {
+    font-size: 18px;
+}
+
+.md-content h5 {
+    font-size: 17px;
+}
+
+.md-content h6 {
+    font-size: 16px;
 }
 
 

@@ -3,7 +3,7 @@ title = 'Android'
 date = '2026-08-28T12:00:00+08:00'
 draft = false
 summary = ''
-tags = []
+tags = ["Android", "Java"]
 showtoc = true
 +++
 

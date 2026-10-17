@@ -3,7 +3,7 @@ title = 'Moectf 2026 -1'
 date = '2026-09-12T12:00:00+08:00'
 draft = false
 summary = ''
-tags = []
+tags = ["CTF", "逆向", "汇编", "加密算法", "Android", "脱壳"]
 showtoc = true
 +++
 

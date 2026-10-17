@@ -4,7 +4,7 @@ slug = 'scylla-unpack'
 date = '2026-09-20T12:36:31+08:00'
 draft = false    # 内容改完后改成 false，否则线上博客看不到这篇
 summary = ''
-tags = []
+tags = ["脱壳", "Windows", "动态调试"]
 showtoc = true
 +++
 跟AI学的 第一次尝试动态脱壳 是在创宇杯的tea中尝试的

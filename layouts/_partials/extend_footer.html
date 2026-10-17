@@ -85,17 +85,27 @@
         var toc = document.querySelector('.post-single details.toc');
         if (!toc) return;
 
-        var links = Array.prototype.slice.call(toc.querySelectorAll('.inner a[href^="#"]'));
-        if (links.length === 0) return;
+        // 逐条配对，单条失败不影响整体。
+        // （旧版用 map + decodeURIComponent：只要有一个 href 含 % 就会抛
+        //   URIError，整个脚本直接死掉，表现就是「高亮完全不工作」。）
+        var anchors = Array.prototype.slice.call(toc.querySelectorAll('.inner a[href]'));
+        var items = [];
 
-        // 把目录项和正文里的标题配对；找不到对应标题的项直接丢掉
-        var items = links.map(function (a) {
-            var id = decodeURIComponent(a.getAttribute('href').slice(1));
+        anchors.forEach(function (a) {
+            var raw = a.getAttribute('href') || '';
+            if (raw.charAt(0) !== '#') return;
+
+            var id = raw.slice(1);
+            try { id = decodeURIComponent(id); } catch (e) { /* 原样使用 */ }
+
             var el = document.getElementById(id);
-            return el ? { link: a, el: el } : null;
-        }).filter(Boolean);
+            if (el) items.push({ link: a, el: el });
+        });
 
-        if (items.length === 0) return;
+        if (!items.length) {
+            console.log('[blog] 目录锚点和正文标题对不上，高亮未启用');
+            return;
+        }
 
         var current = null;
 
@@ -109,10 +119,22 @@
             if (current) current.link.classList.remove('toc-active');
             item.link.classList.add('toc-active');
             current = item;
+
+            // 目录自身可以滚动。当前项跑出可视区时把它拉回来，
+            // 但只调整目录的 scrollTop，绝不动整个页面。
+            var box = toc.getBoundingClientRect();
+            var r = item.link.getBoundingClientRect();
+            if (r.top < box.top + 36) {
+                toc.scrollTop -= (box.top + 36 - r.top);
+            } else if (r.bottom > box.bottom - 16) {
+                toc.scrollTop += (r.bottom - (box.bottom - 16));
+            }
         }
 
         function update() {
-            var line = window.scrollY + 140;   // 判定线：视口上方留一段，符合直觉
+            // 判定线放在视口上部 1/3 处：按比例而不是固定像素，
+            // 这样大屏小屏的阅读位置都一致。
+            var line = window.scrollY + window.innerHeight * 0.33;
             var found = items[0];
 
             for (var i = 0; i < items.length; i++) {
@@ -143,6 +165,9 @@
         }, { passive: true });
 
         window.addEventListener('resize', update);
+        window.addEventListener('load', update);
         update();
+
+        console.log('[blog] 目录高亮已启用，共 ' + items.length + ' 个锚点');
     })();
 </script>

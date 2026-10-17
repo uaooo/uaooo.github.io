@@ -3,7 +3,7 @@ title = 'SUSCTF-2026'
 date = '2026-10-04T12:00:00+08:00'
 draft = false
 summary = ''
-tags = []
+tags = ["CTF", "逆向", "加密算法"]
 showtoc = true
 +++
 ## classical

@@ -10,7 +10,7 @@
 baseURL = "https://uaooo.github.io/"
 
 # TODO 2: 站点名（浏览器标签页和页头显示的名字）
-title = "RE Notes"
+title = "SiO₂ · RE Notes"
 
 theme = "PaperMod"
 
@@ -51,7 +51,7 @@ buildExpired = false
   # "全部文章"页不受上面限制，把所有文章按时间倒序汇总在一起
   ShowAllPagesInArchive = true
 
-  title = "RE Notes"
+  title = "SiO₂ · RE Notes"
   description = "CTF 逆向工程 writeup 与逆向技术笔记"
   keywords = ["CTF", "Reverse Engineering", "逆向", "Writeup", "安全"]
   author = "SiO₂"
@@ -164,6 +164,12 @@ buildExpired = false
   weight = 40
 
 [[menu.main]]
+  identifier = "tags"
+  name = "标签"
+  url = "/tags/"
+  weight = 50
+
+[[menu.main]]
   identifier = "about"
   name = "关于"
   url = "/about/"
@@ -192,7 +198,7 @@ buildExpired = false
     tabWidth = 4
   [markup.tableOfContents]
     startLevel = 2
-    endLevel = 4
+    endLevel = 6           # 飞书导出的文章层级很深，只到 4 会丢掉大量 H5/H6
     ordered = false
 
 [minify]
