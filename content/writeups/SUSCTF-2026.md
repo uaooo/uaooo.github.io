@@ -200,7 +200,7 @@ unzip -p yutu-mooncake-workshop.jar META-INF/MANIFEST.MF
 
 #### CFR反编译器
 
-CFR 是一个**把 Java 字节码（****`.class`****）翻译回 Java 源代码（****`.java`****）的工具**，专门用于反编译。
+CFR 是一个**把 Java 字节码（**`.class`**）翻译回 Java 源代码（**`.java`**）的工具**，专门用于反编译。
 
 下载
 
@@ -219,7 +219,7 @@ wget -c https://maven.aliyun.com/repository/public/org/benf/cfr/0.152/cfr-0.152.
 下载完成后进行反编译：
 
 ```Bash
-java -jar cfr.jar yutu-mooncake-workshop.jar **--outputdir** out
+java -jar cfr.jar yutu-mooncake-workshop.jar --outputdir out
 ```
 
 含义：用 CFR 这个反编译工具，把 `yutu-mooncake-workshop.jar` 里面的 `.class` 字节码，还原成 `.java` 源代码，并输出到 `out` 文件夹里。
@@ -286,7 +286,7 @@ grep -RIn "SecretVault" out/ctf/mooncake
 
 2. 在哪被调用：`GamePanel.java`（游戏主界面）在特定条件下（比如玩家通关），会调用这两个方法弹窗。
 
-所以，**核心逻辑全在 ****`SecretVault.java`**** 里的那个 ****`d()`**** 方法里。**
+所以，**核心逻辑全在 **`SecretVault.java`** 里的那个 **`d()`** 方法里。**
 
 > - `revealFirst` 和 `revealSecond`：是作者认真起名的。名字直译过来就是“揭晓第一个”、“揭晓第二个”。这是给游戏界面用的。
 > 
@@ -735,7 +735,7 @@ private static String d(int n) {
 
 ###### 方法解读
 
-1. **`j`**** 方法 —— 拼接密文**
+1. **`j`** 方法 —— 拼接密文**
 
 - 现场：`case 53`
 
@@ -747,11 +747,11 @@ private static String d(int n) {
 
     - 把两个东西传给 `j` 方法，返回值放进 `objectArray[2]`。
 
-    - **后面的 ****`case 74`**** 里，****`objectArray[2]`**** 被直接传给 ****`doFinal`**** 去解密了。而 AES 解密通常需要一个完整的密文块（64字节刚好是4个AES块）**
+    - **后面的 **`case 74`** 里，**`objectArray[2]`** 被直接传给 **`doFinal`** 去解密了。而 AES 解密通常需要一个完整的密文块（64字节刚好是4个AES块）**
 
     - 结论：`j` 方法就是把两个数组拼起来（拼接），组合成完整的密文。
 
-2. **`k`**** 方法 —— 生成密钥**
+2. **`k`** 方法 —— 生成密钥**
 
 - 现场：`case 103`
 
@@ -765,9 +765,9 @@ private static String d(int n) {
 
     - 接着在 `case 38` 里，`objectArray[3]` 被传给了一个叫 `SecretKeySpec` \-\-“秘密密钥规范”。
 
-    - 结论：**`k`**** 方法就是根据哈希值，生成一个 AES 密钥（生成密钥）**
+    - 结论：**`k`** 方法就是根据哈希值，生成一个 AES 密钥（生成密钥）**
 
-3. **`u`**** 方法 —— 生成算法字符串**
+3. **`u`** 方法 —— 生成算法字符串**
 
 - 现场：`case 13` 和 `case 92`
 
@@ -789,9 +789,9 @@ private static String d(int n) {
 
     - 同样，`SecretKeySpec` 第二个参数也需要一个字符串（比如 "AES"）。
 
-    - 结论：**`u`**** 方法就是根据输入的数字，查表算出对应的字符串（生成字符串）**。
+    - 结论：**`u`** 方法就是根据输入的数字，查表算出对应的字符串（生成字符串）**。
 
-4. **`h`**** 方法 —— 哈希值**
+4. **`h`** 方法 —— 哈希值**
 
 ```Java
 private static int h(int n) {
@@ -1010,7 +1010,7 @@ ls -l flash
     - 第三组 `r-x`：表示其他人有读和执行权限，没有写权限。
 
 > 在执行 `chmod +x flash` 之前，它的权限大概率是 `-rw-r--r--`（只有读写，没有 `x`）。
-> **`chmod +x`**** 的作用，就是给所有用户都加上了一个 ****`x`****（执行权限）**。现在 `rwx` 里的那个 `x`，就是刚才 `chmod +x` 赋予的。
+> **`chmod +x`** 的作用，就是给所有用户都加上了一个 **`x`**（执行权限）**。现在 `rwx` 里的那个 `x`，就是刚才 `chmod +x` 赋予的。
 > 
 > 
 
@@ -1168,7 +1168,7 @@ layout regs
 > 
 > - `regs`：registers（寄存器）的缩写。
 > 
-> - 连起来的意思：让 **GDB 把屏幕剩下的部分变成寄存器窗口。它会把 ****`rax`****、****`rbx`****、****`rip`****、****`rsp`**** 这些寄存器全部列出来。**并且每次单步执行，哪个寄存器的值变了，它会高亮变色！
+> - 连起来的意思：让 **GDB 把屏幕剩下的部分变成寄存器窗口。它会把 **`rax`**、**`rbx`**、**`rip`**、**`rsp`** 这些寄存器全部列出来。**并且每次单步执行，哪个寄存器的值变了，它会高亮变色！
 > 
 > 
 
@@ -1190,7 +1190,7 @@ starti
 
 上面三个部分都很好理解 下面讲解一下最下面部分的backtrace
 
-**`Backtrace`**** 中文叫“调用栈回溯”，或者“栈回溯”。**
+**`Backtrace`** 中文叫“调用栈回溯”，或者“栈回溯”。**
 简单来说，它就是一张“地图”，告诉你：程序是怎么一步步走到当前正在执行的这条指令的。
 
 平时写代码的时候，函数是一层套一层调用的：
@@ -1223,11 +1223,11 @@ b *0x401979
 
 ###### 寄存器★★★
 
-- **`RIP`****：最重要！它指向当前正在执行的那条指令（高亮的那行）。**
+- **`RIP`**：最重要！它指向当前正在执行的那条指令（高亮的那行）。**
 
-- **`RDI`****, ****`RSI`****, ****`RDX`****：这三个通常用来给函数传参。**
+- **`RDI`**, **`RSI`**, **`RDX`**：这三个通常用来给函数传参。**
 
-    - 看截图：`RDI` 指向 `std::cout`，**`RSI`**** 指向 ****`"What do you want to get? "`**。
+    - 看截图：`RDI` 指向 `std::cout`，**`RSI`** 指向 **`"What do you want to get? "`**。
 
     - 这就印证了反汇编里那句 `call std::operator<<` 是**正在准备打印提示语。**
 
@@ -1448,7 +1448,7 @@ _m = __import__('sys').modules.get('sm4')
 
 2. 它在内存中找到了 `sm4` 模块里的 `_l_trans` 函数（这是 SM4 算法中最核心的线性变换部分）。
 
-3. 它**把 ****`_l_trans`**** 里面的循环位移常量 ****`{2, 10, 18, 24}`**** 全部替换成了 ****`{3, 11, 19, 25}`**
+3. 它**把 **`_l_trans`** 里面的循环位移常量 **`{2, 10, 18, 24}`** 全部替换成了 **`{3, 11, 19, 25}`**
 
 所以，程序在运行时，偷偷把 SM4 算法改掉了一个微小的参数。我们用 CyberChef 标准 SM4 解密出来的 `xiaoming12345678` 是“旧密码”，输入进去程序用“魔改后的 SM4”一算，结果对不上，自然就报错了。
 
@@ -1624,14 +1624,14 @@ ls -la
 
 #### `LD_PRELOAD` 钩子法
 
-- 原理：类似于 Windows 下的 API Hook（拦截 API）。程序**在内存里解密出一个完整的 ELF（****`memfd`****），准备调用 ****`fexecve`**** 执行。我们用假函数拦截，在它执行前把内存文件直接读出来。**
+- 原理：类似于 Windows 下的 API Hook（拦截 API）。程序**在内存里解密出一个完整的 ELF（**`memfd`**），准备调用 **`fexecve`** 执行。我们用假函数拦截，在它执行前把内存文件直接读出来。**
 
 在 Windows 里，如果程序在内存里解密了一个 DLL，然后调用 `LoadLibrary` 加载它，你可能会用 Frida 或者 Detours 去 Hook `LoadLibrary`，在它加载前把内存 Dump 出来。
 
 ![](/images/SUSCTF-2026/30367f27cfff03bcd0f3f33f4327244e.png)
 
 由ida调用的函数可得，这个文件调用了fexecve 因此我们后面才能利用其来解题
-在 Linux 里，**这道题的壳调用的是 ****`fexecve`**** 去执行内存文件**。我们写的 `shim.c` 就是假的 `fexecve`。
+在 Linux 里，**这道题的壳调用的是 **`fexecve`** 去执行内存文件**。我们写的 `shim.c` 就是假的 `fexecve`。
 
 #### Exp
 
@@ -1661,7 +1661,7 @@ EOF
 ```
 
 1. `int fexecve(int fd, char *const argv[], char *const envp[])`：
-这就是我们伪造的函数。**它的名字、参数、返回值必须和系统真正的 ****`fexecve`**** 一模一样**，才能骗过程序。
+这就是我们伪造的函数。**它的名字、参数、返回值必须和系统真正的 **`fexecve`** 一模一样**，才能骗过程序。
 
 ```Bash
 man fexecve
@@ -1687,7 +1687,7 @@ man fexecve
 4. `char p[64]; snprintf(p, ..., "/proc/self/fd/%d", fd);`：
 这是 Linux 的神奇特性。
 
-原本：**`memfd_create`**** 创建的文件：没有磁盘路径，只存在于内存（页缓存）里**。它没有名字，只有一串数字 ID `/proc/self/fd/3` 就是一个指向当前进程文件描述符 3 的“快捷方式”。我们可以像读普通文件一样读它。**`fd`**** 就是程序准备执行的“内存文件”的句柄。**
+原本：**`memfd_create`** 创建的文件：没有磁盘路径，只存在于内存（页缓存）里**。它没有名字，只有一串数字 ID `/proc/self/fd/3` 就是一个指向当前进程文件描述符 3 的“快捷方式”。我们可以像读普通文件一样读它。**`fd`** 就是程序准备执行的“内存文件”的句柄。**
 
 5. `int in = open(p, O_RDONLY), out = open("/tmp/stage2.bin", O_WRONLY|O_CREAT|O_TRUNC, 0755);`：
 打开内存文件，并创建 `/tmp/stage2.bin` 准备写入（相当于 Windows 的 `CreateFile`）。
@@ -1696,7 +1696,7 @@ man fexecve
 **循环读取内存文件的内容，写入到磁盘文件（这就是 Dump 的过程）**。
 
 7. `return real(fd, argv, envp);`：
-文件已经 Dump 完了。**现在调回真正系统的 ****`fexecve`****，让程序继续正常执行。**
+文件已经 Dump 完了。**现在调回真正系统的 **`fexecve`**，让程序继续正常执行。**
 
 
 
@@ -1726,9 +1726,9 @@ LD_PRELOAD=$PWD/shim.so ./emoji -i /etc/hostname -o /tmp/dummy.emo
 
 - `LD_PRELOAD=$PWD/shim.so`：
 
-    - **`LD_PRELOAD`**** 是 Linux 独有的环境变量。它的作用是强制把指定的动态库加载到程序运行的最前面。这相当于 Windows 里的 API Hook 注入（比如 Detours 或 Frida）。**
+    - **`LD_PRELOAD`** 是 Linux 独有的环境变量。它的作用是强制把指定的动态库加载到程序运行的最前面。这相当于 Windows 里的 API Hook 注入（比如 Detours 或 Frida）。**
 
-    - 当 `emoji` 程序运行，调用 `fexecve` 时，系统会**优先调用 ****`shim.so`**** 里的假 ****`fexecve`**，我们就在里面偷偷把内存复制出来，然后再调真的。
+    - 当 `emoji` 程序运行，调用 `fexecve` 时，系统会**优先调用 **`shim.so`** 里的假 **`fexecve`**，我们就在里面偷偷把内存复制出来，然后再调真的。
 
     - `$PWD` 是“Print Working Directory”（当前工作目录），等于 `~`（`/home/uaooo`）。由于 `LD_PRELOAD` 需要绝对路径，这样写最保险。
 
@@ -1784,7 +1784,7 @@ main
 
 - `sub_401417`：读取输入文件内容到内存，并获取文件大小。
 
-- **`sub_401562`****：核心加密函数（把刚读出来的数据传进去）。**
+- **`sub_401562`**：核心加密函数（把刚读出来的数据传进去）。**
 
 - `sub_4016CF`：输出函数（把**加密后的数据转成 Emoji** 写文件）。
 
@@ -1814,7 +1814,7 @@ main
 
     - `sub_40131E((char *)dest + i, v8);`：**调用真正的块加密函数**（魔改 XTEA）。就是这里，把 8 字节数据彻底加密。
 
-    - `v7 = *(_QWORD*)((char*)dest + i);`：**把刚加密好的结果存下来，作为下一块异或用的 ****`prev`****。**
+    - `v7 = *(_QWORD*)((char*)dest + i);`：**把刚加密好的结果存下来，作为下一块异或用的 **`prev`**。**
 
 > CBC（Cipher Block Chaining）是块加密。一个块是 8 字节。
 > 它的规则是：当前这一整个 8 字节的明文块，去异或前一个 8 字节的密文块。

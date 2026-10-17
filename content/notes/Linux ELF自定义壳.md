@@ -439,7 +439,7 @@ chmod +x infected
 ```Plain Text
 [+] PAYLOAD RUNNING
 [+] This is injected code
-**原程序 ls 的正常输出**
+原程序 ls 的正常输出
 ```
 
 对应执行流程：

@@ -312,7 +312,7 @@ flag:HDCTF\{4fc54225\-b980\-e20a\-bcbe\-3bc4d1643887\}
 
 等我们正常注册姓名学号之后 会出现一个高风险提示 然后会对我们进行二次风险检测 也就是小游戏 想要这些游戏通关是很难的 因此我们可以绕过 但是后面有提示说gui是不重要的 只是走一个流程
 
-所以我们首先把高风险改成低风险 **也就是risk的****`high`****改成****`low`**
+所以我们首先把高风险改成低风险 **也就是risk的**`high`**改成**`low`**
 
 接下来 会让我们进行风险评估 也就是进行小游戏 我们可以设置游戏通过
 
@@ -648,13 +648,13 @@ flag:HDCTF\{Zh3n\_Sh1\_zako\_zako\_\!\!\!\}
                                   └──> decrypt(digest, pulse, gate) ──> flag
 ```
 
-题目本体是一个伪装成「三件事」待办 App（`ThreeThingsApp` / `MainActivity` / Room 数据库）的广告马甲包，真正的校验逻辑藏在 **`SettingsActivity`** 点击进入的隐藏 **Activity ****`TideRelayActivity`**里，类名与 `TideRelayActivity.kt` 同源（`RiftGate.smali` 的 `.source` 也是 `TideRelayActivity.kt`）。
+题目本体是一个伪装成「三件事」待办 App（`ThreeThingsApp` / `MainActivity` / Room 数据库）的广告马甲包，真正的校验逻辑藏在 **`SettingsActivity`** 点击进入的隐藏 **Activity **`TideRelayActivity`**里，类名与 `TideRelayActivity.kt` 同源（`RiftGate.smali` 的 `.source` 也是 `TideRelayActivity.kt`）。
 
 ![QQ\_1789202254442\.png](/images/hdctf/QQ_1789202254442.png)
 
 ##### 地图
 
-构造函数（`TideRelayActivity.smali` L76\~L98）用 `filled-new-array/range {v0 .. v8}` 填了 9 行字符串，**`filled-new-array`**** 是按寄存器顺序入栈的**，因此 `v7`、`v8` 是第 7、8 行，`v0` 是第 0 行：
+构造函数（`TideRelayActivity.smali` L76\~L98）用 `filled-new-array/range {v0 .. v8}` 填了 9 行字符串，**`filled-new-array`** 是按寄存器顺序入栈的**，因此 `v7`、`v8` 是第 7、8 行，`v0` 是第 0 行：
 
 ```JSON
 v0 = "S..#...#."   y=0
@@ -969,7 +969,7 @@ rec["value"] = fn(rec["value"])   # 本该只读，实际是原地改写（破�
 return _reg(rec["value"])
 ```
 
-本来，`rec["value"]` 是存在保险柜（`vault`）里的值。按照正常逻辑，`apply` 只是拿这个值去执行一个函数。但这里的代码，**把函数的执行结果，直接又写回了 ****`rec["value"]`**** 里**！！！！
+本来，`rec["value"]` 是存在保险柜（`vault`）里的值。按照正常逻辑，`apply` 只是拿这个值去执行一个函数。但这里的代码，**把函数的执行结果，直接又写回了 **`rec["value"]`** 里**！！！！
 
 思路：
 
@@ -988,13 +988,13 @@ f.apply(f.vault, lambda g: f.pack(g))   # pack 对 str 执行 int(str(v),0) → 
 试出保险柜的密码是弱口令 `4919`，直接解锁。
 
 2. 关键一步：`f.apply(f.vault, lambda g: g.read)`
-注意，这里没有括号！**这不是调用 ****`read()`****，而是把 ****`_Gate`**** 对象里的 ****`read`**** 方法的本体取出来。**因为前面说的漏洞，这个函数本体被写入了保险柜 `rec["value"]` 中。
+注意，这里没有括号！**这不是调用 **`read()`**，而是把 **`_Gate`** 对象里的 **`read`** 方法的本体取出来。**因为前面说的漏洞，这个函数本体被写入了保险柜 `rec["value"]` 中。
 
 3. 触发读取：`f.apply(f.vault, lambda g: g())`
 现在 `rec["value"]` 里存的是 `read` 方法。这里用 `g()` 执行它。于是，Flag 被读取出来了！并且，由于漏洞存在，这个 Flag 直接被写入了 `rec["value"]`，取代了原来的东西。
 
 4. 故意报错（写出 Flag）：`f.apply(f.vault, lambda g: f.pack(g))`
-现在 `rec["value"]` 变成了字符串格式的 Flag（比如 `HDCTF{...}`）。**程序里的 ****`pack`**** 函数会对它执行 ****`int(str(v), 0)`****，试图把 Flag 当成数字转换。显然会失败！**
+现在 `rec["value"]` 变成了字符串格式的 Flag（比如 `HDCTF{...}`）。**程序里的 **`pack`** 函数会对它执行 **`int(str(v), 0)`**，试图把 Flag 当成数字转换。显然会失败！**
 系统抛出异常：`ValueError: invalid literal for int() with base 0: 'HDCTF{...}'`。Flag 就这样夹在报错信息里泄露了。
 
 单表达式：
@@ -1083,7 +1083,7 @@ flag:HDCTF\{55020c67\-9d9f\-de1a\-bac4\-9835e28a46b2\}
 F(A(x)) = B⁻¹(target − b)
 ```
 
-令 `G = B⁻¹(P − b) = F ∘ A`，就得到一张显式的、等价于"去掉输出掩码后的公钥"。输入掩码 `A` 未知，但根本不需要恢复它——**`G`**** 自己就能求逆。**
+令 `G = B⁻¹(P − b) = F ∘ A`，就得到一张显式的、等价于"去掉输出掩码后的公钥"。输入掩码 `A` 未知，但根本不需要恢复它——**`G`** 自己就能求逆。**
 
 ##### 求逆 G
 
@@ -1136,18 +1136,18 @@ m2 = bytes_to_long(FLAG)
 c2 = pow(m2, e, n2)
 
 S = Matrix([[3, 5], [7, 12]])
-D = diag(p2**2, q2**2)
+D = diag(p22, q22)
 A = S * D * S.inv()
 
 # "eye"
 M = A + r * eye(2)                            # ← 关键 2
 ```
 
-**结论：****`M = S·diag(p2², q2²)·S⁻¹ + r·I`****，是一个相似变换加单位阵的扰动。** 也就是说 `A = M − r·I` 与 `diag(p2², q2²)` **相似**，它们具有完全相同的特征值 `{p2², q2²}`。
+**结论：**`M = S·diag(p2², q2²)·S⁻¹ + r·I`**，是一个相似变换加单位阵的扰动。** 也就是说 `A = M − r·I` 与 `diag(p2², q2²)` **相似**，它们具有完全相同的特征值 `{p2², q2²}`。
 
 ##### 对应题目提示
 
-**第一扇门：Fermat 分解 ****`n1`**
+**第一扇门：Fermat 分解 **`n1`**
 
 ##### 1\.1原理
 
@@ -1238,7 +1238,7 @@ p2 = isqrt(p2sq)            *# p2sq 是素数的平方，开方无损*
 q2 = isqrt(q2sq)
 ```
 
-之所以能直接对 `p2sq` 开平方得到 `p2`（而不是"接近 p2 的某个数"），是因为 `p2sq` 本身**恰好等于 ****`p2²`**。这也是题目里 `abs(p2−q2) > 2⁴⁸⁰` 这类约束的用意：保证两个特征根不退化、判别式开方后能干净地分离出两个素因子。
+之所以能直接对 `p2sq` 开平方得到 `p2`（而不是"接近 p2 的某个数"），是因为 `p2sq` 本身**恰好等于 **`p2²`**。这也是题目里 `abs(p2−q2) > 2⁴⁸⁰` 这类约束的用意：保证两个特征根不退化、判别式开方后能干净地分离出两个素因子。
 
 ##### 解密
 
@@ -1373,7 +1373,7 @@ msg      = prefix(141) ‖ nonce(19)                    共 160 字节，正好 
 padded   = msg ‖ 0x80 ‖ 0x00×15 ‖ 0^8 ‖ len(160)       共 12 个块
 ```
 
-- 第 10 块 = `msg[144:160]` = **`nonce[3:19]`****，16 字节全部可控**；
+- 第 10 块 = `msg[144:160]` = **`nonce[3:19]`**，16 字节全部可控**；
 
 - 第 11 块 = `0x8000000000000000 ‖ 0`，**完全固定**（0x80 起新块，后面 15 字节补零）；
 
@@ -1391,7 +1391,7 @@ A  --(第10块, 我们选 m0,m1)-->  B  --(第11块, 固定)-->  (S0,S1)  --(第
 
 ```Python
 M1, M2 = 0x5851F42D4C957F2D, 0x14057B7EF767814F
-INV1, INV2 = pow(M1, -1, 2**64), pow(M2, -1, 2**64)
+INV1, INV2 = pow(M1, -1, 264), pow(M2, -1, 264)
 L, F0, F1 = 160, 0x8000000000000000, 0          # 长度、固定块的 (m0, m1)
 A0, A1 = 状态(prefix + nonce[0:3])               # 9 个块压完，直接算
 

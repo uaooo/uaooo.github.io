@@ -27,9 +27,9 @@ JDK是Java的环境。很多工具（包括 Ghidra、Apktool）都依赖 Java，
 
 - 怎么用它（命令）：
 
-    - **解包：****`apktool d your_app.apk`****（会生成一个文件夹）**
+    - **解包：**`apktool d your_app.apk`**（会生成一个文件夹）**
 
-    - **回编译：****`apktool b 文件夹名 -o new_app.apk`**
+    - **回编译：**`apktool b 文件夹名 -o new_app.apk`**
 
 - 什么情况用：当你需要**修改 AndroidManifest\.xml、去除签名校验，或者想修改 Smali 逻辑**（比如把 `if-eqz` 改成 `if-nez` 强制绕过验证），且改完后要重新安装时。
 
@@ -67,7 +67,7 @@ APK 本质就是个压缩包。用 7\-Zip 可以直接右键解压 APK，瞬间�
 
 **Frida \(动态插桩/热补丁——大招\)**
 
-- 它是干嘛的：在不重启 App 的情况下，**把你写的 JS 代码“注入”到 APP 进程中，直接偷看函数的输入输出、篡改返回值（比如把 ****`false`**** 改成 ****`true`****）、甚至主动调用 Native 函数。**
+- 它是干嘛的：在不重启 App 的情况下，**把你写的 JS 代码“注入”到 APP 进程中，直接偷看函数的输入输出、篡改返回值（比如把 **`false`** 改成 **`true`**）、甚至主动调用 Native 函数。**
 
 - 怎么用它：电脑端装好（`pip install frida-tools`），手机端也要装对应版本的 `frida-server` 并运行，然后用 `frida -U -f 包名 -l hook.js` 启动。
 
@@ -138,7 +138,7 @@ public class DataType {
 
 - `char` 在 Java 里是 2 字节（不是 1 字节！），可以存中文
 
-- **`String`**** 不是基本类型，是类**
+- **`String`** 不是基本类型，是类**
 
 ### 1\.3 运算符
 
@@ -156,7 +156,7 @@ public class Op {
         
         // 比较
         System.out.println(a > b);  // true
-        System.out.println(a == b); // false**（注意 == 比较的是值，对象比较要用 equals）**
+        System.out.println(a == b); // false（注意 == 比较的是值，对象比较要用 equals）
         
         // 逻辑
         boolean x = true, y = false;
@@ -177,7 +177,7 @@ public class Op {
 
 - 整数除法截断（不是四舍五入）
 
-- **字符串比较用 ****`.equals()`**** 而不是 ****`==`**
+- **字符串比较用 **`.equals()`** 而不是 **`==`**
 
 ## 面向对象
 
@@ -215,7 +215,7 @@ public class Dog {
 
 ### 2\.2 static（静态）
 
-**`static`**** 修饰的成员属于类本身，不属于某个对象。**RE 里非常常见。
+**`static`** 修饰的成员属于类本身，不属于某个对象。**RE 里非常常见。
 
 一共有3个级别：
 
@@ -653,9 +653,9 @@ public class MapDemo {
 
 `Map<String, Integer>` 意思是：
 
-- **“键”（Key） 只能是 字符串（****`String`****） 类型**，比如 `"apple"` 或 `"banana"`。
+- **“键”（Key） 只能是 字符串（**`String`**） 类型**，比如 `"apple"` 或 `"banana"`。
 
-- **“值”（Value） 只能是 整数（****`Integer`****） 类型**，比如 `1` 或 `2`。
+- **“值”（Value） 只能是 整数（**`Integer`**） 类型**，比如 `1` 或 `2`。
 
 这相当于快递柜系统设定：“取件码必须用汉字或字母（String），格
 
@@ -696,9 +696,9 @@ public class ArrayDemo {
 }
 ```
 
-- **`array.length`**** 没有括号（属性）**
+- **`array.length`** 没有括号（属性）**
 
-- **`string.length()`**** 有括号（方法）**
+- **`string.length()`** 有括号（方法）**
 
 - 二维数组的写法 `[][]`
 
@@ -717,9 +717,9 @@ public class ArrayDemo {
 ~  按位取反：1 变 0，0 变 1
 ```
 
-- **`a ^ a = 0`****（自己异或自己是 0）**
+- **`a ^ a = 0`**（自己异或自己是 0）**
 
-- **`a ^ 0 = a`****（异或 0 等于自己）**
+- **`a ^ 0 = a`**（异或 0 等于自己）**
 
 - `a ^ b ^ a = b`（异或满足交换律，常用于"还原"）
 
@@ -1018,13 +1018,13 @@ invoke-interface     # 接口方法
 invoke-virtual {v0, v1}, Lcom/example/MyClass;->add(II)I
 ```
 
-- `{v0, v1}`：传两个参数，分别是 `v0` 和 `v1`。注意：**如果是实例方法，第一个参数默认是 ****`this`****（对象本身），所以这里 ****`v0`**** 就是 ****`this`****，****`v1`**** 才是真正的参数。**
+- `{v0, v1}`：传两个参数，分别是 `v0` 和 `v1`。注意：**如果是实例方法，第一个参数默认是 **`this`**（对象本身），所以这里 **`v0`** 就是 **`this`**，**`v1`** 才是真正的参数。**
 
 - `Lcom/example/MyClass;`：这个类名。
 
 - `->`：分隔符。
 
-- `add(II)I`：**方法名 ****`add`****，参数是两个 ****`int`****（****`II`****），返回值是 ****`int`****（最后的 ****`I`****）。**
+- `add(II)I`：**方法名 **`add`**，参数是两个 **`int`**（**`II`**），返回值是 **`int`**（最后的 **`I`**）。**
 
 如果是静态方法，就没有 `this` 参数，直接传实参就行。
 
@@ -1053,7 +1053,7 @@ sput v0, Lpkg/Class;->staticField:I  # 静态字段写
 
 
 
-**注意：****`iget`**** 和 ****`iput`**** 的参数顺序是反着的！**
+**注意：**`iget`** 和 **`iput`** 的参数顺序是反着的！**
 
 ##### `iget`（读取）：把字段值拿出来
 
@@ -1129,7 +1129,7 @@ so
 2. jadx 打开，搜 "flag"、"key"、"check"
 3. 看 AndroidManifest.xml 找入口 Activity
 4. 读入口 Activity 的 onCreate 和 OnClickListener
-5. **定位核心 check 函数**
+5. 定位核心 check 函数
 6. 静态分析（看代码、画流程图）
 7. 写出解密脚本（Python / Java）
 8. 跑脚本得到 flag

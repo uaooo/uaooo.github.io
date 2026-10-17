@@ -48,9 +48,9 @@ for i in range(101):
 > 
 > - `{:3}`：格式化占位符，表示数字占据 3 个字符宽度，右对齐（不足的用空格补齐）。例如 `0` 变成 `" 0"`，`100` 就是 `"100"`。这一点非常重要，因为它保证了每次输出的字符串长度完全一致（固定为4个字符的百分比\+1个空格），不会出现上一个问题里“覆盖不全留下多余逗号”的情况。
 > 
-> - **`format(i)`****：把当前的进度数字塞进占位符。**
+> - **`format(i)`**：把当前的进度数字塞进占位符。**
 > 
-> - **`end=' '`****：默认 ****`print()`**** 会换行（****`\n`****），这里改成 ****`end=' '`**** 意味着不换行，并在末尾加上一个空格（总长度变成 5 个字符，覆盖时刚好能把上一次的内容完全抹掉）。**
+> - **`end=' '`**：默认 **`print()`** 会换行（**`\n`**），这里改成 **`end=' '`** 意味着不换行，并在末尾加上一个空格（总长度变成 5 个字符，覆盖时刚好能把上一次的内容完全抹掉）。**
 > 
 > 
 
@@ -69,7 +69,7 @@ for i in range(101):
     time.sleep(0.01)
 ```
 
-> **字符串里面的两个 ****`%`****：****`"%d%%"`**
+> **字符串里面的两个 **`%`**：**`"%d%%"`**
 > 
 > 这两个百分号在引号内部，属于“模板”。
 > 
@@ -79,7 +79,7 @@ for i in range(101):
 > 
 > 字符串外面的一个 `%`：`% i`
 > 
-> 这个引号外面的 `%`，是**格式化操作符**。它的意思是：**“把右边的变量 ****`i`****，塞进左边字符串的占位符里”。**
+> 这个引号外面的 `%`，是**格式化操作符**。它的意思是：**“把右边的变量 **`i`**，塞进左边字符串的占位符里”。**
 > 
 > 
 
@@ -121,13 +121,13 @@ print("A 对应的 ASCII 值为：", ord('A')) # 输出：A 对应的 ASCII 值�
 print("\x41 为 A 的 ASCII 代码") # 输出：A 为 A 的 ASCII 代码
 
 decimal_number = 42
-binary_number = **bin**(decimal_number) # 十进制转换为二进制
+binary_number = bin(decimal_number) # 十进制转换为二进制
 print('转换为二进制:', binary_number) # 转换为二进制: 0b101010
 
-octal_number = **oct**(decimal_number) # 十进制转换为八进制
+octal_number = oct(decimal_number) # 十进制转换为八进制
 print('转换为八进制:', octal_number) # 转换为八进制: 0o52
 
-hexadecimal_number = **hex**(decimal_number) # 十进制转换为十六进制
+hexadecimal_number = hex(decimal_number) # 十进制转换为十六进制
 print('转换为十六进制:', hexadecimal_number) # 转换为十六进制: 0x2a
 
 len(string)#返回字符串长度
@@ -216,7 +216,7 @@ Python 的元组与列表类似，不同之处在于元组的元素不能修改�
 
 
 
-**当元组中只包含一个元素时，需要在元素后面添加逗号 ****,**** ，否则括号会被当作运算符使用：**
+**当元组中只包含一个元素时，需要在元素后面添加逗号 **,** ，否则括号会被当作运算符使用：**
 
 ```Python
 >>> tup1 = (50)
@@ -438,8 +438,8 @@ Eg\.
 计算30以内能被3整除的整数
 
 ```Python
-multiples = [i **for** i **in** range(30) **if** i % 3 == 0]
-**print**(multiples)
+multiples = [i for i in range(30) if i % 3 == 0]
+print(multiples)
 ```
 
 ### 字典推导式
@@ -458,7 +458,7 @@ Eg\.
 
 ```Python
 listdemo = ['Google','Runoob', 'Taobao']
-**# 将列表中各字符串值为键，各字符串的长度为值，组成键值对**
+# 将列表中各字符串值为键，各字符串的长度为值，组成键值对
 >>> newdict = {key:len(key) for key in listdemo}
 >>> newdict
 {'Google': 6, 'Runoob': 6, 'Taobao': 6}
@@ -469,7 +469,7 @@ listdemo = ['Google','Runoob', 'Taobao']
 基本格式：
 
 ```Python
-{ expression for item **in Sequence** }
+{ expression for item in Sequence }
 或
 { expression for item in Sequence if conditional }
 ```
@@ -579,9 +579,9 @@ for循环会自动帮我们调用了 `iter()`，然后又自动不停地调 `nex
 
 跟普通函数不同的是，生成器是一个**返回迭代器的函数**，只能用于迭代操作，更简单点理解生成器就是一个迭代器。
 
-当在生成器函数中使用 `yield` 语句时，**函数的执行将会暂停，并将 ****`yield`**** 后面的表达式作为当前迭代的值返回。**
+当在生成器函数中使用 `yield` 语句时，**函数的执行将会暂停，并将 **`yield`** 后面的表达式作为当前迭代的值返回。**
 
-然后，**每次调用生成器的 ****`next()`**** 方法或使用 ****`for`**** 循环进行迭代时，函数会从上次暂停的地方继续执行，直到再次遇到 ****`yield`**** 语句**。这样，**生成器函数可以逐步产生值，而不需要一次性计算并返回所有结果。**
+然后，**每次调用生成器的 **`next()`** 方法或使用 **`for`** 循环进行迭代时，函数会从上次暂停的地方继续执行，直到再次遇到 **`yield`** 语句**。这样，**生成器函数可以逐步产生值，而不需要一次性计算并返回所有结果。**
 
 > 简单来说，生成器是一个会**记住执行位置的特殊函数**，它把一次性返回变成了分批供应，专门用来处理海量数据或流式数据（比如读取超大文件）。
 > 
@@ -721,7 +721,7 @@ def functionname([formal_args,] *var_args_tuple ):
    return [expression]
 ```
 
-**加了星号 ****\***** 的参数会以元组\(tuple\)的形式导入，存放所有未命名的变量参数。**
+**加了星号 **\*** 的参数会以元组\(tuple\)的形式导入，存放所有未命名的变量参数。**
 
 Eg\.
 
@@ -820,7 +820,7 @@ x = lambda a : a + 10
 print(x(5))
 ```
 
-> `lambda a : a + 10` 里的 **`a`**** 就是参数，冒号 ****`:`**** 后面的 ****`a + 10`**** 就是函数体**。而且，lambda 会自动把冒号后面的计算结果当作返回值（相当于自带了 `return`），不需要你写 `return`。
+> `lambda a : a + 10` 里的 **`a`** 就是参数，冒号 **`:`** 后面的 **`a + 10`** 就是函数体**。而且，lambda 会自动把冒号后面的计算结果当作返回值（相当于自带了 `return`），不需要你写 `return`。
 > 
 > 
 
@@ -876,7 +876,7 @@ target_function = decorator_function(target_function)
 def decorator_function(original_function):  # 1. 接收原函数
     def wrapper(*args, **kwargs):           # 2. 定义包装函数
         print("执行前")                     # 3. 原函数执行前的“附加动作”
-        result = original_function(*args, **kwargs) **# 4. 真正执行原函数**
+        result = original_function(*args, **kwargs) # 4. 真正执行原函数
         print("执行后")                     # 5. 原函数执行后的“附加动作”
         return result                       # 6. 把原函数的返回值原封不动送出去
     return wrapper                          # 7. 把包装函数交出去
@@ -890,7 +890,7 @@ def decorator_function(original_function):  # 1. 接收原函数
 
 为此 Python 提供了一个办法，把这些定义存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被称为模块。
 
-**Python 中的模块（Module）是一个包含 Python 定义和语句的文件，文件名就是模块名加上 ****\.py**** 后缀。**
+**Python 中的模块（Module）是一个包含 Python 定义和语句的文件，文件名就是模块名加上 **\.py** 后缀。**
 
 模块可以包含函数、类、变量以及可执行的代码。通过模块，我们可以将代码组织成可重用的单元，便于管理和维护。
 
@@ -998,7 +998,7 @@ if __name__ == "__main__":
 
 在 Python 中，`name` 是模块的一个特殊属性，`"main"` 是用于标识主执行模块的名称。
 
-通过判断 **`name`**** 是否等于 ****`"main"`****，可以区分当前模块是作为程序入口运行，还是作为普通模块被导入。**
+通过判断 **`name`** 是否等于 **`"main"`**，可以区分当前模块是作为程序入口运行，还是作为普通模块被导入。**
 
 这种写法通常用于将程序的功能定义与运行入口分开，方便代码复用和测试。
 
@@ -1030,13 +1030,13 @@ print("模块名称：", __name__)
 模块名称： __main__
 ```
 
-但是如果在**另一个 Python 文件中通过 ****`import module`**** 导入该模块**，输出则为：
+但是如果在**另一个 Python 文件中通过 **`import module`** 导入该模块**，输出则为：
 
 ```Python
 模块名称： module
 ```
 
-**这是因为两种运行方式下，Python 为模块设置的 ****`name`**** 不同。**
+**这是因为两种运行方式下，Python 为模块设置的 **`name`** 不同。**
 
 ### if name == "main": 的作用
 
@@ -1122,7 +1122,7 @@ import os
 
 ```Python
 current_directory = os.getcwd()
-**print**("当前工作目录:", current_directory)
+print("当前工作目录:", current_directory)
 ```
 
 2. 改变当前工作目录
@@ -1133,7 +1133,7 @@ Eg\.
 
 ```Python
 os.chdir("/path/to/new/directory")
-**print**("新的工作目录:", os.getcwd())
+print("新的工作目录:", os.getcwd())
 ```
 
 3. 列出目录内容
@@ -1144,7 +1144,7 @@ Eg\.
 
 ```Python
 files_and_dirs = os.listdir()
-**print**("目录内容:", files_and_dirs)
+print("目录内容:", files_and_dirs)
 ```
 
 4. 创建目录
@@ -1195,7 +1195,7 @@ Eg\.
 
 ```Python
 home_directory = os.getenv("HOME")
-**print**("HOME 目录:", home_directory)
+print("HOME 目录:", home_directory)
 ```
 
 9. 执行系统命令

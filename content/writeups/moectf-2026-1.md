@@ -272,7 +272,7 @@ n = 0;
   if ( fgets(s, 128, stdin) )
   {
     s[strcspn(s, "\n")] = 0;
-    if ( (unsigned int)sub_401216(v5, **s2**, 128, &n) )
+    if ( (unsigned int)sub_401216(v5, s2, 128, &n) )
     {
       puts("Internal error!");
       return 0;
@@ -280,7 +280,7 @@ n = 0;
     else
     {
       v4 = strlen(s);
-      if ( v4 == n && !memcmp(s, **s2**, n) )
+      if ( v4 == n && !memcmp(s, s2, n) )
         puts("Correct!");
       else
         puts("Wrong!");
@@ -688,7 +688,7 @@ venv\Scripts\activate
 将一整行字符的lamba展开为多行代码
 
 ```Bash
-**# 先激活 venv（重要！）**
+# 先激活 venv（重要！）
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple black  #安装black
 ```
 
@@ -792,7 +792,7 @@ Church 编码的 if 编译出来是 通过寄存器去调用函数指针。
 (lambda myk7: lambda vol8: lambda myk9: myk7(vol8)(myk9))
 ```
 
-**step4：识别 ****`Y Combinator`****（递归）**
+**step4：识别 **`Y Combinator`**（递归）**
 
 ```Python
 (lambda myk13: lambda vol14: myk13(vol14)(myk13))(
@@ -957,7 +957,7 @@ else:
 先查看这个函数
 
 ```Python
-__int64 __fastcall **build_required_token**(__int64 a1)
+__int64 __fastcall build_required_token(__int64 a1)
 {
   unsigned __int64 i; // [rsp+10h] [rbp-8h]
 
@@ -1093,7 +1093,7 @@ __int64 __fastcall self_driven_decrypt(unsigned int a1, unsigned int a2, __int64
 
 ![a5ae7f3d1a6fc134e41c3b0be4619425\.png](/images/moectf-2026-1/a5ae7f3d1a6fc134e41c3b0be4619425.png)
 
-**`a2`**** 是主函数传进来的 ****`v6`****（即 ****`compare_operator_token`**** 的返回值）。**
+**`a2`** 是主函数传进来的 **`v6`**（即 **`compare_operator_token`** 的返回值）。**
 
 > 返回值决定命运：0 是假，非 0 是真。
 > 对 `main` 来说，`self_driven_decrypt` 返回 `0` → 它认为失败了；返回 `1` → 它认为成功了。
@@ -1208,17 +1208,17 @@ memset(s, 0, 128u);
 
 ```Plain Text
 app.apk (本质是 ZIP)
-├── **AndroidManifest.xml**    **二进制 XML。声明包名、组件（Activity/Service）、权限**
+├── AndroidManifest.xml    **二进制 XML。声明包名、组件（Activity/Service）、权限**
 ├── **classes.dex            Dalvik 字节码（Java 编译后的产物），可被 dex2jar/jadx 反编译**
 ├── classes2.dex           多 dex 项目会有（multidex）
 ├── resources.arsc         资源索引（字符串/图片/布局的元信息）
 ├── res/                   资源文件
 │   ├── layout/            XML 布局
-│   ├── **values/strings.xml 字符串常量**（**flag 高发区**）
+│   ├── **values/strings.xml 字符串常量**（flag 高发区）
 │   ├── drawable/          图片
 │   └── ...
 ├── **assets/ **               原始资源（不编译，直接打包）
-│   ├── *.json             配置（**flag 高发区**）
+│   ├── *.json             配置（flag 高发区）
 │   ├── *.db               数据库
 │   └── ...
 ├── lib/                   native 库（ARM/x86 的 .so 文件）
@@ -1380,7 +1380,7 @@ Step 6: 找关键逻辑
 
 #### 识别 Y combinator 有什么用？
 
-**Y combinator 就是用来代替 ****`while`**** 或 ****`for`**** 循环的。**
+**Y combinator 就是用来代替 **`while`** 或 **`for`** 循环的。**
 
 在普通 Python 里，你要循环 54 次，你会写：
 

@@ -84,7 +84,7 @@ Node\.js 是让 JavaScript 代码可以在浏览器之外（比如你的电脑�
 它主要有三大作用：
 
 1. 给 JS 代码提示（你截图里的核心目的）
-在 Node 出现之前，JavaScript 只能写在网页里。有了 Node，VS Code 就能借助它来“读懂”你写的代码，**给我们提供 ****`Java.perform`****、****`Interceptor.attach`**** 这些方法的自动补全。**
+在 Node 出现之前，JavaScript 只能写在网页里。有了 Node，VS Code 就能借助它来“读懂”你写的代码，**给我们提供 **`Java.perform`**、**`Interceptor.attach`** 这些方法的自动补全。**
 
 2. 充当“包管理器”（npm）
 Node 附带了一个极其强大的工具叫 `npm`（Node Package Manager）。刚才看到的 Frida 官方教程，让我们装 `@types/frida-gum`，就是靠 npm 一键下载别人写好的类型提示。
@@ -100,7 +100,7 @@ Node 附带了一个极其强大的工具叫 `npm`（Node Package Manager）。�
 js代码本身是没有类型提示的，很多时候看不到函数参数用起来很麻烦，所以我们还可以安装一下**`TypeScript`**，它的使用与**`JavaScript`**基本一样，但它有类型提示，用起来更加舒服。
 
 ```Plain Text
-**npm i ts-loader typescript -D**
+npm i ts-loader typescript -D
 ```
 
 后面的**`-D`**意思是只在开发环境下使用它。
@@ -112,7 +112,7 @@ js代码本身是没有类型提示的，很多时候看不到函数参数用起
 不仅如此，它更强大的作用其实是可以让我们分模块开发不同功能的代码，然后最后将其打包成为一个js文件。
 
 ```Plain Text
-**npm i webpack webpack-cli -D**
+npm i webpack webpack-cli -D
 ```
 
 ![QQ\_1789034362455\.png](/images/frida-hook/QQ_1789034362455.png)

@@ -91,7 +91,7 @@ Unicorn 的 API 设计遵循 "初始化→配置→执行→清理" 的流程，
 
 ### 模拟器初始化
 
-**核心函数\-\-****`Uc()`**
+**核心函数\-\-**`Uc()`**
 
 创建特定架构的模拟器实例，是所有操作的起点
 
@@ -118,7 +118,7 @@ mu = Uc(UC_ARCH_X86, UC_MODE_32)
 
 - `mu`：是我们给这台模拟器起的变量名（通常代表 Microprocessor Unit 或 Emulator，你叫它 `emu`、`machine` 也行，但社区里习惯叫 `mu`）。
 
-- **`Uc(...)`****：调用构造函数，创建出一个实例。**
+- **`Uc(...)`**：调用构造函数，创建出一个实例。**
 
 - 合起来的意思就是：创建一台 32 位的 x86 模拟器，并命名为 mu。
 
@@ -143,7 +143,7 @@ MIPS 32 位        UC\_ARCH\_MIPS          UC\_MODE\_MIPS32 \+ UC\_MODE\_BIG\_EN
 模拟器需要**手动分配内存并写入代码/数据**，模拟真实程序的内存布局
 
 ```Python
-# 1. 分配内存（地址0x10000000，大小0x1000，权限为**可读可写可执行**）
+# 1. 分配内存（地址0x10000000，大小0x1000，权限为可读可写可执行）
 # 权限参数：UC_PROT_READ（0x1）、UC_PROT_WRITE（0x2）、UC_PROT_EXEC（0x4）
 mu.mem_map(0x10000000, 0x1000, 0x7)  # 0x7 = 0x1|0x2|0x4
  
@@ -163,7 +163,7 @@ print("写入的代码：", read_code.hex())  # 应与code的十六进制一致
 > 
 > - `0x4` = 可执行（Execute，也就是可以当代码跑）
 > 
-> - **`0x7`**** 就是 ****`0x1 | 0x2 | 0x4`****（按位或），代表这块内存既能读，又能写，还能当代码执行。**
+> - **`0x7`** 就是 **`0x1 | 0x2 | 0x4`**（按位或），代表这块内存既能读，又能写，还能当代码执行。**
 > 
 > - 这就是为什么很多 CTF 教程里都写 `0x7`，因为要给模拟器“完全权限”。
 > 
@@ -183,13 +183,13 @@ print("写入的代码：", read_code.hex())  # 应与code的十六进制一致
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ESP
  
 # 1. 写入寄存器（设置栈指针ESP，避免执行时栈错误）
-mu.**reg_write**(UC_X86_REG_ESP, 0x20000000)  # 假设0x20000000是已分配的栈内存
+mu.reg_write(UC_X86_REG_ESP, 0x20000000)  # 假设0x20000000是已分配的栈内存
  
 # 2. 执行代码（从0x10000000开始，执行len(code)长度）
 mu.emu_start(0x10000000, 0x10000000 + len(code))
  
 # 3. 读取寄存器（获取EAX的值，预期结果为3）
-result = mu.**reg_read**(UC_X86_REG_EAX)
+result = mu.reg_read(UC_X86_REG_EAX)
 print("EAX =", result)  # 输出：EAX = 3
 ```
 
@@ -201,7 +201,7 @@ ARM：R0\-R15（通用寄存器，R15 是 PC 程序计数器）、CPSR（状态�
 
 ### 执行控制
 
-**核心函数：****`emu_start()`****、****`emu_stop()`****、钩子机制**
+**核心函数：**`emu_start()`**、**`emu_stop()`**、钩子机制**
 
 `emu_start()`是**执行模拟的核心函数**，支持设置起始地址、结束地址、超时时间等参数；钩子机制则允许在**执行过程中插入自定义逻辑**（如监控内存访问、指令执行）。
 
@@ -224,14 +224,14 @@ def hook_code(uc, address, size, user_data):
     # 打印当前执行的指令地址和大小
     print(f"执行指令：地址=0x{address:x}，大小={size}字节")
  
-# 注册指令执行钩子**（UC_HOOK_CODE表示监控指令执行）**
-hook_handle = **mu.hook_add**(UC_HOOK_CODE, hook_code)
+# 注册指令执行钩子（UC_HOOK_CODE表示监控指令执行）
+hook_handle = mu.hook_add(UC_HOOK_CODE, hook_code)
  
 # 执行代码（此时会触发hook_code函数）
-**mu.emu_start**(0x10000000, 0x10000000 + len(code))
+mu.emu_start(0x10000000, 0x10000000 + len(code))
  
 # 移除钩子（不再需要时）
-**mu.hook_del**(hook_handle)
+mu.hook_del(hook_handle)
 ```
 
 **常用钩子类型**：
@@ -288,15 +288,15 @@ def test_encrypt(plaintext):
         mu.mem_map(CODE_ADDR, 0x1000, 0x7)  # 可读可写可执行
         mu.mem_map(STACK_ADDR, 0x1000, 0x3)  # 可读可写
         
-        **# 写入代码**
+        # 写入代码
 **        mu.mem_write(CODE_ADDR, CODE)**
         
-        **# 设置寄存器：EAX=明文，ESP=栈地址**
+        # 设置寄存器：EAX=明文，ESP=栈地址
 **        mu.reg_write(UC_X86_REG_EAX, plaintext)**
 **        mu.reg_write(UC_X86_REG_ESP, STACK_ADDR + 0x800)**  # 栈指针指向栈中部
         
-        # **执行加密函数**（从CODE_ADDR开始，到ret指令结束）
-        **mu.emu_start**(CODE_ADDR, CODE_ADDR + len(CODE))
+        # 执行加密函数（从CODE_ADDR开始，到ret指令结束）
+        mu.emu_start(CODE_ADDR, CODE_ADDR + len(CODE))
         
         # 返回加密后的EAX值（密文）
         return mu.reg_read(UC_X86_REG_EAX)
@@ -304,9 +304,9 @@ def test_encrypt(plaintext):
         print(f"模拟出错：{e}")
         return None
  
-**# 测试多个明文，观察密文规律**
-**test_inputs = [0x0, 0x5, 0x6, 0x12345678]**
-**for plain in test_inputs:**
+# 测试多个明文，观察密文规律
+test_inputs = [0x0, 0x5, 0x6, 0x12345678]
+for plain in test_inputs:
 **    cipher = test_encrypt(plain)**
 **    print(f"明文=0x{plain:x} → 密文=0x{cipher:x}")**
 ```
@@ -351,7 +351,7 @@ mu.hook_add(UC_HOOK_CODE, hook_is_debugger_present, begin=0x77123456, end=0x7712
 #### 小tip
 
 ```Python
-# **修改指令指针EIP，跳过原始API调用**（假设API地址为0x77123456，长度5字节）
+# 修改指令指针EIP，跳过原始API调用（假设API地址为0x77123456，长度5字节）
 uc.reg_write(UC_X86_REG_EIP, 0x77123456 + 5)
 ```
 
@@ -375,7 +375,7 @@ mu.hook_add(UC_HOOK_CODE, hook_is_debugger_present, begin=0x77123456, end=0x7712
 from unicorn import Uc, UC_ARCH_MIPS, UC_MODE_MIPS32, UC_MODE_BIG_ENDIAN
 from unicorn.mips_const import UC_MIPS_REG_A0  # A0寄存器用于传递第一个参数
  
-# **路由器固件中存在漏洞的函数**（简化）：将A0指向的字符串作为系统命令执行
+# 路由器固件中存在漏洞的函数（简化）：将A0指向的字符串作为系统命令执行
 VULN_FUNC_ADDR = 0x8048500
 COMMAND_ADDR = 0x100000  # 命令字符串地址
  
@@ -392,7 +392,7 @@ def emulate_mips_vuln():
     mu.reg_write(UC_MIPS_REG_A0, COMMAND_ADDR)
     
     # 执行漏洞函数，观察是否执行注入的reboot命令（需结合内存Hook监控系统调用）
-    mu.**emu_start**(VULN_FUNC_ADDR, VULN_FUNC_ADDR + 0x50)  # 执行函数
+    mu.emu_start(VULN_FUNC_ADDR, VULN_FUNC_ADDR + 0x50)  # 执行函数
  
 emulate_mips_vuln()  #调用执行上述函数
 ```
@@ -401,7 +401,7 @@ emulate_mips_vuln()  #调用执行上述函数
 
 提升模拟速度的技巧：
 
-- **减少钩子粒度**：**避免对每一条指令都设置钩子，优先用****`UC_HOOK_BLOCK`****监控基本块；**
+- **减少钩子粒度**：**避免对每一条指令都设置钩子，优先用**`UC_HOOK_BLOCK`**监控基本块；**
 
 - **内存预分配**：一次性分配大内存块，避免频繁调用`mem_map()`；
 
@@ -461,7 +461,7 @@ class Unidbg:
         mu.mem_write(INPUT_ADDRESS, flag)        # 随便写入一个flag
         mu.mem_write(KEY_ADDRESS, b'\x90\xF0\x70\x7C\x52\x05\x91\x90\xAA\xDA\x8F\xFA\x7B\xBC\x79\x4D')
         
-        # **初始化寄存器，寄存器的状态就是切换到64位模式之前的状态**，可以通过动调得到
+        # 初始化寄存器，寄存器的状态就是切换到64位模式之前的状态，可以通过动调得到
         mu.reg_write(UC_X86_REG_RAX, 1)
         mu.reg_write(UC_X86_REG_RBX, 0x51902D)
         mu.reg_write(UC_X86_REG_RCX, 0xD86649D8)
@@ -508,7 +508,7 @@ mu.reg_write(UC_X86_REG_RSP, 0x6FFBAC)       # 栈顶指针
 mu.reg_write(UC_X86_REG_RIP, 0x2E1010)       # 指令指针，程序从0x2E1010开始执行
 ```
 
-*反汇编里第一句往往不是完整的程序。真实程序运行时，操作系统会初始化 **`RSP`** 指向栈顶，**`RIP`** 指向入口点。这里就是****模拟了程序加载完成那一刻的“现场”****。由于汇编里 **`RSI`** 和 **`RDI`** 往往用作函数传参（System V AMD64调用约定），这里把 flag 和 key 的内存地址直接喂给它们。*
+*反汇编里第一句往往不是完整的程序。真实程序运行时，操作系统会初始化 **`RSP`** 指向栈顶，**`RIP`** 指向入口点。这里就是**模拟了程序加载完成那一刻的“现场”**。由于汇编里 **`RSI`** 和 **`RDI`** 往往用作函数传参（System V AMD64调用约定），这里把 flag 和 key 的内存地址直接喂给它们。*
 
 ##### hook指令对抗花指令
 
@@ -574,9 +574,9 @@ def hook_mem_read(self, mu, access, address, size, value, data):
 
 在这道题目中体现为：
 
-1. 核心原理：在 Windows 中，程序可以通过**修改代码段寄存器（****`CS`****）来切换 CPU 的执行模式。当 ****`CS`**** 为 ****`0x23`**** 时，CPU 按 32位模式 解析指令；当 ****`CS`**** 为 ****`0x33`**** 时，CPU 按 64位模式 解析指令。**
+1. 核心原理：在 Windows 中，程序可以通过**修改代码段寄存器（**`CS`**）来切换 CPU 的执行模式。当 **`CS`** 为 **`0x23`** 时，CPU 按 32位模式 解析指令；当 **`CS`** 为 **`0x33`** 时，CPU 按 64位模式 解析指令。**
 
-2. 执行过程：`OddCode.exe` 在执行过程中，通过一个“**远跳转**”（Far Jump，通常是 `retf` 或 `jmp far`），**将 ****`CS`**** 切换为 ****`0x33`****，然后跳到了 ****`0x2E5310`**** 这个地址**。
+2. 执行过程：`OddCode.exe` 在执行过程中，通过一个“**远跳转**”（Far Jump，通常是 `retf` 或 `jmp far`），**将 **`CS`** 切换为 **`0x33`**，然后跳到了 **`0x2E5310`** 这个地址**。
 
 3. 意义：从 `0x2E5310` 开始，后面的所有机器码都必须按照 64位 模式来反汇编和解析，否则就会全部解析错乱。这是一种非常经典的**反调试**/防破解手段，会让很多静态反汇编工具（如 IDA 的默认分析）出现严重错位。
 
@@ -593,7 +593,7 @@ retf                     ; 远返回！此时 CPU 从栈中弹出 EIP 和 CS(0x3
 mov rax, rbx             ; 64位指令
 ```
 
-在32位模式下，无法直接 `push` 一个64位地址然后直接 `retf`，所以**通过 ****`call`**** 压入当前地址**，再在栈上加上偏移量，凑出真正的 64位目标地址。
+在32位模式下，无法直接 `push` 一个64位地址然后直接 `retf`，所以**通过 **`call`** 压入当前地址**，再在栈上加上偏移量，凑出真正的 64位目标地址。
 
 2. 利用`reft`压入目标地址
 
@@ -618,8 +618,8 @@ jmp far ptr 0x33:0x2E5310
 
     2. 跳转到目标地址（如 `0x2E5310`）。
 
-    3. 此时 IDA 可能把它解析成了垃圾指令。你需要选中目标地址，**按下 ****`U`**** 键**（取消定义），然后按 `Alt+G` 打开“Change Segment Register”（修改段寄存器）对话框。
+    3. 此时 IDA 可能把它解析成了垃圾指令。你需要选中目标地址，**按下 **`U`** 键**（取消定义），然后按 `Alt+G` 打开“Change Segment Register”（修改段寄存器）对话框。
 
-    4. **将 ****`CS`**** 的值改为 ****`0x33`****，然后按下 ****`C`**** 键（Make Code）**。如果不行，可以在目标地址右键，创建新段（Create Segment），并将段设为 64位。
+    4. **将 **`CS`** 的值改为 **`0x33`**，然后按下 **`C`** 键（Make Code）**。如果不行，可以在目标地址右键，创建新段（Create Segment），并将段设为 64位。
 
     5. 终极方案：安装 IDA 插件（如 `Heaven's Gate` 或 `idapython` 脚本），一键将指定区域转换为64位解析。
