@@ -180,8 +180,8 @@
        在本地和 CI 环境下表现不一致（试过三种写法，CI 上都会静默失效）。
        改成「无条件输出 + 默认 hidden」，由浏览器按路径决定是否显示，
        两个环境的行为就完全一致了。 */ -}}
-<nav class="tag-nav" id="tag-nav" hidden aria-label="标签导航">
-    <div class="tag-nav-title">标签</div>
+<nav class="tag-nav" id="tag-nav" hidden aria-label="文章合集">
+    <div class="tag-nav-title">合集</div>
     {{- range site.Taxonomies.tags }}
     <a href="{{ .Page.RelPermalink }}">
         <span>{{ .Page.Title }}</span>
@@ -194,8 +194,12 @@
         var nav = document.getElementById('tag-nav');
         if (!nav) return;
 
-        // 只在 /tags/ 和 /tags/<标签>/ 出现，文章页不显示
-        if (!/^\/tags(\/|$)/.test(location.pathname)) return;
+        // 首页右侧也放一份（当作分类入口），标签页里同样保留。
+        // 文章页不显示，免得和右侧目录抢位置。
+        var p = location.pathname;
+        var isHome = (p === "/" || p === "/index.html");
+        var isTags = /^\/tags(\/|$)/.test(p);
+        if (!isHome && !isTags) return;
 
         nav.hidden = false;
 
