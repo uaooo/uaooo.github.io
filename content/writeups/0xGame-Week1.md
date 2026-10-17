@@ -3,7 +3,7 @@ title = '0xGame-Week1'
 date = '2026-10-05T12:00:00+08:00'
 draft = false
 summary = ''
-tags = ["CTF", "逆向"]
+tags = []
 showtoc = true
 +++
 平台地址：https://0xgame2026\.play\.ctfplus\.cn/（https://www\.ctfplus\.cn/）

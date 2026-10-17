@@ -354,6 +354,117 @@ textarea:-webkit-autofill {
 
 
 /* ==========================================================
+   标签页右侧的标签导航
+   ----------------------------------------------------------
+   /tags/ 和 /tags/<标签>/ 页面上，右侧固定一条导航。
+   位置和文章目录（TOC）完全一致，点一下跳到对应标签。
+   ========================================================== */
+.tag-nav {
+    display: none;
+}
+
+@media (min-width: 1280px) {
+    .tag-nav {
+        display: block;
+        position: fixed;
+        top: 96px;
+        right: max(16px, calc(50vw - 624px));
+        width: 200px;
+        max-height: calc(100vh - 140px);
+        overflow-y: auto;
+        padding: 0.7rem 0.5rem;
+        border-radius: 12px;
+        background: var(--entry);
+        border: 1px solid var(--border);
+    }
+
+    .tag-nav-title {
+        padding: 0.2rem 0.6rem 0.6rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--secondary);
+        text-transform: uppercase;
+    }
+
+    .tag-nav a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.45rem 0.6rem;
+        border-radius: 8px;
+        color: var(--secondary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .tag-nav a:hover {
+        background: var(--code-bg);
+        color: var(--primary);
+    }
+
+    .tag-nav a.active {
+        background: var(--code-bg);
+        color: var(--primary);
+        font-weight: 600;
+    }
+
+    .tag-nav a em {
+        font-style: normal;
+        font-size: 0.75rem;
+        opacity: 0.55;
+    }
+}
+
+
+/* ==========================================================
+   标签总览页（/tags/）的美化
+   ----------------------------------------------------------
+   PaperMod 默认是一行朴素的下划线链接，和整站风格不搭。
+   改成圆角胶囊，间距拉开。
+   ========================================================== */
+.terms-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0;
+    margin: 1.2rem 0;
+}
+
+.terms-tags li {
+    margin: 0;
+    list-style: none;
+}
+
+.terms-tags li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--entry);
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.terms-tags li a:hover {
+    background: var(--code-bg);
+    border-color: var(--primary);
+}
+
+.terms-tags sup {
+    font-size: 0.7rem;
+    opacity: 0.55;
+    vertical-align: 0;
+}
+
+
+/* ==========================================================
    入场动画
    ----------------------------------------------------------
    实测反馈：0.7 秒太快，肉眼几乎捕捉不到，所以放慢到 1.1 秒、

@@ -171,3 +171,32 @@
         console.log('[blog] 目录高亮已启用，共 ' + items.length + ' 个锚点');
     })();
 </script>
+
+{{- /* 标签页右侧的标签导航。
+       只在 /tags/（Kind=taxonomy）和 /tags/<标签>/（Kind=term）出现，
+       文章页不插入，免得和右侧目录抢位置。 */ -}}
+{{- if hasPrefix .RelPermalink "/tags/" }}
+<nav class="tag-nav" aria-label="标签导航">
+    <div class="tag-nav-title">标签</div>
+    {{- range site.Taxonomies.tags }}
+    <a href="{{ .Page.RelPermalink }}">
+        <span>{{ .Page.Title }}</span>
+        <em>{{ .Count }}</em>
+    </a>
+    {{- end }}
+</nav>
+<script>
+    // 高亮当前标签。
+    // 服务端模板里比较 RelPermalink 对中文标签不可靠（百分号编码 +
+    // 模板作用域问题），放到浏览器里比最稳：解码后直接比路径。
+    (function () {
+        var nav = document.querySelector('.tag-nav');
+        if (!nav) return;
+        var path = decodeURIComponent(location.pathname);
+        nav.querySelectorAll('a').forEach(function (a) {
+            var href = decodeURIComponent(a.getAttribute('href') || '');
+            a.classList.toggle('active', href === path);
+        });
+    })();
+</script>
+{{- end }}

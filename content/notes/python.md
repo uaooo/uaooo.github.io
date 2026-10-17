@@ -3,7 +3,7 @@ title = 'python'
 date = '2026-09-28T12:00:00+08:00'
 draft = false
 summary = ''
-tags = ["Python", "语言基础"]
+tags = ["Python"]
 showtoc = true
 +++
 本来要学安卓的 怎么跑这里来了。

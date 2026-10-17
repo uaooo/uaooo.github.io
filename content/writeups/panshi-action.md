@@ -3,7 +3,7 @@ title = '磐石行动'
 date = '2026-09-10T12:00:00+08:00'
 draft = false
 summary = ''
-tags = ["CTF", "逆向"]
+tags = []
 showtoc = true
 +++
 
