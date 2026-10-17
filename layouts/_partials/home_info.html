@@ -30,22 +30,5 @@
     </div>
     {{- end }}
 
-    {{- /* 合集入口：按标签把文章聚合起来。
-           刻意放在「写在前面」下面、同一栏里，用同一套视觉语言，
-           而不是固定悬浮在页面右侧 —— 那样会和正文脱节。 */}}
-    {{- with site.Taxonomies.tags }}
-    <div class="home-collections">
-        <div class="home-collections-title">合集</div>
-        <div class="home-collections-list">
-            {{- range . }}
-            <a href="{{ .Page.RelPermalink }}">
-                <span>{{ .Page.Title }}</span>
-                <em>{{ .Count }}</em>
-            </a>
-            {{- end }}
-        </div>
-    </div>
-    {{- end }}
-
 </article>
 {{- end -}}

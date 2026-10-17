@@ -194,9 +194,10 @@
         var nav = document.getElementById('tag-nav');
         if (!nav) return;
 
-        // 只在合集页出现。首页的合集入口已经作为「写在前面」下面的一块
-        // 内容排版（见 home_info.html），不再悬浮在右侧。
-        if (!/^\/tags(\/|$)/.test(location.pathname)) return;
+        // 首页和合集页显示；文章页不显示，右边留给目录。
+        var p = location.pathname;
+        var isHome = (p === "/" || p === "/index.html");
+        if (!isHome && !/^\/tags(\/|$)/.test(p)) return;
 
         nav.hidden = false;
 
