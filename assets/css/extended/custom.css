@@ -234,6 +234,73 @@ textarea:-webkit-autofill {
 
 
 /* ==========================================================
+   首页「合集」入口
+   ----------------------------------------------------------
+   和「写在前面」用完全相同的视觉语言：左侧一道竖线、
+   同样的半透明底色、同样的圆角和模糊强度、同样的入场动画。
+   唯一的区别是内部排成胶囊 —— 一眼看得出这是可点的入口，
+   而不是又一段正文。
+
+   之前这一块是 position: fixed 悬在页面右边，
+   和流式排版的内容脱节，所以才显得割裂。
+   ========================================================== */
+.home-collections {
+    max-width: 620px;
+    margin: 0.9rem auto 1.4rem;
+    padding: 0.9rem 1.15rem;
+    text-align: left;
+
+    border-left: 3px solid var(--primary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: var(--entry);
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
+
+    animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.12s;
+}
+
+.home-collections-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    opacity: 0.85;
+    margin-bottom: 0.55rem;
+}
+
+.home-collections-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.home-collections-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.home-collections-list a:hover {
+    background: var(--code-bg);
+    border-color: var(--primary);
+}
+
+.home-collections-list a em {
+    font-style: normal;
+    font-size: 0.75rem;
+    opacity: 0.55;
+}
+
+
+/* ==========================================================
    文章目录：宽屏时固定到正文右侧
    ----------------------------------------------------------
    窄屏（< 1280px）保持 PaperMod 原本的内联折叠块。
@@ -655,8 +722,18 @@ textarea:-webkit-autofill {
     .home-info > .home-foreword {
         grid-column: 2;
         grid-row: 1 / 5;
-        align-self: center;
+        align-self: end;
         margin: 0;
+        max-width: none;
+        text-align: left;
+    }
+
+    /* 右栏底部：合集入口，紧贴「写在前面」下面 */
+    .home-info > .home-collections {
+        grid-column: 2;
+        grid-row: 5;
+        align-self: start;
+        margin: 0.9rem 0 0;
         max-width: none;
         text-align: left;
     }

@@ -194,12 +194,9 @@
         var nav = document.getElementById('tag-nav');
         if (!nav) return;
 
-        // 首页右侧也放一份（当作分类入口），标签页里同样保留。
-        // 文章页不显示，免得和右侧目录抢位置。
-        var p = location.pathname;
-        var isHome = (p === "/" || p === "/index.html");
-        var isTags = /^\/tags(\/|$)/.test(p);
-        if (!isHome && !isTags) return;
+        // 只在合集页出现。首页的合集入口已经作为「写在前面」下面的一块
+        // 内容排版（见 home_info.html），不再悬浮在右侧。
+        if (!/^\/tags(\/|$)/.test(location.pathname)) return;
 
         nav.hidden = false;
 
