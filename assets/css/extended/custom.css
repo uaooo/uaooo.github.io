@@ -737,7 +737,6 @@ textarea:-webkit-autofill {
     gap: 1.1rem;
 
     background: var(--intro-bg);
-    animation: introOut 0.75s ease 1.5s forwards;
 }
 
 :root[data-theme="dark"] #intro {
@@ -858,7 +857,10 @@ textarea:-webkit-autofill {
     align-items: center;
     justify-content: center;
 
-    animation: introOut 0.65s ease 3.35s forwards;
+    /* 3.1s 开始淡出，持续 0.7s —— 3.8s 完全消失。
+       首页签名的打字动画排在 4.0s，中间留 0.2s 缓冲，
+       保证「开屏结束之后」才开始打字，不会和淡出重叠。 */
+    animation: introOut 0.7s ease 3.1s forwards;
 }
 
 /* 背景图：先清晰，再渐渐「沉」下去。
@@ -867,10 +869,13 @@ textarea:-webkit-autofill {
     position: absolute;
     inset: -6%;
     background-image: url("/images/intro.jpg");
-    background-size: cover;
+    /* 不铺满：图片高度占屏幕的 72%，宽度按比例，
+       四周用白色填满。这张插画本身是白底，
+       留白和画面无缝衔接，看上去就是「小猫居中、四周留白」。 */
+    background-size: auto 72%;
     background-position: center center;
-    /* 现在这张是接近方形的猫图，主体在正中；
-       之前那版是深色剧照、人物偏上，才用的 30%。 */
+    background-color: #ffffff;
+    background-repeat: no-repeat;
     animation: introBg 3.35s ease forwards;
 }
 
@@ -915,7 +920,8 @@ textarea:-webkit-autofill {
     display: flex;
     flex-direction: column;
     width: 100%;
-    animation: introSceneOut 0.42s ease 1.85s forwards;
+    /* 不再单独退场：头像、名字和下面那句话一起由 #intro 统一淡出。
+       否则 1.85s 时头像先消失，只剩一句话孤零零地打，很突兀。 */
 }
 
 /* 退场：淡出 + 上移 + 变糊，比单纯消失有「谢幕」感 */
@@ -989,23 +995,29 @@ textarea:-webkit-autofill {
      6 个字 × (1em + 0.06em) = 6.36em
    所以容器要给 6.4em。之前写的 6em 装不下，
    最后一个字会被裁掉一截 —— 这就是「没打印完」的原因。 */
+/* 「希望一起进步！」= 7 个字
+   宽度 = 7 × (1em + 0.06em letter-spacing) = 7.42em，给到 7.5em 才不裁字。
+
+   时间点（和 #intro 的淡出对齐）：
+     1.5s  开始逐字打出，1s 打完 → 2.5s
+     3.1s  整块开始淡出 → 3.8s 消失
+   背景换成白底插画后，文字必须用深色，原来的白色会看不见。 */
 .intro-greet {
     display: block;
-    margin: 2.6rem auto 0;
-    width: 6.4em;
+    margin: 2.4rem auto 0;
+    width: 7.5em;
     overflow: hidden;
     white-space: nowrap;
 
     font-size: 1.6rem;
     font-weight: 500;
     letter-spacing: 0.06em;
-    color: #fff;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
-    border-right: 2px solid rgba(255, 255, 255, 0.9);
+    color: var(--intro-fg);
+    border-right: 2px solid var(--intro-fg);
 
     animation:
-        introTyping 0.8s steps(6, end) 2.35s both,
-        introCaret 0.65s step-end 2.35s 3;
+        introTyping 1s steps(7, end) 1.5s both,
+        introCaret 0.6s step-end 1.5s 3;
 }
 
 @keyframes introTyping {
@@ -1014,7 +1026,7 @@ textarea:-webkit-autofill {
     }
 
     to {
-        width: 6.4em;
+        width: 7.5em;
     }
 }
 
@@ -1042,8 +1054,8 @@ textarea:-webkit-autofill {
     white-space: nowrap;
     border-right: 2px solid var(--primary);
     animation:
-        homeTyping 0.9s steps(7, end) 3.6s both,
-        homeCaret 0.65s step-end 3.6s 3;
+        homeTyping 0.9s steps(7, end) 4s both,
+        homeCaret 0.6s step-end 4s 3;
 }
 
 @keyframes homeTyping {
