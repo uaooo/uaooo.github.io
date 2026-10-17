@@ -7,8 +7,6 @@ tags = []
 showtoc = true
 +++
 
-![2a9991218f21ad58a308e27f114da94c\.png](/images/hdctf/2a9991218f21ad58a308e27f114da94c.png)
-
 ## 赛前测试
 
 ### welcome
