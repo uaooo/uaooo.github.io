@@ -169,11 +169,6 @@ buildExpired = false
   url = "/tags/"
   weight = 50
 
-[[menu.main]]
-  identifier = "about"
-  name = "关于"
-  url = "/about/"
-  weight = 70
 
 # ------------------------------------------------------------
 #  Markdown 渲染
