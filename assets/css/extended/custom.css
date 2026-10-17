@@ -540,7 +540,9 @@ textarea:-webkit-autofill {
 }
 
 .friend-card {
-    display: block;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
     padding: 1.1rem 1.2rem;
     border-radius: var(--radius);
     border: 1px solid var(--border);
@@ -548,6 +550,21 @@ textarea:-webkit-autofill {
     text-decoration: none;
     transition: transform 0.15s ease, border-color 0.15s ease,
                 background 0.15s ease;
+}
+
+/* 头像：圆框，固定尺寸，文字换行时不会被压扁 */
+.friend-avatar {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    background: var(--code-bg);
+}
+
+.friend-body {
+    min-width: 0;
 }
 
 .friend-card:hover {

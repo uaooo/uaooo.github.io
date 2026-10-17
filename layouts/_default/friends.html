@@ -16,9 +16,12 @@
 <div class="friends-grid">
     {{- range site.Data.friends.friends }}
     <a class="friend-card" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
-        <div class="friend-name">{{ .name }}</div>
-        <div class="friend-desc">{{ .desc }}</div>
-        <div class="friend-url">{{ replaceRE `^https?://` "" .url | replaceRE `/$` "" }}</div>
+        <img class="friend-avatar" src="{{ .avatar | relURL }}" alt="{{ .name }}" loading="lazy">
+        <div class="friend-body">
+            <div class="friend-name">{{ .name }}</div>
+            <div class="friend-desc">{{ .desc }}</div>
+            <div class="friend-url">{{ replaceRE `^https?://` "" .url | replaceRE `/$` "" }}</div>
+        </div>
     </a>
     {{- end }}
 </div>
