@@ -735,7 +735,7 @@ private static String d(int n) {
 
 ###### 方法解读
 
-1. **`j`** 方法 —— 拼接密文**
+1. **`j`** 方法 —— 拼接密文
 
 - 现场：`case 53`
 
@@ -751,7 +751,7 @@ private static String d(int n) {
 
     - 结论：`j` 方法就是把两个数组拼起来（拼接），组合成完整的密文。
 
-2. **`k`** 方法 —— 生成密钥**
+2. **`k`** 方法 —— 生成密钥
 
 - 现场：`case 103`
 
@@ -765,9 +765,9 @@ private static String d(int n) {
 
     - 接着在 `case 38` 里，`objectArray[3]` 被传给了一个叫 `SecretKeySpec` \-\-“秘密密钥规范”。
 
-    - 结论：**`k`** 方法就是根据哈希值，生成一个 AES 密钥（生成密钥）**
+    - 结论：**`k`** 方法就是根据哈希值，生成一个 AES 密钥（生成密钥）
 
-3. **`u`** 方法 —— 生成算法字符串**
+3. **`u`** 方法 —— 生成算法字符串
 
 - 现场：`case 13` 和 `case 92`
 
@@ -789,9 +789,9 @@ private static String d(int n) {
 
     - 同样，`SecretKeySpec` 第二个参数也需要一个字符串（比如 "AES"）。
 
-    - 结论：**`u`** 方法就是根据输入的数字，查表算出对应的字符串（生成字符串）**。
+    - 结论：**`u`** 方法就是根据输入的数字，查表算出对应的字符串（生成字符串）。
 
-4. **`h`** 方法 —— 哈希值**
+4. **`h`** 方法 —— 哈希值
 
 ```Java
 private static int h(int n) {
@@ -1010,7 +1010,7 @@ ls -l flash
     - 第三组 `r-x`：表示其他人有读和执行权限，没有写权限。
 
 > 在执行 `chmod +x flash` 之前，它的权限大概率是 `-rw-r--r--`（只有读写，没有 `x`）。
-> **`chmod +x`** 的作用，就是给所有用户都加上了一个 **`x`**（执行权限）**。现在 `rwx` 里的那个 `x`，就是刚才 `chmod +x` 赋予的。
+> **`chmod +x`** 的作用，就是给所有用户都加上了一个 **`x`**（执行权限）。现在 `rwx` 里的那个 `x`，就是刚才 `chmod +x` 赋予的。
 > 
 > 
 
@@ -1190,7 +1190,7 @@ starti
 
 上面三个部分都很好理解 下面讲解一下最下面部分的backtrace
 
-**`Backtrace`** 中文叫“调用栈回溯”，或者“栈回溯”。**
+**`Backtrace`** 中文叫“调用栈回溯”，或者“栈回溯”。
 简单来说，它就是一张“地图”，告诉你：程序是怎么一步步走到当前正在执行的这条指令的。
 
 平时写代码的时候，函数是一层套一层调用的：
@@ -1223,9 +1223,9 @@ b *0x401979
 
 ###### 寄存器★★★
 
-- **`RIP`**：最重要！它指向当前正在执行的那条指令（高亮的那行）。**
+- **`RIP`**：最重要！它指向当前正在执行的那条指令（高亮的那行）。
 
-- **`RDI`**, **`RSI`**, **`RDX`**：这三个通常用来给函数传参。**
+- **`RDI`**, **`RSI`**, **`RDX`**：这三个通常用来给函数传参。
 
     - 看截图：`RDI` 指向 `std::cout`，**`RSI`** 指向 **`"What do you want to get? "`**。
 
@@ -1448,7 +1448,7 @@ _m = __import__('sys').modules.get('sm4')
 
 2. 它在内存中找到了 `sm4` 模块里的 `_l_trans` 函数（这是 SM4 算法中最核心的线性变换部分）。
 
-3. 它**把 **`_l_trans`** 里面的循环位移常量 **`{2, 10, 18, 24}`** 全部替换成了 **`{3, 11, 19, 25}`**
+3. 它**把 **`_l_trans`** 里面的循环位移常量 **`{2, 10, 18, 24}`** 全部替换成了 **`{3, 11, 19, 25}`
 
 所以，程序在运行时，偷偷把 SM4 算法改掉了一个微小的参数。我们用 CyberChef 标准 SM4 解密出来的 `xiaoming12345678` 是“旧密码”，输入进去程序用“魔改后的 SM4”一算，结果对不上，自然就报错了。
 
@@ -1652,7 +1652,7 @@ int fexecve(int fd, char *const argv[], char *const envp[]) {
     char p[64]; snprintf(p, sizeof p, "/proc/self/fd/%d", fd);
     int in = open(p, O_RDONLY), out = open("/tmp/stage2.bin", O_WRONLY|O_CREAT|O_TRUNC, 0755);
     char buf[65536]; ssize_t n;
-    **while ((n = read(in, buf, sizeof buf)) > 0) write(out, buf, n);**
+    while ((n = read(in, buf, sizeof buf)) > 0) write(out, buf, n);
     close(in); close(out);
 
     return real(fd, argv, envp);
@@ -1726,9 +1726,9 @@ LD_PRELOAD=$PWD/shim.so ./emoji -i /etc/hostname -o /tmp/dummy.emo
 
 - `LD_PRELOAD=$PWD/shim.so`：
 
-    - **`LD_PRELOAD`** 是 Linux 独有的环境变量。它的作用是强制把指定的动态库加载到程序运行的最前面。这相当于 Windows 里的 API Hook 注入（比如 Detours 或 Frida）。**
+    - **`LD_PRELOAD`** 是 Linux 独有的环境变量。它的作用是强制把指定的动态库加载到程序运行的最前面。这相当于 Windows 里的 API Hook 注入（比如 Detours 或 Frida）。
 
-    - 当 `emoji` 程序运行，调用 `fexecve` 时，系统会**优先调用 **`shim.so`** 里的假 **`fexecve`**，我们就在里面偷偷把内存复制出来，然后再调真的。
+    - 当 `emoji` 程序运行，调用 `fexecve` 时，系统会**优先调用 **`shim.so`** 里的假 **`fexecve`，我们就在里面偷偷把内存复制出来，然后再调真的。
 
     - `$PWD` 是“Print Working Directory”（当前工作目录），等于 `~`（`/home/uaooo`）。由于 `LD_PRELOAD` 需要绝对路径，这样写最保险。
 
@@ -1784,7 +1784,7 @@ main
 
 - `sub_401417`：读取输入文件内容到内存，并获取文件大小。
 
-- **`sub_401562`**：核心加密函数（把刚读出来的数据传进去）。**
+- **`sub_401562`**：核心加密函数（把刚读出来的数据传进去）。
 
 - `sub_4016CF`：输出函数（把**加密后的数据转成 Emoji** 写文件）。
 

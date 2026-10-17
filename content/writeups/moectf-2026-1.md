@@ -1093,7 +1093,7 @@ __int64 __fastcall self_driven_decrypt(unsigned int a1, unsigned int a2, __int64
 
 ![a5ae7f3d1a6fc134e41c3b0be4619425\.png](/images/moectf-2026-1/a5ae7f3d1a6fc134e41c3b0be4619425.png)
 
-**`a2`** 是主函数传进来的 **`v6`**（即 **`compare_operator_token`** 的返回值）。**
+**`a2`** 是主函数传进来的 **`v6`**（即 **`compare_operator_token`** 的返回值）。
 
 > 返回值决定命运：0 是假，非 0 是真。
 > 对 `main` 来说，`self_driven_decrypt` 返回 `0` → 它认为失败了；返回 `1` → 它认为成功了。
@@ -1241,7 +1241,7 @@ app.apk (本质是 ZIP)
 
 4. `classes.dex`（主要逻辑，jadx 看）
 
-5. `lib/**/*.so`（native 层，中高难度才看）
+5. `lib//*.so`（native 层，中高难度才看）
 
 #### Java基础。。。。
 

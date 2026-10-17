@@ -91,7 +91,7 @@ Unicorn 的 API 设计遵循 "初始化→配置→执行→清理" 的流程，
 
 ### 模拟器初始化
 
-**核心函数\-\-**`Uc()`**
+**核心函数\-\-**`Uc()`
 
 创建特定架构的模拟器实例，是所有操作的起点
 
@@ -118,7 +118,7 @@ mu = Uc(UC_ARCH_X86, UC_MODE_32)
 
 - `mu`：是我们给这台模拟器起的变量名（通常代表 Microprocessor Unit 或 Emulator，你叫它 `emu`、`machine` 也行，但社区里习惯叫 `mu`）。
 
-- **`Uc(...)`**：调用构造函数，创建出一个实例。**
+- **`Uc(...)`**：调用构造函数，创建出一个实例。
 
 - 合起来的意思就是：创建一台 32 位的 x86 模拟器，并命名为 mu。
 
@@ -163,7 +163,7 @@ print("写入的代码：", read_code.hex())  # 应与code的十六进制一致
 > 
 > - `0x4` = 可执行（Execute，也就是可以当代码跑）
 > 
-> - **`0x7`** 就是 **`0x1 | 0x2 | 0x4`**（按位或），代表这块内存既能读，又能写，还能当代码执行。**
+> - **`0x7`** 就是 **`0x1 | 0x2 | 0x4`**（按位或），代表这块内存既能读，又能写，还能当代码执行。
 > 
 > - 这就是为什么很多 CTF 教程里都写 `0x7`，因为要给模拟器“完全权限”。
 > 
@@ -281,19 +281,19 @@ STACK_ADDR = 0x20000000  # 栈地址
  
 def test_encrypt(plaintext):
     try:
-       ** # 初始化x86 32位模拟器**
-**        mu = Uc(UC_ARCH_X86, UC_MODE_32)**
+        # 初始化x86 32位模拟器
+        mu = Uc(UC_ARCH_X86, UC_MODE_32)
         
         # 分配代码段和栈段内存
         mu.mem_map(CODE_ADDR, 0x1000, 0x7)  # 可读可写可执行
         mu.mem_map(STACK_ADDR, 0x1000, 0x3)  # 可读可写
         
         # 写入代码
-**        mu.mem_write(CODE_ADDR, CODE)**
+        mu.mem_write(CODE_ADDR, CODE)
         
         # 设置寄存器：EAX=明文，ESP=栈地址
-**        mu.reg_write(UC_X86_REG_EAX, plaintext)**
-**        mu.reg_write(UC_X86_REG_ESP, STACK_ADDR + 0x800)**  # 栈指针指向栈中部
+        mu.reg_write(UC_X86_REG_EAX, plaintext)
+        mu.reg_write(UC_X86_REG_ESP, STACK_ADDR + 0x800)  # 栈指针指向栈中部
         
         # 执行加密函数（从CODE_ADDR开始，到ret指令结束）
         mu.emu_start(CODE_ADDR, CODE_ADDR + len(CODE))
@@ -307,8 +307,8 @@ def test_encrypt(plaintext):
 # 测试多个明文，观察密文规律
 test_inputs = [0x0, 0x5, 0x6, 0x12345678]
 for plain in test_inputs:
-**    cipher = test_encrypt(plain)**
-**    print(f"明文=0x{plain:x} → 密文=0x{cipher:x}")**
+    cipher = test_encrypt(plain)
+    print(f"明文=0x{plain:x} → 密文=0x{cipher:x}")
 ```
 
 ### 执行结果与目标推导

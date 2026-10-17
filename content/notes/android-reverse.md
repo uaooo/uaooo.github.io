@@ -29,7 +29,7 @@ JDK是Java的环境。很多工具（包括 Ghidra、Apktool）都依赖 Java，
 
     - **解包：**`apktool d your_app.apk`**（会生成一个文件夹）**
 
-    - **回编译：**`apktool b 文件夹名 -o new_app.apk`**
+    - **回编译：**`apktool b 文件夹名 -o new_app.apk`
 
 - 什么情况用：当你需要**修改 AndroidManifest\.xml、去除签名校验，或者想修改 Smali 逻辑**（比如把 `if-eqz` 改成 `if-nez` 强制绕过验证），且改完后要重新安装时。
 
@@ -138,7 +138,7 @@ public class DataType {
 
 - `char` 在 Java 里是 2 字节（不是 1 字节！），可以存中文
 
-- **`String`** 不是基本类型，是类**
+- **`String`** 不是基本类型，是类
 
 ### 1\.3 运算符
 
@@ -177,7 +177,7 @@ public class Op {
 
 - 整数除法截断（不是四舍五入）
 
-- **字符串比较用 **`.equals()`** 而不是 **`==`**
+- **字符串比较用 **`.equals()`** 而不是 **`==`
 
 ## 面向对象
 
@@ -215,7 +215,7 @@ public class Dog {
 
 ### 2\.2 static（静态）
 
-**`static`** 修饰的成员属于类本身，不属于某个对象。**RE 里非常常见。
+**`static`** 修饰的成员属于类本身，不属于某个对象。RE 里非常常见。
 
 一共有3个级别：
 
@@ -696,9 +696,9 @@ public class ArrayDemo {
 }
 ```
 
-- **`array.length`** 没有括号（属性）**
+- **`array.length`** 没有括号（属性）
 
-- **`string.length()`** 有括号（方法）**
+- **`string.length()`** 有括号（方法）
 
 - 二维数组的写法 `[][]`
 
@@ -717,9 +717,9 @@ public class ArrayDemo {
 ~  按位取反：1 变 0，0 变 1
 ```
 
-- **`a ^ a = 0`**（自己异或自己是 0）**
+- **`a ^ a = 0`**（自己异或自己是 0）
 
-- **`a ^ 0 = a`**（异或 0 等于自己）**
+- **`a ^ 0 = a`**（异或 0 等于自己）
 
 - `a ^ b ^ a = b`（异或满足交换律，常用于"还原"）
 
@@ -806,10 +806,10 @@ import java.util.Base64;
 public class Base64Demo {
     public static void main(String[] args) {
         String src = "Hello, RE!";
-        **String enc = Base64.getEncoder().encodeToString(src.getBytes());**
+        String enc = Base64.getEncoder().encodeToString(src.getBytes());
         System.out.println(enc);  // "SGVsbG8sIFJF!"
         
-        **String dec = new String(Base64.getDecoder().decode(enc));**
+        String dec = new String(Base64.getDecoder().decode(enc));
         System.out.println(dec);  // "Hello, RE!"
     }
 }

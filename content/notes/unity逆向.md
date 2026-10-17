@@ -84,7 +84,7 @@ Ahead of time 提前编译
 
 ### mono与IL2CPP
 
-unity逆向采用了 **C 逆向**和 **`.NET`** 逆向**两套底层技术，需要我们根据情况选择不同的工具。
+unity逆向采用了 **C 逆向**和 **`.NET`** 逆向两套底层技术，需要我们根据情况选择不同的工具。
 
 （unity提供了两种将`C#`代码变成机器看懂的语言的方式（打包方式）
 
@@ -214,7 +214,7 @@ void Update()
 
 Mono 打包方式逆向比较简单，其**核心代码都在 **`game/assets/bin/data/Managed/Assembly-CSharp.dll`** 这个 dll 文件中**，使用 dnSpy 进行分析，几乎就是可以明文随便篡改。
 
-当我们拿到一个 Unity 游戏时，首先要判断它是 Mono 打包还是 IL2CPP 打包，判断方法很简单：如果在游戏目录下的 **`Data/Managed`** 文件夹中能找到 **`Assembly-CSharp.dll`** 文件，那就是 Mono 打包；如果在游戏目录下能找到一个很大的 **`GameAssembly.dll`** 文件以及 **`Data/il2cpp_data`** 文件夹，那就是 IL2CPP 打包。**
+当我们拿到一个 Unity 游戏时，首先要判断它是 Mono 打包还是 IL2CPP 打包，判断方法很简单：如果在游戏目录下的 **`Data/Managed`** 文件夹中能找到 **`Assembly-CSharp.dll`** 文件，那就是 Mono 打包；如果在游戏目录下能找到一个很大的 **`GameAssembly.dll`** 文件以及 **`Data/il2cpp_data`** 文件夹，那就是 IL2CPP 打包。
 
 ![](/images/unity逆向/image%202.png)
 
