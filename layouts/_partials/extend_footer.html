@@ -188,16 +188,16 @@
         <em>{{ .Count }}</em>
     </a>
     {{- end }}
+
+    <a class="tag-nav-home" href="{{ site.Home.RelPermalink }}">← 返回首页</a>
 </nav>
 <script>
     (function () {
         var nav = document.getElementById('tag-nav');
         if (!nav) return;
 
-        // 首页和合集页显示；文章页不显示，右边留给目录。
-        var p = location.pathname;
-        var isHome = (p === "/" || p === "/index.html");
-        if (!isHome && !/^\/tags(\/|$)/.test(p)) return;
+        // 只在合集页显示；首页和文章页都不放。
+        if (!/^\/tags(\/|$)/.test(location.pathname)) return;
 
         nav.hidden = false;
 

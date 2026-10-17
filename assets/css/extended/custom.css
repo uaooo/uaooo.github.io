@@ -439,6 +439,22 @@ textarea:-webkit-autofill {
         font-size: 0.75rem;
         opacity: 0.55;
     }
+
+    /* 卡片底部的「返回首页」：和标签列表用分隔线隔开 */
+    .tag-nav .tag-nav-home {
+        margin-top: 0.6rem;
+        padding-top: 0.7rem;
+        padding-left: 0.6rem;
+        border-top: 1px solid var(--border);
+        font-size: 0.85rem;
+        color: var(--secondary);
+    }
+
+    .tag-nav .tag-nav-home:hover {
+        background: transparent;
+        padding-left: 0.6rem;
+        color: var(--primary);
+    }
 }
 
 
