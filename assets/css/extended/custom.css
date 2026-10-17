@@ -522,6 +522,63 @@ textarea:-webkit-autofill {
 
 
 /* ==========================================================
+   友链页
+   ----------------------------------------------------------
+   数据在 data/friends.toml，模板是 layouts/_default/friends.html。
+   卡片自适应换行，窄屏自动变成单列。
+   ========================================================== */
+.friends-intro {
+    margin-bottom: 1.4rem;
+    color: var(--content);
+}
+
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin: 0 0 1.5rem;
+}
+
+.friend-card {
+    display: block;
+    padding: 1.1rem 1.2rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--entry);
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease,
+                background 0.15s ease;
+}
+
+.friend-card:hover {
+    border-color: var(--primary);
+    background: var(--code-bg);
+    transform: translateY(-2px);
+}
+
+.friend-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.35rem;
+}
+
+.friend-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--content);
+    margin-bottom: 0.5rem;
+}
+
+.friend-url {
+    font-size: 0.75rem;
+    color: var(--secondary);
+    opacity: 0.7;
+    word-break: break-all;
+}
+
+
+/* ==========================================================
    入场动画
    ----------------------------------------------------------
    实测反馈：0.7 秒太快，肉眼几乎捕捉不到，所以放慢到 1.1 秒、

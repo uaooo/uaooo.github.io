@@ -1,0 +1,24 @@
+{{- /* 合集总览页 /tags/
+       PaperMod 没有提供 terms.html，Hugo 会用内置模板 ——
+       那个模板只有标题、没有面包屑，所以这一页一直没有「Home ›」。
+       这里覆盖一份，补上面包屑，顺便把英文 "Tags" 换成「合集」。 */}}
+{{- define "main" }}
+{{- /* 注意：不要再包一层 <main>。
+       PaperMod 的 baseof.html 已经提供了 <main class="main">，
+       这里再包一次会变成 <main><main>，同时把布局宽度压窄。 */}}
+<header class="page-header">
+    {{- partial "breadcrumbs.html" . }}
+    <h1>{{ if eq .Data.Plural "tags" }}合集{{ else }}{{ .Title }}{{ end }}</h1>
+</header>
+
+<ul class="terms-tags">
+    {{- range .Data.Terms.Alphabetical }}
+    <li>
+        <a href="{{ .Page.RelPermalink }}">
+            {{- .Page.LinkTitle }}
+            <sup><strong><sup>{{ .Count }}</sup></strong></sup>
+        </a>
+    </li>
+    {{- end }}
+</ul>
+{{- end }}

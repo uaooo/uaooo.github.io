@@ -1,0 +1,26 @@
+{{- define "main" }}
+
+{{- /* 页头：面包屑 + 标题。
+       面包屑由 PaperMod 的 breadcrumbs.html 生成，
+       会自动渲染成「Home ›」，点击返回首页。 */}}
+<header class="page-header">
+    {{- partial "breadcrumbs.html" . }}
+    <h1>{{ .Title }}</h1>
+</header>
+
+{{- with .Content }}
+<div class="md-content friends-intro">{{ . }}</div>
+{{- end }}
+
+{{- /* 友链卡片：数据来自 data/friends.toml */}}
+<div class="friends-grid">
+    {{- range site.Data.friends.friends }}
+    <a class="friend-card" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+        <div class="friend-name">{{ .name }}</div>
+        <div class="friend-desc">{{ .desc }}</div>
+        <div class="friend-url">{{ replaceRE `^https?://` "" .url | replaceRE `/$` "" }}</div>
+    </a>
+    {{- end }}
+</div>
+
+{{- end }}

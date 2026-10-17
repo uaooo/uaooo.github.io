@@ -169,6 +169,12 @@ buildExpired = false
   url = "/tags/"
   weight = 50
 
+[[menu.main]]
+  identifier = "friends"
+  name = "友链"
+  url = "/friends/"
+  weight = 55
+
 
 # ------------------------------------------------------------
 #  Markdown 渲染

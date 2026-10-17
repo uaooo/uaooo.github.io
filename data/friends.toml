@@ -1,0 +1,29 @@
+# ============================================================
+#  友链列表
+# ------------------------------------------------------------
+#  想加人 / 删人，只改这个文件就行，不用动模板。
+#  复制一段 [[friends]] 块，改三个值：
+#     name = 显示的名字
+#     url  = 跳转地址（记得带 https://）
+#     desc = 你的一句评价，会显示在名字下面
+# ============================================================
+
+[[friends]]
+name = "MarioYang525"
+url = "https://marioyang525.github.io/"
+desc = "特别厉害的 web 手"
+
+[[friends]]
+name = "yifan"
+url = "https://yifan0305.github.io/my_blog/"
+desc = "cry 手，之前是 OIer，完全六边形战士"
+
+[[friends]]
+name = "Pay3Cents"
+url = "https://icent-f.github.io/"
+desc = "misc 手，入门即大师，很热心"
+
+[[friends]]
+name = "漫宿骄盛"
+url = "https://www.cnblogs.com/msjs"
+desc = "师父，特别强的 re 手，对 AI 有自己的看法见解"
