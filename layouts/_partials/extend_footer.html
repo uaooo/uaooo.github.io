@@ -172,39 +172,6 @@
     })();
 </script>
 
-{{- /* 标签页右侧的标签导航。
-       只在 /tags/（Kind=taxonomy）和 /tags/<标签>/（Kind=term）出现，
-       文章页不插入，免得和右侧目录抢位置。 */ -}}
-{{- /* 标签页右侧的标签导航。
-       这里刻意不做 Hugo 端的条件判断：.Kind / .Data.Plural / RelPermalink
-       在本地和 CI 环境下表现不一致（试过三种写法，CI 上都会静默失效）。
-       改成「无条件输出 + 默认 hidden」，由浏览器按路径决定是否显示，
-       两个环境的行为就完全一致了。 */ -}}
-<nav class="tag-nav" id="tag-nav" hidden aria-label="文章合集">
-    <div class="tag-nav-title">合集</div>
-    {{- range site.Taxonomies.tags }}
-    <a href="{{ .Page.RelPermalink }}">
-        <span>{{ .Page.Title }}</span>
-        <em>{{ .Count }}</em>
-    </a>
-    {{- end }}
-
-</nav>
-<script>
-    (function () {
-        var nav = document.getElementById('tag-nav');
-        if (!nav) return;
-
-        // 只在合集页显示；首页和文章页都不放。
-        if (!/^\/tags(\/|$)/.test(location.pathname)) return;
-
-        nav.hidden = false;
-
-        // 高亮当前标签：解码后直接比路径，中文标签也可靠
-        var path = decodeURIComponent(location.pathname);
-        nav.querySelectorAll('a').forEach(function (a) {
-            var href = decodeURIComponent(a.getAttribute('href') || '');
-            a.classList.toggle('active', href === path);
-        });
-    })();
-</script>
+{{- /* 右侧的标签导航已移除。
+       合集总览页本身就把所有合集列了出来，右侧再挂一份是重复的；
+       页面顶部已经有「Home ›」，也不再需要额外的返回入口。 */ -}}
