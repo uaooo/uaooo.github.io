@@ -967,10 +967,10 @@ textarea:-webkit-autofill {
     font-size: 3.1rem;
     font-weight: 500;
     letter-spacing: 0.03em;
-    color: #fff;
-    text-shadow:
-        0 0 30px rgba(255, 255, 255, 0.4),
-        0 6px 36px rgba(0, 0, 0, 0.55);
+    /* 开屏图换成白底插画后，白字会完全看不见，改用深色；
+       阴影也从「白色发光」换成一层极淡的深色投影。 */
+    color: var(--intro-fg);
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
     opacity: 0;
     animation: introNameIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
 }
