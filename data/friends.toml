@@ -25,13 +25,13 @@ avatar = "/images/friends/yifan.jpg"
 name = "Pay3Cents"
 url = "https://icent-f.github.io/"
 desc = "misc 大师 特别热心"
-avatar = "/images/friends/icent.png"
+avatar = "/images/friends/icent.jpg"
 
 [[friends]]
 name = "漫宿骄盛"
 url = "https://www.cnblogs.com/msjs"
 desc = "超级厉害的 re 手 是我的偶像"
-avatar = "/images/friends/msjs.png"
+avatar = "/images/friends/msjs.jpg"
 
 [[friends]]
 name = "Lamb"

@@ -190,7 +190,7 @@ unzip -p yutu-mooncake-workshop.jar META-INF/MANIFEST.MF
 
 2. `unzip -l yutu-mooncake-workshop.jar`：**列出压缩包里的所有文件，但不解压。**
 
-3. `unzip -p yutu-mooncake-workshop.jar META-INF/MANIFEST.MF`：把 JAR 包里的 `META-INF/MANIFEST.MF`** **这个**文件的内容直接输出到屏幕**，不保存到磁盘。
+3. `unzip -p yutu-mooncake-workshop.jar META-INF/MANIFEST.MF`：把 JAR 包里的 `META-INF/MANIFEST.MF` 这个**文件的内容直接输出到屏幕**，不保存到磁盘。
 
 ![](/images/SUSCTF-2026/QQ_1790326864235.png)
 
@@ -747,7 +747,7 @@ private static String d(int n) {
 
     - 把两个东西传给 `j` 方法，返回值放进 `objectArray[2]`。
 
-    - **后面的 **`case 74`** 里，**`objectArray[2]`** 被直接传给 **`doFinal`** 去解密了。而 AES 解密通常需要一个完整的密文块（64字节刚好是4个AES块）**
+    - 后面的 `case 74` 里，`objectArray[2]` 被直接传给 `doFinal` 去解密了。而 AES 解密通常需要一个完整的密文块（64字节刚好是4个AES块）
 
     - 结论：`j` 方法就是把两个数组拼起来（拼接），组合成完整的密文。
 
@@ -765,7 +765,7 @@ private static String d(int n) {
 
     - 接着在 `case 38` 里，`objectArray[3]` 被传给了一个叫 `SecretKeySpec` \-\-“秘密密钥规范”。
 
-    - 结论：**`k`** 方法就是根据哈希值，生成一个 AES 密钥（生成密钥）
+    - 结论：`k` 方法就是根据哈希值，生成一个 AES 密钥（生成密钥）
 
 3. **`u`** 方法 —— 生成算法字符串
 
@@ -789,7 +789,7 @@ private static String d(int n) {
 
     - 同样，`SecretKeySpec` 第二个参数也需要一个字符串（比如 "AES"）。
 
-    - 结论：**`u`** 方法就是根据输入的数字，查表算出对应的字符串（生成字符串）。
+    - 结论：`u` 方法就是根据输入的数字，查表算出对应的字符串（生成字符串）。
 
 4. **`h`** 方法 —— 哈希值
 
@@ -1168,7 +1168,7 @@ layout regs
 > 
 > - `regs`：registers（寄存器）的缩写。
 > 
-> - 连起来的意思：让 **GDB 把屏幕剩下的部分变成寄存器窗口。它会把 **`rax`**、**`rbx`**、**`rip`**、**`rsp`** 这些寄存器全部列出来。**并且每次单步执行，哪个寄存器的值变了，它会高亮变色！
+> - 连起来的意思：让 GDB 把屏幕剩下的部分变成寄存器窗口。它会把 **`rax`**、**`rbx`**、**`rip`**、**`rsp`** 这些寄存器全部列出来。并且每次单步执行，哪个寄存器的值变了，它会高亮变色！
 > 
 > 
 
@@ -1227,9 +1227,9 @@ b *0x401979
 
 - **`RDI`**, **`RSI`**, **`RDX`**：这三个通常用来给函数传参。
 
-    - 看截图：`RDI` 指向 `std::cout`，**`RSI`** 指向 **`"What do you want to get? "`**。
+    - 看截图：`RDI` 指向 `std::cout`，`RSI` 指向 `"What do you want to get? "`。
 
-    - 这就印证了反汇编里那句 `call std::operator<<` 是**正在准备打印提示语。**
+    - 这就印证了反汇编里那句 `call std::operator<<` 是正在准备打印提示语。
 
 - `RAX`：通常用来存函数的返回值。
 
@@ -1448,7 +1448,7 @@ _m = __import__('sys').modules.get('sm4')
 
 2. 它在内存中找到了 `sm4` 模块里的 `_l_trans` 函数（这是 SM4 算法中最核心的线性变换部分）。
 
-3. 它**把 **`_l_trans`** 里面的循环位移常量 **`{2, 10, 18, 24}`** 全部替换成了 **`{3, 11, 19, 25}`
+3. 它把 **`_l_trans`** 里面的循环位移常量 **`{2, 10, 18, 24}`** 全部替换成了 `{3, 11, 19, 25}`
 
 所以，程序在运行时，偷偷把 SM4 算法改掉了一个微小的参数。我们用 CyberChef 标准 SM4 解密出来的 `xiaoming12345678` 是“旧密码”，输入进去程序用“魔改后的 SM4”一算，结果对不上，自然就报错了。
 
@@ -1566,7 +1566,7 @@ if ( sub_401C20(v3, ".moj") && sub_401C20(v4, ".oji") ...) // 找自己里面的
 // ... 然后 memfd_create + fexecve
 ```
 
-> 正常的业务代码怎么会去 `open` 自己、读自己的节区、甚至调用 `memfd_create`（创建匿名内存文件）和 `fexecve`（执行内存文件）？这就是典型的**无文件落地（Fileless）和自解密加载器（Loader/Stub）**的行为。
+> 正常的业务代码怎么会去 `open` 自己、读自己的节区、甚至调用 `memfd_create`（创建匿名内存文件）和 `fexecve`（执行内存文件）？这就是典型的无文件落地（Fileless）和自解密加载器（Loader/Stub）的行为。
 > 
 > 
 
@@ -1687,7 +1687,7 @@ man fexecve
 4. `char p[64]; snprintf(p, ..., "/proc/self/fd/%d", fd);`：
 这是 Linux 的神奇特性。
 
-原本：**`memfd_create`** 创建的文件：没有磁盘路径，只存在于内存（页缓存）里**。它没有名字，只有一串数字 ID `/proc/self/fd/3` 就是一个指向当前进程文件描述符 3 的“快捷方式”。我们可以像读普通文件一样读它。**`fd`** 就是程序准备执行的“内存文件”的句柄。**
+原本：**`memfd_create` 创建的文件：没有磁盘路径，只存在于内存（页缓存）里**。它没有名字，只有一串数字 ID `/proc/self/fd/3` 就是一个指向当前进程文件描述符 3 的“快捷方式”。我们可以像读普通文件一样读它。**`fd` 就是程序准备执行的“内存文件”的句柄。**
 
 5. `int in = open(p, O_RDONLY), out = open("/tmp/stage2.bin", O_WRONLY|O_CREAT|O_TRUNC, 0755);`：
 打开内存文件，并创建 `/tmp/stage2.bin` 准备写入（相当于 Windows 的 `CreateFile`）。
@@ -1726,9 +1726,9 @@ LD_PRELOAD=$PWD/shim.so ./emoji -i /etc/hostname -o /tmp/dummy.emo
 
 - `LD_PRELOAD=$PWD/shim.so`：
 
-    - **`LD_PRELOAD`** 是 Linux 独有的环境变量。它的作用是强制把指定的动态库加载到程序运行的最前面。这相当于 Windows 里的 API Hook 注入（比如 Detours 或 Frida）。
+    - `LD_PRELOAD` 是 Linux 独有的环境变量。它的作用是强制把指定的动态库加载到程序运行的最前面。这相当于 Windows 里的 API Hook 注入（比如 Detours 或 Frida）。
 
-    - 当 `emoji` 程序运行，调用 `fexecve` 时，系统会**优先调用 **`shim.so`** 里的假 **`fexecve`，我们就在里面偷偷把内存复制出来，然后再调真的。
+    - 当 `emoji` 程序运行，调用 `fexecve` 时，系统会优先调用 `shim.so` 里的假 `fexecve`，我们就在里面偷偷把内存复制出来，然后再调真的。
 
     - `$PWD` 是“Print Working Directory”（当前工作目录），等于 `~`（`/home/uaooo`）。由于 `LD_PRELOAD` 需要绝对路径，这样写最保险。
 
@@ -1802,7 +1802,7 @@ main
 
 2. **初始化 Key 和 IV**：
 
-    - `sub_4012C2(&unk_402010, v8)`：`unk_402010` 就是字符串 `"refinalchallengeemojirev"`，这个函数用来**初始化密钥**。
+    - `sub_4012C2(&unk_402010, v8)`：`unk_402010` 就是字符串 `"refinalchallengeemojirev"`，这个函数用来初始化密钥。
 
     - `v7 = 0x76657269666C6D65LL;`：注意这个十六进制数，`65 6D 6F 6A 69 72 65 76` 在内存里倒过来拼就是 `emojirev`，这就是 IV（初始向量）。
 
@@ -1812,9 +1812,9 @@ main
 
     - `*(BYTE*)(dest + i + j) ^= v8[j] ^ 8;`：把明文和前一块密文（或 IV）进行异或（XOR）。（这里的 `^ 8` 可能是 IDA 优化分析时的字节错位，我们按照 CBC 标准逻辑理解即可）。
 
-    - `sub_40131E((char *)dest + i, v8);`：**调用真正的块加密函数**（魔改 XTEA）。就是这里，把 8 字节数据彻底加密。
+    - `sub_40131E((char *)dest + i, v8);`：调用真正的块加密函数（魔改 XTEA）。就是这里，把 8 字节数据彻底加密。
 
-    - `v7 = *(_QWORD*)((char*)dest + i);`：**把刚加密好的结果存下来，作为下一块异或用的 **`prev`**。**
+    - `v7 = *(_QWORD*)((char*)dest + i);`：把刚加密好的结果存下来，作为下一块异或用的 `prev`。
 
 > CBC（Cipher Block Chaining）是块加密。一个块是 8 字节。
 > 它的规则是：当前这一整个 8 字节的明文块，去异或前一个 8 字节的密文块。

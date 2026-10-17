@@ -316,7 +316,7 @@ flag:HDCTF\{4fc54225\-b980\-e20a\-bcbe\-3bc4d1643887\}
 
 接下来 会让我们进行风险评估 也就是进行小游戏 我们可以设置游戏通过
 
-但是有更简单的方法是 我们发现**`next的值`**用户可以修改 直接修改成下下步的问卷也就是questionair 那我们就跳过了这个游戏嘻嘻！
+但是有更简单的方法是 我们发现`next的值`用户可以修改 直接修改成下下步的问卷也就是questionair 那我们就跳过了这个游戏嘻嘻！
 
 接下来就比较难发现了 一开始以为apple是随便写的 还想换成windows linux 之类的
 
@@ -648,7 +648,7 @@ flag:HDCTF\{Zh3n\_Sh1\_zako\_zako\_\!\!\!\}
                                   └──> decrypt(digest, pulse, gate) ──> flag
 ```
 
-题目本体是一个伪装成「三件事」待办 App（`ThreeThingsApp` / `MainActivity` / Room 数据库）的广告马甲包，真正的校验逻辑藏在 **`SettingsActivity`** 点击进入的隐藏 **Activity **`TideRelayActivity`里，类名与 `TideRelayActivity.kt` 同源（`RiftGate.smali` 的 `.source` 也是 `TideRelayActivity.kt`）。
+题目本体是一个伪装成「三件事」待办 App（`ThreeThingsApp` / `MainActivity` / Room 数据库）的广告马甲包，真正的校验逻辑藏在 **`SettingsActivity`** 点击进入的隐藏 Activity `TideRelayActivity`里，类名与 `TideRelayActivity.kt` 同源（`RiftGate.smali` 的 `.source` 也是 `TideRelayActivity.kt`）。
 
 ![QQ\_1789202254442\.png](/images/hdctf/QQ_1789202254442.png)
 
@@ -988,7 +988,7 @@ f.apply(f.vault, lambda g: f.pack(g))   # pack 对 str 执行 int(str(v),0) → 
 试出保险柜的密码是弱口令 `4919`，直接解锁。
 
 2. 关键一步：`f.apply(f.vault, lambda g: g.read)`
-注意，这里没有括号！**这不是调用 **`read()`**，而是把 **`_Gate`** 对象里的 **`read`** 方法的本体取出来。**因为前面说的漏洞，这个函数本体被写入了保险柜 `rec["value"]` 中。
+注意，这里没有括号！这不是调用 **`read()`**，而是把 **`_Gate`** 对象里的 **`read`** 方法的本体取出来。因为前面说的漏洞，这个函数本体被写入了保险柜 `rec["value"]` 中。
 
 3. 触发读取：`f.apply(f.vault, lambda g: g())`
 现在 `rec["value"]` 里存的是 `read` 方法。这里用 `g()` 执行它。于是，Flag 被读取出来了！并且，由于漏洞存在，这个 Flag 直接被写入了 `rec["value"]`，取代了原来的东西。
@@ -1147,7 +1147,7 @@ M = A + r * eye(2)                            # ← 关键 2
 
 ##### 对应题目提示
 
-**第一扇门：Fermat 分解 **`n1`
+第一扇门：Fermat 分解 `n1`
 
 ##### 1\.1原理
 
@@ -1238,7 +1238,7 @@ p2 = isqrt(p2sq)            *# p2sq 是素数的平方，开方无损*
 q2 = isqrt(q2sq)
 ```
 
-之所以能直接对 `p2sq` 开平方得到 `p2`（而不是"接近 p2 的某个数"），是因为 `p2sq` 本身**恰好等于 **`p2²`。这也是题目里 `abs(p2−q2) > 2⁴⁸⁰` 这类约束的用意：保证两个特征根不退化、判别式开方后能干净地分离出两个素因子。
+之所以能直接对 `p2sq` 开平方得到 `p2`（而不是"接近 p2 的某个数"），是因为 `p2sq` 本身恰好等于 `p2²`。这也是题目里 `abs(p2−q2) > 2⁴⁸⁰` 这类约束的用意：保证两个特征根不退化、判别式开方后能干净地分离出两个素因子。
 
 ##### 解密
 

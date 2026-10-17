@@ -16,7 +16,8 @@
 <div class="friends-grid">
     {{- range site.Data.friends.friends }}
     <a class="friend-card" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
-        <img class="friend-avatar" src="{{ .avatar | relURL }}" alt="{{ .name }}" loading="lazy">
+        <img class="friend-avatar" src="{{ .avatar | relURL }}" alt="{{ .name }}"
+             width="62" height="62" loading="lazy" decoding="async">
         <div class="friend-body">
             <div class="friend-name">{{ .name }}</div>
             <div class="friend-desc">{{ .desc }}</div>

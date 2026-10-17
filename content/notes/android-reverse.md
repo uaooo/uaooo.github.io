@@ -27,9 +27,9 @@ JDK是Java的环境。很多工具（包括 Ghidra、Apktool）都依赖 Java，
 
 - 怎么用它（命令）：
 
-    - **解包：**`apktool d your_app.apk`**（会生成一个文件夹）**
+    - 解包：`apktool d your_app.apk`（会生成一个文件夹）
 
-    - **回编译：**`apktool b 文件夹名 -o new_app.apk`
+    - 回编译：`apktool b 文件夹名 -o new_app.apk`
 
 - 什么情况用：当你需要**修改 AndroidManifest\.xml、去除签名校验，或者想修改 Smali 逻辑**（比如把 `if-eqz` 改成 `if-nez` 强制绕过验证），且改完后要重新安装时。
 
@@ -177,7 +177,7 @@ public class Op {
 
 - 整数除法截断（不是四舍五入）
 
-- **字符串比较用 **`.equals()`** 而不是 **`==`
+- 字符串比较用 **`.equals()`** 而不是 `==`
 
 ## 面向对象
 
@@ -1018,7 +1018,7 @@ invoke-interface     # 接口方法
 invoke-virtual {v0, v1}, Lcom/example/MyClass;->add(II)I
 ```
 
-- `{v0, v1}`：传两个参数，分别是 `v0` 和 `v1`。注意：**如果是实例方法，第一个参数默认是 **`this`**（对象本身），所以这里 **`v0`** 就是 **`this`**，**`v1`** 才是真正的参数。**
+- `{v0, v1}`：传两个参数，分别是 `v0` 和 `v1`。注意：如果是实例方法，第一个参数默认是 **`this`**（对象本身），所以这里 **`v0`** 就是 **`this`**，**`v1` 才是真正的参数。**
 
 - `Lcom/example/MyClass;`：这个类名。
 
@@ -1053,7 +1053,7 @@ sput v0, Lpkg/Class;->staticField:I  # 静态字段写
 
 
 
-**注意：**`iget`** 和 **`iput`** 的参数顺序是反着的！**
+注意：**`iget` 和 **`iput`** 的参数顺序是反着的！**
 
 ##### `iget`（读取）：把字段值拿出来
 

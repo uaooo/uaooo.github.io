@@ -77,14 +77,14 @@ https://www\.kucoding\.com/article/351\.html\#2
 
 
 
-编辑器使用的vscode，除此之外还需要**`node`**环境：
+编辑器使用的vscode，除此之外还需要`node`环境：
 
 Node\.js 是让 JavaScript 代码可以在浏览器之外（比如你的电脑、服务器上）运行的“独立引擎”。
 
 它主要有三大作用：
 
 1. 给 JS 代码提示（你截图里的核心目的）
-在 Node 出现之前，JavaScript 只能写在网页里。有了 Node，VS Code 就能借助它来“读懂”你写的代码，**给我们提供 **`Java.perform`**、**`Interceptor.attach`** 这些方法的自动补全。**
+在 Node 出现之前，JavaScript 只能写在网页里。有了 Node，VS Code 就能借助它来“读懂”你写的代码，给我们提供 **`Java.perform`**、**`Interceptor.attach` 这些方法的自动补全。**
 
 2. 充当“包管理器”（npm）
 Node 附带了一个极其强大的工具叫 `npm`（Node Package Manager）。刚才看到的 Frida 官方教程，让我们装 `@types/frida-gum`，就是靠 npm 一键下载别人写好的类型提示。
@@ -97,13 +97,13 @@ Node 附带了一个极其强大的工具叫 `npm`（Node Package Manager）。�
 
 ![QQ\_1789033648837\.png](/images/frida-hook/QQ_1789033648837.png)
 
-js代码本身是没有类型提示的，很多时候看不到函数参数用起来很麻烦，所以我们还可以安装一下**`TypeScript`**，它的使用与**`JavaScript`**基本一样，但它有类型提示，用起来更加舒服。
+js代码本身是没有类型提示的，很多时候看不到函数参数用起来很麻烦，所以我们还可以安装一下`TypeScript`**，它的使用与**`JavaScript`基本一样，但它有类型提示，用起来更加舒服。
 
 ```Plain Text
 npm i ts-loader typescript -D
 ```
 
-后面的**`-D`**意思是只在开发环境下使用它。
+后面的`-D`意思是只在开发环境下使用它。
 
 ![QQ\_1789033974546\.png](/images/frida-hook/QQ_1789033974546.png)
 
@@ -117,11 +117,11 @@ npm i webpack webpack-cli -D
 
 ![QQ\_1789034362455\.png](/images/frida-hook/QQ_1789034362455.png)
 
-安装完成后，输入**`code .`**，用vscode打开这个文件夹，新建一个文件**`webpack.config.js`**，这是打包工具**`webpack`**的配置文件，我们需要用它来配置一些选项。
+安装完成后，输入`code .`**，用vscode打开这个文件夹，新建一个文件**`webpack.config.js`**，这是打包工具**`webpack`的配置文件，我们需要用它来配置一些选项。
 
 具体选项和选项作用：https://www\.webpackjs\.com/
 
-然后TypeScript也需要一个配置文件，名字为**`tsconfig.json`**：https://www\.typescriptlang\.org/
+然后TypeScript也需要一个配置文件，名字为`tsconfig.json`：https://www\.typescriptlang\.org/
 
 进入这个包管理文件，写一个脚本命令，让webpack能够实时监视我们的目录变化，自动编译：
 
@@ -383,7 +383,7 @@ onEnter: function (args) {
 
     - `args[1]`：`jobject` 或 `jclass`，代表Java层调用这个Native方法的对象本身。
 
-    - `args[2]`：**真正的第一个业务参数**（比如你输入的密码字符串，在C层是个 `jstring` 指针）。
+    - `args[2]`：真正的第一个业务参数（比如你输入的密码字符串，在C层是个 `jstring` 指针）。
 
 - `Java.vm.getEnv().getStringUtfChars(...)`：这是极其经典的**JNI转换操作**。因为 `args[2]` 只是一个指针（代表Java字符串），C语言不认识。你需要通过JNI环境（`JNIEnv*`）调用它的方法，把它“翻译”成C语言能看懂的 `char*` 字符串。
 

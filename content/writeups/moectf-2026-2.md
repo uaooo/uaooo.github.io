@@ -17,7 +17,7 @@ showtoc = true
 
 flag:moectf\{PYC\_p1us\_QRc0dE\_M1ssing\_c0rN3r\}
 
-> 一道 Python 3\.10 **`.pyc`** 反编译** \+** 隐藏 QR 码的 CTF 题**。**flag 就藏在 QR 码里，但 QR 码被改造过 —— 三个 finder pattern 全是 7×7 实心黑块（不是标准 1:1:3:1:1 图案），format info 全部丢失。找到它需要先反编译 pyc，再从一堆混淆代码里挖出 base64 图像，接着手动把改造过的 QR 还原成能被标准解码器识别的样子。
+> 一道 Python 3\.10 **`.pyc` 反编译 \+ 隐藏 QR 码的 CTF 题**。flag 就藏在 QR 码里，但 QR 码被改造过 —— 三个 finder pattern 全是 7×7 实心黑块（不是标准 1:1:3:1:1 图案），format info 全部丢失。找到它需要先反编译 pyc，再从一堆混淆代码里挖出 base64 图像，接着手动把改造过的 QR 还原成能被标准解码器识别的样子。
 > 
 > 
 
@@ -492,7 +492,7 @@ flag:moectf\{Tre4t\_f4ncha1\_W1tH\_xxtea\_Wh4t\_A\_g00d\_Id3a\_HahaHAh4hAH4ha\}
 
 ![QQ\_1788333452637\.png](/images/moectf-2026-2/QQ_1788333452637.png)
 
-接着对其做一些复杂的运算 主要就是xxtea的魔改版 **本质上是在做一个对称加密 **这是主要逻辑处
+接着对其做一些复杂的运算 主要就是xxtea的魔改版 本质上是在做一个对称加密 这是主要逻辑处
 
 循环结束之后 将这16个整数拼成4组 分别对应v27 v26 v28 v29
 
@@ -554,7 +554,7 @@ unsigned char ida_chars[] =  //2060
 
 并且所有的 `+=` 都变成 `-=`，因为我们要撤销加密时的加法。
 
-**注意**：写脚本时**每一行末尾加上 **`& 0xFFFFFFFF` 保证 32 位溢出（因为 C 的 `unsigned int` 会自动截断）。
+**注意：写脚本时**每一行末尾加上 `& 0xFFFFFFFF` 保证 32 位溢出（因为 C 的 `unsigned int` 会自动截断）。
 
 ### Exp
 
