@@ -532,35 +532,38 @@ textarea:-webkit-autofill {
     color: var(--content);
 }
 
-/* 两列。720px 正文宽下每列约 350px，描述不容易被挤成很多行。 */
+/* 两列。参考那种「直接排在背景上」的做法：
+   不再给每项套一个带边框的盒子，文字和头像直接落位，
+   视觉上轻很多，也不会因为卡片高低不一显得乱。 */
 .friends-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-    margin: 0 0 1.5rem;
+    gap: 1.6rem 1.2rem;
+    margin: 1.6rem 0 1.2rem;
 }
 
 .friend-card {
     display: flex;
-    align-items: center;      /* 头像和文字垂直居中，高低不一时更整齐 */
+    align-items: center;
     gap: 0.9rem;
-    padding: 1rem 1.1rem;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--entry);
+    padding: 0;
+    border: none;
+    background: transparent;
     text-decoration: none;
-    transition: transform 0.15s ease, border-color 0.15s ease,
-                background 0.15s ease;
+    transition: transform 0.18s ease;
 }
 
-/* 头像：圆框，固定尺寸，文字换行时不会被压扁 */
+.friend-card:hover {
+    transform: translateY(-3px);
+}
+
+/* 头像是圆角方形，不是正圆 —— 和参考图一致 */
 .friend-avatar {
-    width: 56px;
-    height: 56px;
+    width: 62px;
+    height: 62px;
     flex-shrink: 0;
-    border-radius: 50%;
+    border-radius: 12px;
     object-fit: cover;
-    border: 1px solid var(--border);
     background: var(--code-bg);
 }
 
@@ -568,26 +571,19 @@ textarea:-webkit-autofill {
     min-width: 0;
 }
 
-.friend-card:hover {
-    border-color: var(--primary);
-    background: var(--code-bg);
-    transform: translateY(-2px);
-}
-
 .friend-name {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.12rem;
+    font-weight: 700;
     color: var(--primary);
     margin-bottom: 0.3rem;
 }
 
-/* 描述最多两行，超出省略：
-   防止长短不一的描述把卡片撑得高低参差。
-   同时去掉了原来那行 URL —— 名字本身就是链接，留着只是噪音。 */
+/* 描述最多两行，超出省略，防止长短不一显得参差 */
 .friend-desc {
-    font-size: 0.85rem;
-    line-height: 1.55;
+    font-size: 0.86rem;
+    line-height: 1.5;
     color: var(--content);
+    opacity: 0.75;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -903,12 +899,15 @@ textarea:-webkit-autofill {
     --code-bg: rgba(54, 61, 74, 0.66);
 }
 
-/* 透出来的背景必须糊掉，否则照片的花纹会干扰读代码 */
+/* 代码块不再用 backdrop-filter。
+   一篇文章动辄几十个代码块（unity 那篇 66 个），每个都实时模糊一次，
+   滚动时会明显掉帧 —— 这是「博客卡」的主因。
+   改成提高底色不透明度，观感接近，但完全不占 GPU。 */
 .md-content pre,
 .md-content .chroma,
 .md-content div.highlight {
-    backdrop-filter: blur(14px) saturate(1.2);
-    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 
@@ -1177,15 +1176,17 @@ textarea:-webkit-autofill {
     color: #24292f;              /* 代码块的默认文字色（深灰） */
 }
 
-/* 代码块底色再透一点：这个值越小，底下的背景照片越明显 */
+/* 代码块底色。
+   去掉毛玻璃之后，透明度不能再压这么低，否则文字会和底下的照片糊在一起。
+   0.88 基本不透明，只保留一点点环境色。 */
 :root {
-    --code-block-bg: rgba(236, 239, 244, 0.5);
-    --code-bg: rgba(230, 235, 242, 0.6);
+    --code-block-bg: rgba(236, 239, 244, 0.88);
+    --code-bg: rgba(230, 235, 242, 0.85);
 }
 
 :root[data-theme="dark"] {
-    --code-block-bg: rgba(46, 52, 64, 0.5);
-    --code-bg: rgba(54, 61, 74, 0.56);
+    --code-block-bg: rgba(46, 52, 64, 0.88);
+    --code-bg: rgba(54, 61, 74, 0.85);
 }
 
 
@@ -1272,8 +1273,8 @@ html[data-theme="dark"] .chroma .err {
    ========================================================== */
 :root[data-theme="dark"] {
     /* 代码块底色：46,52,64 -> 58,65,80 */
-    --code-block-bg: rgba(58, 65, 80, 0.5);
-    --code-bg: rgba(64, 72, 88, 0.56);
+    --code-block-bg: rgba(58, 65, 80, 0.88);
+    --code-bg: rgba(64, 72, 88, 0.85);
 }
 
 /* ----------------------------------------------------------
