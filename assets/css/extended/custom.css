@@ -363,6 +363,12 @@ textarea:-webkit-autofill {
     display: none;
 }
 
+/* 关键：JS 解除 hidden 之前，必须压住下面 @media 里的 display:block。
+   浏览器对 [hidden] 的默认样式优先级很低，不加 !important 会被覆盖。 */
+.tag-nav[hidden] {
+    display: none !important;
+}
+
 @media (min-width: 1280px) {
     .tag-nav {
         display: block;
