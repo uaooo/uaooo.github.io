@@ -962,7 +962,7 @@ textarea:-webkit-autofill {
     0% {
         opacity: 0;
         transform: scale(1.02);
-        filter: blur(0) brightness(1);
+        filter: brightness(1);
     }
 
     12% {
@@ -971,17 +971,20 @@ textarea:-webkit-autofill {
 
     28% {
         transform: scale(1.04);
-        filter: blur(0) brightness(1);
+        filter: brightness(1);
     }
 
+    /* 这里原本是 blur(12px) -> blur(18px) 的全屏模糊动画，
+       每次首访都要连续几秒实时重算整屏模糊，是「第一次打开很卡」的主要原因。
+       改成只压亮度：过渡效果接近，但几乎不占 GPU。 */
     70% {
-        transform: scale(1.1);
-        filter: blur(12px) brightness(0.55);
+        transform: scale(1.08);
+        filter: brightness(0.72);
     }
 
     100% {
-        transform: scale(1.16);
-        filter: blur(18px) brightness(0.4);
+        transform: scale(1.12);
+        filter: brightness(0.55);
     }
 }
 

@@ -1,0 +1,22 @@
+{{- /* 覆盖 PaperMod 的搜索索引模板。
+      ------------------------------------------------------------
+      主题原版把每篇文章的 .Plain（全文）原样塞进索引，
+      21 篇 writeup 加起来有 40 万字，JSON 足足 600KB。
+      浏览器每次打开页面都要下载并解析它，首屏会明显顿一下。
+
+      这里把正文截断到 800 字：
+        · 体积降到原来的十分之一左右
+        · 标题和摘要仍然是完整匹配的，搜索基本不受影响
+        · 正文前 800 字里的关键词也还能搜到
+      ============================================================ */}}
+{{- $.Scratch.Add "index" slice -}}
+{{- range site.RegularPages -}}
+    {{- if and (not .Params.searchHidden) (ne .Layout `archives`) (ne .Layout `search`) }}
+    {{- $.Scratch.Add "index" (dict
+            "title" .Title
+            "content" (truncate 800 .Plain)
+            "permalink" .Permalink
+            "summary" .Summary) -}}
+    {{- end }}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}
