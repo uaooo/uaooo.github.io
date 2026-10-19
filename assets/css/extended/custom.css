@@ -168,6 +168,16 @@ textarea:-webkit-autofill {
     margin-bottom: 1.1rem;
 }
 
+/* 首页名字下方的身份标识 */
+.home-role {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    opacity: 0.75;
+    margin: 0.15rem 0 0.6rem;
+}
+
 .home-avatar img {
     width: 120px;              /* 想改头像大小改这里，两行一起改 */
     height: 120px;

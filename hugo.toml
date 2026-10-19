@@ -10,7 +10,7 @@
 baseURL = "https://uaooo.github.io/"
 
 # TODO 2: 站点名（浏览器标签页和页头显示的名字）
-title = "SiO₂ · RE Notes"
+title = "SiO₂'s blog"
 
 theme = "PaperMod"
 
@@ -51,7 +51,7 @@ buildExpired = false
   # "全部文章"页不受上面限制，把所有文章按时间倒序汇总在一起
   ShowAllPagesInArchive = true
 
-  title = "SiO₂ · RE Notes"
+  title = "SiO₂'s blog"
   description = "CTF 逆向工程 writeup 与逆向技术笔记"
   keywords = ["CTF", "Reverse Engineering", "逆向", "Writeup", "安全"]
   author = "SiO₂"
