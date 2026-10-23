@@ -25,7 +25,7 @@ flag:moectf\{PYC\_p1us\_QRc0dE\_M1ssing\_c0rN3r\}
 
 [https://pylingual\.io/](https://pylingual.io/) 
 
-![ae61b58bc49ffa3a778a14c08a07d8f6\.png](/images/moectf-2026-2/ae61b58bc49ffa3a778a14c08a07d8f6.png)
+![ae61b58bc49ffa3a778a14c08a07d8f6\.png](/images/moectf-2026-2/ae61b58bc49ffa3a778a14c08a07d8f6.webp)
 
 ```Java
 IMAGE_BASE64 = '\niVBORw0KGgoAAAANSUhEUgAAAlsAAAJbCAYAAADTxVFxAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAHYcAAB2HAY/l8WUAAAGHaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49J++7vycgaWQ9J1c1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCc/Pg0KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyI…Qd5h7uQ0opX/LqSvfwHcY5lI+fEQEAKlK2AAAqUrYAACpStgAAKlK2AAAqUrYAACpStgAAKlK2AAAqUrYAACpStgAAKlK2AAAqUrYAACpStgAAKlK2AAAqUrYAACr60fd9n4c8nsViEfb7fR4P1jRNaJomjwc7HA5hvV7n8Sjb7TbM5/M8Huz9/T2klPJ4sMlkUvTvhxDCarUKT09P…czX0oP4d7mNJzaNv2y5pjp23bfNl/znd4lkqn9L3kZ0QAgIqULQCAipQtAICKlC0AgIqULQCAipQtAICKlC0AgIqULQCAipQtAICKlC0AgIqULQCAipQtAICKlC0AgIqULQCAin70fd/nIY9nsViE/X6fx4OllMLb21seM1LXdeF8PufxYLPZLEyn0zwe7Hw+h67r8viqNptN2Gw2eTxYjDG0bZvHo9z6PlziHObzeZhMJnk8WOk53IOmaULTNHk8WNd1Yblc5vEo2+02zOfzPH4ope+lz8/P8PHxkceD3cN9KDWfz8N2u83j4Xq+hRhjH0L460kp5UvyF259Dm3bflnz0SbGmG9rtO9wDm3b5svCX3Efbs/PiAAAFSlbAAAVKVsAABUpWwAAFSlbAAAVKVsAABUpWwAAFSlbAAAVKVsAABUpWwAAFSlbAAAVKVsAABUpWwAAFSlbAAAV/V8fKbAXjGbeBQAAAABJRU5ErkJggg==\n'
@@ -47,11 +47,11 @@ Step 4：解码得到 Flag
 
 https://www\.decompiler\.com/
 
-![QQ\_1788241503295\.png](/images/moectf-2026-2/QQ_1788241503295.png)
+![QQ\_1788241503295\.png](/images/moectf-2026-2/QQ_1788241503295.webp)
 
 download这个file 打开发现可以完整显示字符串
 
-![3e477e5204cc279a3fd6e19ca73ed61e\.png](/images/moectf-2026-2/3e477e5204cc279a3fd6e19ca73ed61e.png)
+![3e477e5204cc279a3fd6e19ca73ed61e\.png](/images/moectf-2026-2/3e477e5204cc279a3fd6e19ca73ed61e.webp)
 
 > `iVBORw0KG` 是 PNG 图片格式 的 Base64 编码特征头。这说明字符串解码后应该是一张图片。
 > 
@@ -76,7 +76,7 @@ with open('result.png', 'wb') as f:
 print("图片已保存为 result.png")
 ```
 
-![QQ\_1788246107757\.png](/images/moectf-2026-2/QQ_1788246107757.png)
+![QQ\_1788246107757\.png](/images/moectf-2026-2/QQ_1788246107757.webp)
 
 发现这个二维码根本扫不出来
 
@@ -201,7 +201,7 @@ print("✅ 修复后的二维码已保存为 fixed_qr.png")
 
 得到二维码
 
-![QQ\_1788246352532\.png](/images/moectf-2026-2/QQ_1788246352532.png)
+![QQ\_1788246352532\.png](/images/moectf-2026-2/QQ_1788246352532.webp)
 
 用标准qr解码器解码即可 
 
@@ -215,9 +215,9 @@ print("✅ 修复后的二维码已保存为 fixed_qr.png")
 upx -d C:\Users\hp\Downloads\chall9.3
 ```
 
-![a9c781d87c468a9d72ae7f990676f04d\.png](/images/moectf-2026-2/a9c781d87c468a9d72ae7f990676f04d.png)
+![a9c781d87c468a9d72ae7f990676f04d\.png](/images/moectf-2026-2/a9c781d87c468a9d72ae7f990676f04d.webp)
 
-![e4eaecfa2bc8664925e0cdfc06a105ee\.png](/images/moectf-2026-2/e4eaecfa2bc8664925e0cdfc06a105ee.png)
+![e4eaecfa2bc8664925e0cdfc06a105ee\.png](/images/moectf-2026-2/e4eaecfa2bc8664925e0cdfc06a105ee.webp)
 
 用upx脱壳居然失败了。！
 
@@ -227,7 +227,7 @@ upx -d C:\Users\hp\Downloads\chall9.3
 
 
 
-![QQ\_1787836041923\.png](/images/moectf-2026-2/QQ_1787836041923.png)
+![QQ\_1787836041923\.png](/images/moectf-2026-2/QQ_1787836041923.webp)
 
 
 
@@ -271,7 +271,7 @@ flag:moectf\{Ea5y\_4ndroiD\_Nativ3\}
 
 其实事实上没啥用。
 
-![4b7311cee46f24ff59ba6b6dbd662b6d\.png](/images/moectf-2026-2/4b7311cee46f24ff59ba6b6dbd662b6d.png)
+![4b7311cee46f24ff59ba6b6dbd662b6d\.png](/images/moectf-2026-2/4b7311cee46f24ff59ba6b6dbd662b6d.webp)
 
 ~~做这个题做了半天全怪我想完整学一遍安卓再回来做 结果啥也没学会脑子还变得更乱了。。我服了。~~
 
@@ -291,7 +291,7 @@ ls apk/lib/
 
 mainactivity
 
-![12fdf3aefaaae3d336550ba0e5519caa\.png](/images/moectf-2026-2/12fdf3aefaaae3d336550ba0e5519caa.png)
+![12fdf3aefaaae3d336550ba0e5519caa\.png](/images/moectf-2026-2/12fdf3aefaaae3d336550ba0e5519caa.webp)
 
 ```Java
 public class MainActivity extends Activity {
@@ -345,9 +345,9 @@ ghidra学了半天~~跟狗屎一样~~ 后面慢慢学吧。。
 
 问了ai居然两个用途真差不多。。
 
-![aa57370f532785448b80ea348d0e6e7f\.png](/images/moectf-2026-2/aa57370f532785448b80ea348d0e6e7f.png)
+![aa57370f532785448b80ea348d0e6e7f\.png](/images/moectf-2026-2/aa57370f532785448b80ea348d0e6e7f.webp)
 
-![36979390cf683c1ecd267c536366ccd9\.png](/images/moectf-2026-2/36979390cf683c1ecd267c536366ccd9.png)
+![36979390cf683c1ecd267c536366ccd9\.png](/images/moectf-2026-2/36979390cf683c1ecd267c536366ccd9.webp)
 
 submitInput与nativeQuote
 
@@ -367,15 +367,15 @@ submitInput与nativeQuote
 
 为什么重点函数要找 `process`
 
-![c77f04ab64ae72059ef54bbb73bab9df\.png](/images/moectf-2026-2/c77f04ab64ae72059ef54bbb73bab9df.png)
+![c77f04ab64ae72059ef54bbb73bab9df\.png](/images/moectf-2026-2/c77f04ab64ae72059ef54bbb73bab9df.webp)
 
 process中最后调用了vertify和prepare
 
-![QQ\_1787833133054\.png](/images/moectf-2026-2/QQ_1787833133054.png)
+![QQ\_1787833133054\.png](/images/moectf-2026-2/QQ_1787833133054.webp)
 
-![863042c2d9d7cbaf3d7c011f67a34caa\.png](/images/moectf-2026-2/863042c2d9d7cbaf3d7c011f67a34caa.png)
+![863042c2d9d7cbaf3d7c011f67a34caa\.png](/images/moectf-2026-2/863042c2d9d7cbaf3d7c011f67a34caa.webp)
 
-![c31fad81f60e0ba61360e4fb87a43fb4\.png](/images/moectf-2026-2/c31fad81f60e0ba61360e4fb87a43fb4.png)
+![c31fad81f60e0ba61360e4fb87a43fb4\.png](/images/moectf-2026-2/c31fad81f60e0ba61360e4fb87a43fb4.webp)
 
 ```Java
 unsigned char ida_chars[] =
@@ -388,9 +388,9 @@ unsigned char ida_chars[] =
 
 transform和compare
 
-![a56859ba79be05bd545fa1dc18816ee3\.png](/images/moectf-2026-2/a56859ba79be05bd545fa1dc18816ee3.png)
+![a56859ba79be05bd545fa1dc18816ee3\.png](/images/moectf-2026-2/a56859ba79be05bd545fa1dc18816ee3.webp)
 
-![d3babf5b0327beebcbade32def0fe1fc\.png](/images/moectf-2026-2/d3babf5b0327beebcbade32def0fe1fc.png)
+![d3babf5b0327beebcbade32def0fe1fc\.png](/images/moectf-2026-2/d3babf5b0327beebcbade32def0fe1fc.webp)
 
 ### 总结
 
@@ -478,19 +478,19 @@ print("Flag 是：", flag)
 
 - `r` 在等号左边（`String r =`），表示“函数执行完后，会吐出来一个结果，我用 `r` 这个盒子接住它”。
 
-![QQ\_1787740871581\.png](/images/moectf-2026-2/QQ_1787740871581.png)
+![QQ\_1787740871581\.png](/images/moectf-2026-2/QQ_1787740871581.webp)
 
 ## 请fanchai喝茶  
 
 flag:moectf\{Tre4t\_f4ncha1\_W1tH\_xxtea\_Wh4t\_A\_g00d\_Id3a\_HahaHAh4hAH4ha\}
 
-![QQ\_1788333180983\.png](/images/moectf-2026-2/QQ_1788333180983.png)
+![QQ\_1788333180983\.png](/images/moectf-2026-2/QQ_1788333180983.webp)
 
 进了主函数部分发现逻辑中有很多复杂的运算
 
 首先输入16个整数块
 
-![QQ\_1788333452637\.png](/images/moectf-2026-2/QQ_1788333452637.png)
+![QQ\_1788333452637\.png](/images/moectf-2026-2/QQ_1788333452637.webp)
 
 接着对其做一些复杂的运算 主要就是xxtea的魔改版 本质上是在做一个对称加密 这是主要逻辑处
 

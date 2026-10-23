@@ -9,19 +9,19 @@ showtoc = true
 
 ## Moectf wp
 
-![97bce42f957d2d5abd46891ce45e9198\.png](/images/moectf-2026-1/97bce42f957d2d5abd46891ce45e9198.png)
+![97bce42f957d2d5abd46891ce45e9198\.png](/images/moectf-2026-1/97bce42f957d2d5abd46891ce45e9198.webp)
 
 ### 入门指北
 
 这个指北好帅！
 
-![QQ\_1786975910499\.png](/images/moectf-2026-1/QQ_1786975910499.png)
+![QQ\_1786975910499\.png](/images/moectf-2026-1/QQ_1786975910499.webp)
 
 给新手玩的 有一点鸡肋 但是这个教学挺不错
 
-![75de6a71f2c2c18cf43724dca78d521e\.png](/images/moectf-2026-1/75de6a71f2c2c18cf43724dca78d521e.png)
+![75de6a71f2c2c18cf43724dca78d521e\.png](/images/moectf-2026-1/75de6a71f2c2c18cf43724dca78d521e.webp)
 
-![59b6caece1e9d1509544504ed42e201e\.png](/images/moectf-2026-1/59b6caece1e9d1509544504ed42e201e.png)
+![59b6caece1e9d1509544504ed42e201e\.png](/images/moectf-2026-1/59b6caece1e9d1509544504ed42e201e.webp)
 
 ### **Assembly**
 
@@ -154,7 +154,7 @@ correct!}
 
 判断走哪一条分支
 
-![3081ae17df0464cd612b23dbc218ee69\.png](/images/moectf-2026-1/3081ae17df0464cd612b23dbc218ee69.png)
+![3081ae17df0464cd612b23dbc218ee69\.png](/images/moectf-2026-1/3081ae17df0464cd612b23dbc218ee69.webp)
 
 第二段数据异或之后
 
@@ -241,9 +241,9 @@ flag:moectf\{OH\~Dyn4mic\!\}
 
 入门rc4
 
-![545548fceebd493228894d11b2a25926\.png](/images/moectf-2026-1/545548fceebd493228894d11b2a25926.png)
+![545548fceebd493228894d11b2a25926\.png](/images/moectf-2026-1/545548fceebd493228894d11b2a25926.webp)
 
-![QQ\_1787048364697\.png](/images/moectf-2026-1/QQ_1787048364697.png)
+![QQ\_1787048364697\.png](/images/moectf-2026-1/QQ_1787048364697.webp)
 
 g\_cipher
 
@@ -261,9 +261,9 @@ flag:moectf\{EaSy\_UPX\_anD\_Base58\}
 
 加壳 脱壳  这是一个 ELF64 文件，目标操作系统是 Linux（ABI 3\.2\.0）
 
-![QQ\_1787126747564\.png](/images/moectf-2026-1/QQ_1787126747564.png)
+![QQ\_1787126747564\.png](/images/moectf-2026-1/QQ_1787126747564.webp)
 
-![00a2127913534d3a85a4179c3cfaf5cd\.png](/images/moectf-2026-1/00a2127913534d3a85a4179c3cfaf5cd.png)
+![00a2127913534d3a85a4179c3cfaf5cd\.png](/images/moectf-2026-1/00a2127913534d3a85a4179c3cfaf5cd.webp)
 
 ```C
 n = 0;
@@ -338,15 +338,15 @@ assets/config.json        ← 应用配置
 
 
 
-![QQ\_1787135382217\.png](/images/moectf-2026-1/QQ_1787135382217.png)
+![QQ\_1787135382217\.png](/images/moectf-2026-1/QQ_1787135382217.webp)
 
 4 段 base64，散布在 APK 4 个不同位置，识别后顺序拼接：
 
 ### **请你喝茶**
 
-![56f100f3a75177a037b64535dc4770e6\.png](/images/moectf-2026-1/56f100f3a75177a037b64535dc4770e6.png)
+![56f100f3a75177a037b64535dc4770e6\.png](/images/moectf-2026-1/56f100f3a75177a037b64535dc4770e6.webp)
 
-![86a75a54de89dad2b83ea68f6cfe6d10\.png](/images/moectf-2026-1/86a75a54de89dad2b83ea68f6cfe6d10.png)
+![86a75a54de89dad2b83ea68f6cfe6d10\.png](/images/moectf-2026-1/86a75a54de89dad2b83ea68f6cfe6d10.webp)
 
 这个比赛特别适合初学者啊 甚至准备了一个解密脚本
 
@@ -364,9 +364,9 @@ unsigned char xtea_key[] =
 };
 ```
 
-![deb2e7b750f5dfa071a2c0945f267164\.png](/images/moectf-2026-1/deb2e7b750f5dfa071a2c0945f267164.png)
+![deb2e7b750f5dfa071a2c0945f267164\.png](/images/moectf-2026-1/deb2e7b750f5dfa071a2c0945f267164.webp)
 
-![658fb027107f3ecd94b6638b0b568c9d\.png](/images/moectf-2026-1/658fb027107f3ecd94b6638b0b568c9d.png)
+![658fb027107f3ecd94b6638b0b568c9d\.png](/images/moectf-2026-1/658fb027107f3ecd94b6638b0b568c9d.webp)
 
 tea和xtea的算法结合 组成flag
 
@@ -536,7 +536,7 @@ int main()
 
 flag:moectf\{Spe4K\_e@$y\_W07ds\}
 
-![47020bc3814b43c924b996caeb2a7c80\.png](/images/moectf-2026-1/47020bc3814b43c924b996caeb2a7c80.png)
+![47020bc3814b43c924b996caeb2a7c80\.png](/images/moectf-2026-1/47020bc3814b43c924b996caeb2a7c80.webp)
 
 一开始以为是两次base64解密（然后解出一坨乱码）
 
@@ -546,13 +546,13 @@ flag:moectf\{Spe4K\_e@$y\_W07ds\}
 
 #### 区分解码和字符替换
 
-![2557b31d36269dbd8a9e2700545c364a\.png](/images/moectf-2026-1/2557b31d36269dbd8a9e2700545c364a.png)
+![2557b31d36269dbd8a9e2700545c364a\.png](/images/moectf-2026-1/2557b31d36269dbd8a9e2700545c364a.webp)
 
-![c318f5b1c4b2a0ccee9748d4b902b461\.png](/images/moectf-2026-1/c318f5b1c4b2a0ccee9748d4b902b461.png)
+![c318f5b1c4b2a0ccee9748d4b902b461\.png](/images/moectf-2026-1/c318f5b1c4b2a0ccee9748d4b902b461.webp)
 
-![86a6af561c6e0e86926260895a5f6699\.png](/images/moectf-2026-1/86a6af561c6e0e86926260895a5f6699.png)
+![86a6af561c6e0e86926260895a5f6699\.png](/images/moectf-2026-1/86a6af561c6e0e86926260895a5f6699.webp)
 
-![3746fd8262cd81934251a3b0ae54c82f\.png](/images/moectf-2026-1/3746fd8262cd81934251a3b0ae54c82f.png)
+![3746fd8262cd81934251a3b0ae54c82f\.png](/images/moectf-2026-1/3746fd8262cd81934251a3b0ae54c82f.webp)
 
 程序做的事\(正向\):
 
@@ -696,7 +696,7 @@ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple black  #安装black
 black challenge.py
 ```
 
-![dfa646462066e627df4028bc0cf784aa\.png](/images/moectf-2026-1/dfa646462066e627df4028bc0cf784aa.png)
+![dfa646462066e627df4028bc0cf784aa\.png](/images/moectf-2026-1/dfa646462066e627df4028bc0cf784aa.webp)
 
 ##### Z3\-solver  SMT约束求解器
 
@@ -938,7 +938,7 @@ else:
 
 ### Tell Me No Lies
 
-![7c93b6d14503afe588cea5fc0864d5f9\.png](/images/moectf-2026-1/7c93b6d14503afe588cea5fc0864d5f9.png)
+![7c93b6d14503afe588cea5fc0864d5f9\.png](/images/moectf-2026-1/7c93b6d14503afe588cea5fc0864d5f9.webp)
 
 看起来考察的应该是反调试
 
@@ -968,9 +968,9 @@ __int64 __fastcall build_required_token(__int64 a1)
 }
 ```
 
-![ec517b19f32cac9afb7d96a3481ebc95\.png](/images/moectf-2026-1/ec517b19f32cac9afb7d96a3481ebc95.png)
+![ec517b19f32cac9afb7d96a3481ebc95\.png](/images/moectf-2026-1/ec517b19f32cac9afb7d96a3481ebc95.webp)
 
-![dd0ae21b1f020bb2d7ba41aae5dce746\.png](/images/moectf-2026-1/dd0ae21b1f020bb2d7ba41aae5dce746.png)
+![dd0ae21b1f020bb2d7ba41aae5dce746\.png](/images/moectf-2026-1/dd0ae21b1f020bb2d7ba41aae5dce746.webp)
 
 > 所以结论是：
 > 程序在数据段里预先存了 20 个“密文字节”（地址从 `0x402200` 开始），`build_required_token` 把它们逐一读出来，异或 `0x5A`，写入缓冲区 `s`。
@@ -1029,11 +1029,11 @@ const char *acquire_operator_token()
 
 然后apply
 
-![QQ\_1787488300328\.png](/images/moectf-2026-1/QQ_1787488300328.png)
+![QQ\_1787488300328\.png](/images/moectf-2026-1/QQ_1787488300328.webp)
 
-![c0c6cffea385833e206e8a52d6940310\.png](/images/moectf-2026-1/c0c6cffea385833e206e8a52d6940310.png)
+![c0c6cffea385833e206e8a52d6940310\.png](/images/moectf-2026-1/c0c6cffea385833e206e8a52d6940310.webp)
 
-![QQ\_1787488152481\.png](/images/moectf-2026-1/QQ_1787488152481.png)
+![QQ\_1787488152481\.png](/images/moectf-2026-1/QQ_1787488152481.webp)
 
 ```C
 cd /mnt/c/Users/hp/Downloads/
@@ -1047,11 +1047,11 @@ cd /mnt/c/Users/hp/Downloads/ && chmod +x chall10 && ./chall10
 
 输出为：
 
-![QQ\_1787488789406\.png](/images/moectf-2026-1/QQ_1787488789406.png)
+![QQ\_1787488789406\.png](/images/moectf-2026-1/QQ_1787488789406.webp)
 
 艾玛 忘了还有解密函数了
 
-![77210aa4c3c15bd138176b47648ce2e7\.png](/images/moectf-2026-1/77210aa4c3c15bd138176b47648ce2e7.png)
+![77210aa4c3c15bd138176b47648ce2e7\.png](/images/moectf-2026-1/77210aa4c3c15bd138176b47648ce2e7.webp)
 
 ```C++
 __int64 __fastcall self_driven_decrypt(unsigned int a1, unsigned int a2, __int64 *a3)
@@ -1091,7 +1091,7 @@ __int64 __fastcall self_driven_decrypt(unsigned int a1, unsigned int a2, __int64
 > 
 > 
 
-![a5ae7f3d1a6fc134e41c3b0be4619425\.png](/images/moectf-2026-1/a5ae7f3d1a6fc134e41c3b0be4619425.png)
+![a5ae7f3d1a6fc134e41c3b0be4619425\.png](/images/moectf-2026-1/a5ae7f3d1a6fc134e41c3b0be4619425.webp)
 
 **`a2`** 是主函数传进来的 **`v6`**（即 **`compare_operator_token`** 的返回值）。
 
@@ -1106,17 +1106,17 @@ a2试了很多种方法 一直报错
 
 最后选择将调用函数的一行改掉
 
-![83aba641b91c0a1ed7251ed08fb2c8b4\.png](/images/moectf-2026-1/83aba641b91c0a1ed7251ed08fb2c8b4.png)
+![83aba641b91c0a1ed7251ed08fb2c8b4\.png](/images/moectf-2026-1/83aba641b91c0a1ed7251ed08fb2c8b4.webp)
 
-![63cfef2016eb125f4e9c583a7f11173b\.png](/images/moectf-2026-1/63cfef2016eb125f4e9c583a7f11173b.png)
+![63cfef2016eb125f4e9c583a7f11173b\.png](/images/moectf-2026-1/63cfef2016eb125f4e9c583a7f11173b.webp)
 
-![6ca68160dee03b3450f69fe33f607f51\.png](/images/moectf-2026-1/6ca68160dee03b3450f69fe33f607f51.png)
+![6ca68160dee03b3450f69fe33f607f51\.png](/images/moectf-2026-1/6ca68160dee03b3450f69fe33f607f51.webp)
 
-![20c549adc00a8b22b189b1022bf84942\.png](/images/moectf-2026-1/20c549adc00a8b22b189b1022bf84942.png)
+![20c549adc00a8b22b189b1022bf84942\.png](/images/moectf-2026-1/20c549adc00a8b22b189b1022bf84942.webp)
 
 在WSL中运行 输出了flag
 
-![QQ\_1787491048253\.png](/images/moectf-2026-1/QQ_1787491048253.png)
+![QQ\_1787491048253\.png](/images/moectf-2026-1/QQ_1787491048253.webp)
 
 flag:moectf\{Wow\~h0w\_do\_Y0u\_f1nd\_IT?\}
 
@@ -1140,15 +1140,15 @@ flag:moectf\{Wow\~h0w\_do\_Y0u\_f1nd\_IT?\}
 
 问了ai
 
-![QQ\_1787498601170\.png](/images/moectf-2026-1/QQ_1787498601170.png)
+![QQ\_1787498601170\.png](/images/moectf-2026-1/QQ_1787498601170.webp)
 
-![QQ\_1787498633655\.png](/images/moectf-2026-1/QQ_1787498633655.png)
+![QQ\_1787498633655\.png](/images/moectf-2026-1/QQ_1787498633655.webp)
 
-![QQ\_1787498640341\.png](/images/moectf-2026-1/QQ_1787498640341.png)
+![QQ\_1787498640341\.png](/images/moectf-2026-1/QQ_1787498640341.webp)
 
 
 
-![4b7311cee46f24ff59ba6b6dbd662b6d\.png](/images/moectf-2026-1/4b7311cee46f24ff59ba6b6dbd662b6d.png)
+![4b7311cee46f24ff59ba6b6dbd662b6d\.png](/images/moectf-2026-1/4b7311cee46f24ff59ba6b6dbd662b6d.webp)
 
 
 
@@ -1198,7 +1198,7 @@ memset(s, 0, 128u);
 }
 ```
 
-![image\.png](/images/moectf-2026-1/image.png)
+![image\.png](/images/moectf-2026-1/image.webp)
 
 ### 安卓类题目
 

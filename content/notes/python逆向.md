@@ -87,11 +87,11 @@ test.py (成功还原源码！)
 
 安装的时候不勾选底部的add to path 这样就不会搞崩我们电脑的环境
 
-![](/images/python逆向/QQ_1789831710074.png)
+![](/images/python逆向/QQ_1789831710074.webp)
 
 ### PyInstaller（打包工具）
 
-![](/images/python逆向/image.png)
+![](/images/python逆向/image.webp)
 
 ### pyinstxtractor（拆包工具）
 
@@ -103,7 +103,7 @@ https://github\.com/extremecoders\-re/pyinstxtractor
 py -3.8 -m pip install uncompyle6
 ```
 
-![](/images/python逆向/QQ_1789873664131.png)
+![](/images/python逆向/QQ_1789873664131.webp)
 
 把刚才拆出来的 `.pyc`（字节码）翻译回最初写的 `.py`（源码）。
 
@@ -129,13 +129,13 @@ print("Hello CTF Reverse!")
 py -3.8 -m PyInstaller -F test.py
 ```
 
-![](/images/python逆向/QQ_1789870843246.png)
+![](/images/python逆向/QQ_1789870843246.webp)
 
-![](/images/python逆向/QQ_1789870863488.png)
+![](/images/python逆向/QQ_1789870863488.webp)
 
 dist文件夹之下就有了一个exe文件
 
-![](/images/python逆向/QQ_1789871054102.png)
+![](/images/python逆向/QQ_1789871054102.webp)
 
 这个就是pyinstaller将解释器和代码带包到一起的结果
 
@@ -157,22 +157,22 @@ dist文件夹之下就有了一个exe文件
 py -3.8 pyinstxtractor dist\test.exe
 ```
 
-![](/images/python逆向/QQ_1789872950855.png)
+![](/images/python逆向/QQ_1789872950855.webp)
 
-![](/images/python逆向/QQ_1789873085031.png)
+![](/images/python逆向/QQ_1789873085031.webp)
 
 ### 反编译
 
 双击进入 `test.exe_extracted` 文件夹。里面会有一堆 `.pyc` 和 `.pyd` 文件。
 而我们要找的是刚才工具提示的 `test.pyc`
 
-![](/images/python逆向/QQ_1789873196521.png)
+![](/images/python逆向/QQ_1789873196521.webp)
 
 ```C
 E:\reverse\Scripts\uncompyle6.exe test.exe_extracted\test.pyc
 ```
 
-![](/images/python逆向/QQ_1789874013732.png)
+![](/images/python逆向/QQ_1789874013732.webp)
 
 这样我们就通过反编译拿到了源码。
 
@@ -192,7 +192,7 @@ pyc文件一般由3个部分组成:
 
 为什么要有时间戳？
 
-![](/images/python逆向/QQ_1789886007713.png)
+![](/images/python逆向/QQ_1789886007713.webp)
 
 3. 序列化了的 PyCodeObject：此结构在 `Include/code.h` 内定义，序列化方法在 `Python/marshal.c` 内定义
 
@@ -208,9 +208,9 @@ pyc文件一般由3个部分组成:
 
 （所以ai真的是一个很好的工具 但是现在实在是发展的太快了 我感觉我毕业就没饭碗了。
 
-![](/images/python逆向/QQ_1789876376648.png)
+![](/images/python逆向/QQ_1789876376648.webp)
 
-![](/images/python逆向/QQ_1789876438197.png)
+![](/images/python逆向/QQ_1789876438197.webp)
 
 `PyCodeObject` 并不是“正在运行的代码”，而是“代码的蓝图/菜谱”。它本身不运行，它只是躺在内存里的一个数据结构。真正执行它的是 Python 虚拟机（PVM）。
 
@@ -304,7 +304,7 @@ print(importlib.util.MAGIC_NUMBER.hex())
 
 因此他才能通过修改魔数来混淆我们
 
-![](/images/python逆向/QQ_1789879871601.png)
+![](/images/python逆向/QQ_1789879871601.webp)
 
 ### xdis工具
 
@@ -316,7 +316,7 @@ print(importlib.util.MAGIC_NUMBER.hex())
 
 因此其实我们刚刚下载uncompyle的时候就已经顺带下载了xdis
 
-![](/images/python逆向/QQ_1789888292912.png)
+![](/images/python逆向/QQ_1789888292912.webp)
 
 作用：
 
@@ -483,7 +483,7 @@ Python的opcode与jump相关的有：
 
 首先先到010editor里面看一眼 确认文件开头是否有被篡改
 
-![](/images/python逆向/QQ_1789913537995.png)
+![](/images/python逆向/QQ_1789913537995.webp)
 
 1. 前 4 个字节（偏移 0x00 到 0x03）：`42 0D 0D 0A`
 
@@ -511,7 +511,7 @@ Python的opcode与jump相关的有：
 E:\reverse\Scripts\uncompyle6.exe ezpy.pyc
 ```
 
-![](/images/python逆向/QQ_1789914572858.png)
+![](/images/python逆向/QQ_1789914572858.webp)
 
 一开始没有看懂 然后问了一下AI 我去**RSA算法** 也是直接和数论梦幻联动了
 
@@ -560,9 +560,9 @@ print("解密出的原始字节：", m_bytes)
 print("Flag:", m_bytes.decode('utf-8'))
 ```
 
-![](/images/python逆向/QQ_1789914862843.png)
+![](/images/python逆向/QQ_1789914862843.webp)
 
-![](/images/python逆向/QQ_1789915322339.png)
+![](/images/python逆向/QQ_1789915322339.webp)
 
 Flag: flag\{IfYouWantItThenYouHaveToTakeIt\} 
 
@@ -572,7 +572,7 @@ Flag: flag\{IfYouWantItThenYouHaveToTakeIt\}
 
 先用 010 editor 看文件头
 
-![](/images/python逆向/QQ_1789915866766.png)
+![](/images/python逆向/QQ_1789915866766.webp)
 
 对照版本表
 
@@ -590,7 +590,7 @@ Flag: flag\{IfYouWantItThenYouHaveToTakeIt\}
 
 那么到了3\.10这个版本我们就需要用到在线反编译网站https://pylingual\.io/
 
-![](/images/python逆向/QQ_1789917282154.png)
+![](/images/python逆向/QQ_1789917282154.webp)
 
 源代码为：
 
@@ -679,7 +679,7 @@ for (int d = 0; d <= 8; d++) {
 py -3.8 -m pip install z3-solver
 ```
 
-![](/images/python逆向/QQ_1789919574866.png)
+![](/images/python逆向/QQ_1789919574866.webp)
 
 Exp
 
@@ -747,7 +747,7 @@ else:
 
 运行脚本为：
 
-![](/images/python逆向/QQ_1789919705244.png)
+![](/images/python逆向/QQ_1789919705244.webp)
 
 因此得到Flag：flag\{485f364e86a37859b4b9a7ed7c887983\} 
 
@@ -775,7 +775,7 @@ else:
 
 用 010 editor 打开，直接印证了我们的猜想
 
-![](/images/python逆向/QQ_1789920573457.png)
+![](/images/python逆向/QQ_1789920573457.webp)
 
 #### 解包
 
@@ -787,7 +787,7 @@ else:
 py -3.8 pyinstxtractor.py challenge.exe
 ```
 
-![](/images/python逆向/QQ_1789921076048.png)
+![](/images/python逆向/QQ_1789921076048.webp)
 
 日志解读：
 
@@ -797,7 +797,7 @@ py -3.8 pyinstxtractor.py challenge.exe
 
 3. Possible entry point: `main.pyc`：入口文件叫 `main.pyc`。
 
-![](/images/python逆向/QQ_1789921138565.png)
+![](/images/python逆向/QQ_1789921138565.webp)
 
 在文件夹中找到main\.py
 
@@ -805,7 +805,7 @@ py -3.8 pyinstxtractor.py challenge.exe
 
 [https://pylingual\.io/](https://pylingual.io/)
 
-![](/images/python逆向/QQ_1789921364928.png)
+![](/images/python逆向/QQ_1789921364928.webp)
 
 #### 源码
 
@@ -1035,7 +1035,7 @@ def printscord(self):
 py -3.8 -m PyInstaller.utils.cliutils.archive_viewer challenge.exe
 ```
 
-![](/images/python逆向/QQ_1789972804455.png)
+![](/images/python逆向/QQ_1789972804455.webp)
 
 最下面这个PYZ\.pyz就是之前那个没被提取出来的压缩包
 
@@ -1065,39 +1065,39 @@ py -3.8 -m PyInstaller.utils.cliutils.archive_viewer challenge.exe
 > 
 > 
 
-![](/images/python逆向/QQ_1789973627557.png)
+![](/images/python逆向/QQ_1789973627557.webp)
 
 找到了set
 
-![](/images/python逆向/eec1b046098addd29f2237815b54cd31.png)
+![](/images/python逆向/eec1b046098addd29f2237815b54cd31.webp)
 
 提取出来
 
-![](/images/python逆向/QQ_1789974073813.png)
+![](/images/python逆向/QQ_1789974073813.webp)
 
-![](/images/python逆向/QQ_1789974098437.png)
+![](/images/python逆向/QQ_1789974098437.webp)
 
 在线反编译网站拒绝反编译 原因是pylingual看到开头不是标准的 `A7 0D 0D 0A`（3\.11 的 Magic）
 
 因此我们直接用010在开头插入16个数字 再修改最开头的magic number
 
-![](/images/python逆向/QQ_1789974983784.png)
+![](/images/python逆向/QQ_1789974983784.webp)
 
 有时候反编译网站会发癫 我们换一个工具pyinstxtractor\_ng 来解包
 
 https://github\.com/pyinstxtractor/pyinstxtractor\-ng
 
-![](/images/python逆向/QQ_1789977226191.png)
+![](/images/python逆向/QQ_1789977226191.webp)
 
-![](/images/python逆向/QQ_1789978038269.png)
+![](/images/python逆向/QQ_1789978038269.webp)
 
 找到set\.pyc
 
-![](/images/python逆向/QQ_1789978111362.png)
+![](/images/python逆向/QQ_1789978111362.webp)
 
 反汇编
 
-![](/images/python逆向/QQ_1789978224595.png)
+![](/images/python逆向/QQ_1789978224595.webp)
 
 #### 源码
 

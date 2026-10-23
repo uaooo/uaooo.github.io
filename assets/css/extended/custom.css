@@ -12,7 +12,7 @@
     /* ---------- 背景照片 ----------
        换图：把图片丢进 static/images/，改下面这行的文件名即可。
        想换回默认渐变：把这里改回 none，并把 --bg-dim 改回 transparent。 */
-    --bg-photo: url("/images/bg.jpg");
+    --bg-photo: url("/images/bg.webp");
 
     /* 照片上方的遮罩。这是「背景清晰度」和「文字可读性」之间的总闸门：
        数值小 = 照片更清楚，但没卡片覆盖的文字（比如首页顶部）会变难读。 */
@@ -257,7 +257,10 @@ textarea:-webkit-autofill {
     .post-single details.toc {
         position: fixed;
         top: 96px;
-        right: max(16px, calc(50vw - 624px));
+        /* 目录放到正文左侧，和正文之间留 48px 空隙（原来贴得很近）。
+           left = 50vw - 正文半宽(360) - 目录宽(240) - 间距(48) */
+        left: max(16px, calc(50vw - 648px));
+        right: auto;
         width: var(--toc-width);
         max-height: calc(100vh - 140px);
         overflow-y: auto;
@@ -957,7 +960,7 @@ textarea:-webkit-autofill {
 .intro-bg {
     position: absolute;
     inset: -6%;
-    background-image: url("/images/intro.jpg");
+    background-image: url("/images/intro.webp");
     /* 不铺满：图片高度占屏幕的 72%，宽度按比例，
        四周用白色填满。这张插画本身是白底，
        留白和画面无缝衔接，看上去就是「小猫居中、四周留白」。 */

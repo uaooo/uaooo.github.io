@@ -55,13 +55,13 @@ https://www\.kucoding\.com/article/351\.html\#2
 
 之前浅浅学了一丢丢的安卓逆向 所以frida和adb安装了
 
-![QQ\_1788967968327\.png](/images/frida-hook/QQ_1788967968327.png)
+![QQ\_1788967968327\.png](/images/frida-hook/QQ_1788967968327.webp)
 
 安装一个逍遥模拟器
 
-![65e4f365c1a5a00866986eb1825dd429\.png](/images/frida-hook/65e4f365c1a5a00866986eb1825dd429.png)
+![65e4f365c1a5a00866986eb1825dd429\.png](/images/frida-hook/65e4f365c1a5a00866986eb1825dd429.webp)
 
-![QQ\_1789032963689\.png](/images/frida-hook/QQ_1789032963689.png)
+![QQ\_1789032963689\.png](/images/frida-hook/QQ_1789032963689.webp)
 
 到此即环境搭建完成
 
@@ -95,7 +95,7 @@ Node 附带了一个极其强大的工具叫 `npm`（Node Package Manager）。�
 **npm i @types/frida-gum**
 ```
 
-![QQ\_1789033648837\.png](/images/frida-hook/QQ_1789033648837.png)
+![QQ\_1789033648837\.png](/images/frida-hook/QQ_1789033648837.webp)
 
 js代码本身是没有类型提示的，很多时候看不到函数参数用起来很麻烦，所以我们还可以安装一下`TypeScript`**，它的使用与**`JavaScript`基本一样，但它有类型提示，用起来更加舒服。
 
@@ -105,7 +105,7 @@ npm i ts-loader typescript -D
 
 后面的`-D`意思是只在开发环境下使用它。
 
-![QQ\_1789033974546\.png](/images/frida-hook/QQ_1789033974546.png)
+![QQ\_1789033974546\.png](/images/frida-hook/QQ_1789033974546.webp)
 
 因为其工作原理是将**TypeScript**代码重新编译成为**JavaScript**代码，我们最终运行的依旧只能是js代码，所以最后的结果是不需要这两个包的。
 每次自己手动编译也很麻烦，所以还需要一个**webpack**工具，它可以将这一个过程自动化。
@@ -115,7 +115,7 @@ npm i ts-loader typescript -D
 npm i webpack webpack-cli -D
 ```
 
-![QQ\_1789034362455\.png](/images/frida-hook/QQ_1789034362455.png)
+![QQ\_1789034362455\.png](/images/frida-hook/QQ_1789034362455.webp)
 
 安装完成后，输入`code .`**，用vscode打开这个文件夹，新建一个文件**`webpack.config.js`**，这是打包工具**`webpack`的配置文件，我们需要用它来配置一些选项。
 
@@ -133,7 +133,7 @@ npm i webpack webpack-cli -D
 
 最后 我们的环境终于搭建好啦！！！！
 
-![QQ\_1789034847998\.png](/images/frida-hook/QQ_1789034847998.png)
+![QQ\_1789034847998\.png](/images/frida-hook/QQ_1789034847998.webp)
 
 总结：
 
@@ -249,15 +249,15 @@ adb forward tcp:27042 tcp:27042
 
 jadx反编译APK，定位目标类/方法：
 
-![image\.png](/images/frida-hook/image%202.png)
+![image\.png](/images/frida-hook/image%202.webp)
 
 选中相应的函数复制为frida片段
 
-![image\.png](/images/frida-hook/image.png)
+![image\.png](/images/frida-hook/image.webp)
 
 构造hook代码
 
-![image\.png](/images/frida-hook/image%201.png)
+![image\.png](/images/frida-hook/image%201.webp)
 
 frida注入脚本，观察日志/篡改返回值
 

@@ -14,7 +14,7 @@ showtoc = true
 
 找到main函数
 
-![](/images/SUSCTF-2026/QQ_1789969359644.png)
+![](/images/SUSCTF-2026/QQ_1789969359644.webp)
 
 看出'ctfreverse'是密钥 要找到这道题的secret
 
@@ -22,7 +22,7 @@ showtoc = true
 
 加密部分
 
-![](/images/SUSCTF-2026/QQ_1789969578485.png)
+![](/images/SUSCTF-2026/QQ_1789969578485.webp)
 
 - 密钥被循环使用
 
@@ -74,13 +74,13 @@ else
 
 看完加密函数 接下来我们就要找到v6这个字符 他是trans函数写出来的
 
-![](/images/SUSCTF-2026/QQ_1789970503562.png)
+![](/images/SUSCTF-2026/QQ_1789970503562.webp)
 
 这里有一个小陷阱 那个字符串只是全部的一部分 是ida自己取的名字
 
 真正的完整字符串是
 
-![](/images/SUSCTF-2026/QQ_1789970692525.png)
+![](/images/SUSCTF-2026/QQ_1789970692525.webp)
 
 ```C
 46783477204569726766653376752c20506a6367306869206b6720376c6720507
@@ -131,7 +131,7 @@ print("susctf{" + plaintext + "}")
 
 ### 分析
 
-![](/images/SUSCTF-2026/QQ_1790325916189.png)
+![](/images/SUSCTF-2026/QQ_1790325916189.webp)
 
 附件解压之后发现是一个jar文件
 
@@ -145,7 +145,7 @@ JAR 就是 Java Archive，本质是一个 ZIP 压缩包，只是里面通常装�
 
 CTF RE 的核心不在页面资源，而在 `.class` 字节码里。
 
-![](/images/SUSCTF-2026/QQ_1790326137134.png)
+![](/images/SUSCTF-2026/QQ_1790326137134.webp)
 
 跳转到jar文件所在的桌面位置
 
@@ -153,7 +153,7 @@ CTF RE 的核心不在页面资源，而在 `.class` 字节码里。
 cd /mnt/c/Users/hp/Desktop 
 ```
 
-![](/images/SUSCTF-2026/QQ_1790326539682.png)
+![](/images/SUSCTF-2026/QQ_1790326539682.webp)
 
 我们为后续的逆向操作准备一个专属的 Linux 工作目录，避开 Windows 挂载盘。
 
@@ -192,7 +192,7 @@ unzip -p yutu-mooncake-workshop.jar META-INF/MANIFEST.MF
 
 3. `unzip -p yutu-mooncake-workshop.jar META-INF/MANIFEST.MF`：把 JAR 包里的 `META-INF/MANIFEST.MF` 这个**文件的内容直接输出到屏幕**，不保存到磁盘。
 
-![](/images/SUSCTF-2026/QQ_1790326864235.png)
+![](/images/SUSCTF-2026/QQ_1790326864235.webp)
 
 ### 反编译
 
@@ -224,7 +224,7 @@ java -jar cfr.jar yutu-mooncake-workshop.jar --outputdir out
 
 含义：用 CFR 这个反编译工具，把 `yutu-mooncake-workshop.jar` 里面的 `.class` 字节码，还原成 `.java` 源代码，并输出到 `out` 文件夹里。
 
-![](/images/SUSCTF-2026/QQ_1790329425600.png)
+![](/images/SUSCTF-2026/QQ_1790329425600.webp)
 
 
 
@@ -236,7 +236,7 @@ ls out/ctf/mooncake
 
 - `out/ctf/mooncake`：刚才 CFR 输出的文件夹路径。
 
-![](/images/SUSCTF-2026/QQ_1790329656702.png)
+![](/images/SUSCTF-2026/QQ_1790329656702.webp)
 
 接下来 全局搜索可疑字符串
 
@@ -278,7 +278,7 @@ grep -RIn "SecretVault" out/ctf/mooncake
 
 看哪些文件引用了 `SecretVault`
 
-![](/images/SUSCTF-2026/QQ_1790331619057.png)
+![](/images/SUSCTF-2026/QQ_1790331619057.webp)
 
 信息：
 
@@ -300,7 +300,7 @@ grep -RIn "SecretVault" out/ctf/mooncake
 sed -n '22,30p' out/ctf/mooncake/SecretVault.java
 ```
 
-![](/images/SUSCTF-2026/QQ_1790336755322.png)
+![](/images/SUSCTF-2026/QQ_1790336755322.webp)
 
 #### d方法
 
@@ -312,7 +312,7 @@ sed -n '22,30p' out/ctf/mooncake/SecretVault.java
 sed -n '30,150p' out/ctf/mooncake/SecretVault.java
 ```
 
-![](/images/SUSCTF-2026/QQ_1790337011095.png)
+![](/images/SUSCTF-2026/QQ_1790337011095.webp)
 
 信息：
 
@@ -817,7 +817,7 @@ sudo apt install python3-pycryptodome
 > 
 > 
 
-![](/images/SUSCTF-2026/QQ_1790340078463.png)
+![](/images/SUSCTF-2026/QQ_1790340078463.webp)
 
 （因为第一次尝试的时候密码库下载了但是却提示no module 因此我们换为虚拟环境操作）
 
@@ -840,7 +840,7 @@ source myenv/bin/activate
 pip install pycryptodome
 ```
 
-![](/images/SUSCTF-2026/QQ_1790341144960.png)
+![](/images/SUSCTF-2026/QQ_1790341144960.webp)
 
 
 
@@ -961,7 +961,7 @@ print(d(1546352026))
 
 输出：
 
-![](/images/SUSCTF-2026/image.png)
+![](/images/SUSCTF-2026/image.webp)
 
 ## Flah
 
@@ -971,7 +971,7 @@ print(d(1546352026))
 
 定位到main函数
 
-![](/images/SUSCTF-2026/QQ_1790344763046.png)
+![](/images/SUSCTF-2026/QQ_1790344763046.webp)
 
 大致意思是先检验一下输入有没有flag或者FLAG 因此我们可以先试着运行一下
 
@@ -995,7 +995,7 @@ chmod +x flash
 ls -l flash
 ```
 
-![](/images/SUSCTF-2026/QQ_1790345766413.png)
+![](/images/SUSCTF-2026/QQ_1790345766413.webp)
 
 输出解析：
 
@@ -1024,15 +1024,15 @@ ls -l flash
 
 其实通过flash这个题目也可以猜测到 就是会把信息输出一闪而过
 
-![](/images/SUSCTF-2026/QQ_1790346715035.png)
+![](/images/SUSCTF-2026/QQ_1790346715035.webp)
 
-![](/images/SUSCTF-2026/QQ_1790346238221.png)
+![](/images/SUSCTF-2026/QQ_1790346238221.webp)
 
 接下来是邪修 好孩子不要学
 
 开启QQ录屏 在一闪而过的地方暂停（）
 
-![](/images/SUSCTF-2026/QQ_1790346776676.png)
+![](/images/SUSCTF-2026/QQ_1790346776676.webp)
 
 然后我们就拿到flag了：susctf\{Sett1ng\_br34kpoin7s\_is5\_usefUl\!\!\}
 
@@ -1058,17 +1058,17 @@ GDB：Linux 平台的调试器（用于 `.elf` 文件）。
 sudo apt install gdb
 ```
 
-![](/images/SUSCTF-2026/QQ_1790347875719.png)
+![](/images/SUSCTF-2026/QQ_1790347875719.webp)
 
 ```Bash
 gdb ./flash
 ```
 
-![](/images/SUSCTF-2026/QQ_1790348022537.png)
+![](/images/SUSCTF-2026/QQ_1790348022537.webp)
 
 到这里 我们就已经进入gdb 可以开始下断点了
 
-![](/images/SUSCTF-2026/QQ_1790348528157.png)
+![](/images/SUSCTF-2026/QQ_1790348528157.webp)
 
 理论上我们是写入start 这样就会在main函数开头下断点
 
@@ -1109,7 +1109,7 @@ b __libc_start_main
 > 
 > 
 
-![](/images/SUSCTF-2026/QQ_1790399641731.png)
+![](/images/SUSCTF-2026/QQ_1790399641731.webp)
 
 ```Bash
 c
@@ -1117,7 +1117,7 @@ c
 
 （Continue 继续运行，此时动态链接器会去加载 `libc`，然后 GDB 就会生效，成功在 `__libc_start_main` 停下）
 
-![](/images/SUSCTF-2026/QQ_1790399720339.png)
+![](/images/SUSCTF-2026/QQ_1790399720339.webp)
 
 此时我们就找到了main函数的地址
 
@@ -1137,7 +1137,7 @@ c
 
 此时程序会停在 `0x401979`
 
-![](/images/SUSCTF-2026/QQ_1790399876039.png)
+![](/images/SUSCTF-2026/QQ_1790399876039.webp)
 
 屏幕显示 `Breakpoint 2, 0x0000000000401979 in ?? ()`。
 
@@ -1172,7 +1172,7 @@ layout regs
 > 
 > 
 
-![](/images/SUSCTF-2026/QQ_1790400618175.png)
+![](/images/SUSCTF-2026/QQ_1790400618175.webp)
 
 看起来有一点小问题。~~我有一个边做题边写wp的坏习惯 所以我中途莫名换个思路都是常态~~
 
@@ -1184,7 +1184,7 @@ layout regs
 starti
 ```
 
-![](/images/SUSCTF-2026/QQ_1790412449607.png)
+![](/images/SUSCTF-2026/QQ_1790412449607.webp)
 
 ##### backtrace
 
@@ -1207,9 +1207,9 @@ starti
 
 跟刚刚一样下断点
 
-![](/images/SUSCTF-2026/QQ_1790413769808.png)
+![](/images/SUSCTF-2026/QQ_1790413769808.webp)
 
-![](/images/SUSCTF-2026/QQ_1790413817283.png)
+![](/images/SUSCTF-2026/QQ_1790413817283.webp)
 
 直接把main函数地址给出了 接下来继续下断点
 
@@ -1217,7 +1217,7 @@ starti
 b *0x401979
 ```
 
-![](/images/SUSCTF-2026/QQ_1790413920986.png)
+![](/images/SUSCTF-2026/QQ_1790413920986.webp)
 
 ##### 信息提取
 
@@ -1255,7 +1255,7 @@ b *0x401979
 
 - 等我们走到关键函数时，这里会显示我们输入的 `"flag"`。
 
-![](/images/SUSCTF-2026/6fa8eda743ec5717b6f15c38b7dcfabd.png)
+![](/images/SUSCTF-2026/6fa8eda743ec5717b6f15c38b7dcfabd.webp)
 
 由静态分析可知 目标是找到 `0x401A3C`（检查函数）和 `0x401897`（成功函数）
 
@@ -1263,9 +1263,9 @@ b *0x401979
 
 直到执行到关键位置是给两个函数下断点
 
-![](/images/SUSCTF-2026/QQ_1790415291440.png)
+![](/images/SUSCTF-2026/QQ_1790415291440.webp)
 
-![](/images/SUSCTF-2026/13ab7a9b7c4ee57b01cd565437da4ef4.png)
+![](/images/SUSCTF-2026/13ab7a9b7c4ee57b01cd565437da4ef4.webp)
 
 ```Plain Text
 x/20s 0x417cb0
@@ -1273,7 +1273,7 @@ x/20s 0x417cb0
 
 （从 `0x417cb0` 开始，连续打印 20 个字符串
 
-![](/images/SUSCTF-2026/QQ_1790416541309.png)
+![](/images/SUSCTF-2026/QQ_1790416541309.webp)
 
 最终flag：susctf\{Sett1ng\_br34kpoin7s\_is5\_usefUl\!\!\}
 
@@ -1289,21 +1289,21 @@ x/20s 0x417cb0
 > 
 > 
 
-![](/images/SUSCTF-2026/QQ_1790838671326.png)
+![](/images/SUSCTF-2026/QQ_1790838671326.webp)
 
 猜测是py逆向题
 
 解包
 
-![](/images/SUSCTF-2026/QQ_1790845578836.png)
+![](/images/SUSCTF-2026/QQ_1790845578836.webp)
 
-![](/images/SUSCTF-2026/QQ_1790845592809.png)
+![](/images/SUSCTF-2026/QQ_1790845592809.webp)
 
 这个是python3\.11编译的 很新 我们用在线反编译网站 https://pylingual\.io/
 
 并且知道`possible entry point`是`main.pyc`
 
-![](/images/SUSCTF-2026/QQ_1790860495359.png)
+![](/images/SUSCTF-2026/QQ_1790860495359.webp)
 
 ### 源代码
 
@@ -1404,7 +1404,7 @@ SM4 通常不会单独使用，而是**配合加密模式和填充方式**，你
 
 我们可以用在线工具 也可以用脚本
 
-![](/images/SUSCTF-2026/QQ_1790861741880.png)
+![](/images/SUSCTF-2026/QQ_1790861741880.webp)
 
 密码：xiaoming12345678
 
@@ -1416,9 +1416,9 @@ SM4 通常不会单独使用，而是**配合加密模式和填充方式**，你
 
 现在再给电脑装一个python 3\.11 不会有一天我把python所有版本都下下来了吧。。
 
-![](/images/SUSCTF-2026/QQ_1790864484149.png)
+![](/images/SUSCTF-2026/QQ_1790864484149.webp)
 
-![](/images/SUSCTF-2026/QQ_1790864596993.png)
+![](/images/SUSCTF-2026/QQ_1790864596993.webp)
 
 我们是怀疑sm4或者base64被魔改了
 
@@ -1426,7 +1426,7 @@ SM4 通常不会单独使用，而是**配合加密模式和填充方式**，你
 
 最后发现是base64有问题被魔改了
 
-![](/images/SUSCTF-2026/QQ_1790865578033.png)
+![](/images/SUSCTF-2026/QQ_1790865578033.webp)
 
 这个代码几百行人真能找到问题吗？\-\-插个问 我是复制给AI分析的
 
@@ -1518,7 +1518,7 @@ print("真正的新密码 (明文):", password)
 print("提交用的十六进制 (hex):", password.hex())
 ```
 
-![](/images/SUSCTF-2026/QQ_1790866066418.png)
+![](/images/SUSCTF-2026/QQ_1790866066418.webp)
 
 flag：susctf\{f8447ad0c797bd1f13d8098842a392a5\}
 
@@ -1538,7 +1538,7 @@ flag：susctf\{f8447ad0c797bd1f13d8098842a392a5\}
 chmod +x /mnt/c/Users/hp/Desktop/emoji
 ```
 
-![](/images/SUSCTF-2026/QQ_1790911709087.png)
+![](/images/SUSCTF-2026/QQ_1790911709087.webp)
 
 输出了一个 `Usage:`（用法说明），说明这个程序需要你传入参数才能工作。它要求两个参数：
 
@@ -1548,15 +1548,15 @@ chmod +x /mnt/c/Users/hp/Desktop/emoji
 
 接下来按照它的要求，提供输入和输出路径即可。
 
-![](/images/SUSCTF-2026/QQ_1790911759081.png)
+![](/images/SUSCTF-2026/QQ_1790911759081.webp)
 
-![](/images/SUSCTF-2026/QQ_1790911984232.png)
+![](/images/SUSCTF-2026/QQ_1790911984232.webp)
 
 搞不懂在干啥 应该是输入的文件通过这个程序进行了什么加密解密操作
 
 看看main
 
-![](/images/SUSCTF-2026/QQ_1790912065897.png)
+![](/images/SUSCTF-2026/QQ_1790912065897.webp)
 
 不管走哪一条分支都会报错？并且：
 
@@ -1598,7 +1598,7 @@ readelf -S emoji
 > 
 > 
 
-![](/images/SUSCTF-2026/QQ_1791272732555.png)
+![](/images/SUSCTF-2026/QQ_1791272732555.webp)
 
 首先通过这些自定义的`emo`，`oji`等自定义节表我们能肯定使用了自定义壳
 
@@ -1614,7 +1614,7 @@ cd ~
 ls -la
 ```
 
-![](/images/SUSCTF-2026/QQ_1791273120324.png)
+![](/images/SUSCTF-2026/QQ_1791273120324.webp)
 
 之前都只做过exe文件的动态脱壳 都是用scylla工具自动dump
 
@@ -1628,7 +1628,7 @@ ls -la
 
 在 Windows 里，如果程序在内存里解密了一个 DLL，然后调用 `LoadLibrary` 加载它，你可能会用 Frida 或者 Detours 去 Hook `LoadLibrary`，在它加载前把内存 Dump 出来。
 
-![](/images/SUSCTF-2026/30367f27cfff03bcd0f3f33f4327244e.png)
+![](/images/SUSCTF-2026/30367f27cfff03bcd0f3f33f4327244e.webp)
 
 由ida调用的函数可得，这个文件调用了fexecve 因此我们后面才能利用其来解题
 在 Linux 里，**这道题的壳调用的是 **`fexecve`** 去执行内存文件**。我们写的 `shim.c` 就是假的 `fexecve`。
@@ -1669,7 +1669,7 @@ man fexecve
 
 利用这个命令 我们能看到系统真正的fexecve参数名字等等 就能抄入我们钩子文件中假的fexecve
 
-![](/images/SUSCTF-2026/a0c1764f8903271dd8ff9a0d14342112.png)
+![](/images/SUSCTF-2026/a0c1764f8903271dd8ff9a0d14342112.webp)
 
 2. `static int (*real)(...) = NULL;`：
 定义一个函数指针，准备存真正的 `fexecve`。
@@ -1702,7 +1702,7 @@ man fexecve
 
 往终端写入钩子文件
 
-![](/images/SUSCTF-2026/QQ_1791274972454.png)
+![](/images/SUSCTF-2026/QQ_1791274972454.webp)
 
 1. 验证文件是否成功写入
 
@@ -1752,7 +1752,7 @@ int out = open("/tmp/stage2.bin", O_WRONLY|O_CREAT|O_TRUNC, 0755);
 
 把偷出来的内存文件，写到 `/tmp` 目录下，命名为 `stage2.bin`。
 
-![](/images/SUSCTF-2026/QQ_1791275234757.png)
+![](/images/SUSCTF-2026/QQ_1791275234757.webp)
 
 输出解读：
 
@@ -1778,7 +1778,7 @@ cp /tmp/stage2.bin /mnt/c/Users/hp/Desktop/
 
 main
 
-![](/images/SUSCTF-2026/QQ_1791276506569.png)
+![](/images/SUSCTF-2026/QQ_1791276506569.webp)
 
 - `sub_40186C`：解析命令行参数（`-i` 和 `-o`）。如果解析失败，就报 `error: ...` 并退出。
 
@@ -1790,7 +1790,7 @@ main
 
 #### 401562
 
-![](/images/SUSCTF-2026/image%201.png)
+![](/images/SUSCTF-2026/image%201.webp)
 
 ##### 伪代码分析
 
@@ -1852,7 +1852,7 @@ for (i = 0; i < size; i += 8LL) {     // 外层循环：每次跳 8 个字节，
 
 #### 40131E
 
-![](/images/SUSCTF-2026/QQ_1791277900636.png)
+![](/images/SUSCTF-2026/QQ_1791277900636.webp)
 
 很典型的TEA加密算法
 
@@ -2002,6 +2002,6 @@ cat > solve.py << 'EOF'
 python3 solve.py enc.txt
 ```
 
-![](/images/SUSCTF-2026/QQ_1791279040744.png)
+![](/images/SUSCTF-2026/QQ_1791279040744.webp)
 
 flag：susctf\{Woww\_You\_know\_unp4cking\!\!\!\_I\_am\_gl@d\_to\_see\_you\_solving\_these\_ch4llenges\_\&\_This\_is\_th3\_first\_journey\_7o\_learn\_reverse\_eng1neering\_and\_I\_wi5h\_y0u\_to\_keep\_your\_enthus1asm\_Best\_Wishes\_for\_you\_\&\_Later\_see\_you\_in\_master\_competitions\!\!\!\}

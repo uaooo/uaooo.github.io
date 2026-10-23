@@ -13,7 +13,7 @@ flag:
 
 HnuCTF\{marvelously\_\!\*you\_can\_understand\_the\_magic\_and\_interest\_of\_reverse\_engine\_and\_join\_us\*\!\!\}
 
-![b364bad4dd1d6876f6cffb1c9a6cd952\.png](/images/xiaosai/b364bad4dd1d6876f6cffb1c9a6cd952.png)
+![b364bad4dd1d6876f6cffb1c9a6cd952\.png](/images/xiaosai/b364bad4dd1d6876f6cffb1c9a6cd952.webp)
 
 1. 打印提示 `"=== Magic Lesson ==="` 和 `"Speak the correct incantation: "`
 
@@ -27,15 +27,15 @@ HnuCTF\{marvelously\_\!\*you\_can\_understand\_the\_magic\_and\_interest\_of\_re
 
 4. 如果验证通过（返回 1），则调用 `sub_401237()` 输出正确信息；否则输出 `"That incantation has no power."`。
 
-![f3d0d39a7fd812a84b0becbe7fe2d238\.png](/images/xiaosai/f3d0d39a7fd812a84b0becbe7fe2d238.png)
+![f3d0d39a7fd812a84b0becbe7fe2d238\.png](/images/xiaosai/f3d0d39a7fd812a84b0becbe7fe2d238.webp)
 
 
 
-![5e9d1bd9556d3cc7881ac4dee8806209\.png](/images/xiaosai/5e9d1bd9556d3cc7881ac4dee8806209.png)
+![5e9d1bd9556d3cc7881ac4dee8806209\.png](/images/xiaosai/5e9d1bd9556d3cc7881ac4dee8806209.webp)
 
 
 
-![93b2767e48e3f5e586e73299a624e37d\.png](/images/xiaosai/93b2767e48e3f5e586e73299a624e37d.png)
+![93b2767e48e3f5e586e73299a624e37d\.png](/images/xiaosai/93b2767e48e3f5e586e73299a624e37d.webp)
 
 ```C
 i + (input[i] ^ 0x5A) = byte_402020[i]
@@ -120,19 +120,19 @@ RC4加密：用密钥 `"rc4_xxtea_2026"` 对输入的29字节进行RC4流加密�
 
 借助了ai的力量 坑真的想不出
 
-![5901545c7768f179ad9f62f1a02ae6aa\.png](/images/xiaosai/5901545c7768f179ad9f62f1a02ae6aa.png)
+![5901545c7768f179ad9f62f1a02ae6aa\.png](/images/xiaosai/5901545c7768f179ad9f62f1a02ae6aa.webp)
 
-![8791d9243a15ab87b6394d185fb8c7ef\.png](/images/xiaosai/8791d9243a15ab87b6394d185fb8c7ef.png)
+![8791d9243a15ab87b6394d185fb8c7ef\.png](/images/xiaosai/8791d9243a15ab87b6394d185fb8c7ef.webp)
 
-![e85b2c0881a18d9885b7603bcc8067fd\.png](/images/xiaosai/e85b2c0881a18d9885b7603bcc8067fd.png)
+![e85b2c0881a18d9885b7603bcc8067fd\.png](/images/xiaosai/e85b2c0881a18d9885b7603bcc8067fd.webp)
 
-![a3e8b04acbf383ef10a0d653709f51f4\.png](/images/xiaosai/a3e8b04acbf383ef10a0d653709f51f4.png)
+![a3e8b04acbf383ef10a0d653709f51f4\.png](/images/xiaosai/a3e8b04acbf383ef10a0d653709f51f4.webp)
 
-![0e71aa534471c782677a5fe93e97ee28\.png](/images/xiaosai/0e71aa534471c782677a5fe93e97ee28.png)
+![0e71aa534471c782677a5fe93e97ee28\.png](/images/xiaosai/0e71aa534471c782677a5fe93e97ee28.webp)
 
 标准版用`sum += delta`且取数用`v[(i+1)%n]`，而本题汇编里把`sum`换成了`edi`，并且取数逻辑变了
 
-![fb139aeacfc96967281c0cc5ed76f9e6\.png](/images/xiaosai/fb139aeacfc96967281c0cc5ed76f9e6.png)
+![fb139aeacfc96967281c0cc5ed76f9e6\.png](/images/xiaosai/fb139aeacfc96967281c0cc5ed76f9e6.webp)
 
 ```Python
 for guess in range(256):
@@ -168,13 +168,13 @@ wsl upx -d /mnt/c/Users/hp/Downloads/095418_N@iLOn9 -o /mnt/c/Users/hp/Downloads
 
 main函数
 
-![c8bbf12d1c09a768d1f10c59d3e4a4ea\.png](/images/xiaosai/c8bbf12d1c09a768d1f10c59d3e4a4ea.png)
+![c8bbf12d1c09a768d1f10c59d3e4a4ea\.png](/images/xiaosai/c8bbf12d1c09a768d1f10c59d3e4a4ea.webp)
 
 看函数，以为是“哈希验证”
 
 哈希验证的特征：
 
-![5447453ac9cd82c09c231c094647c4be\.png](/images/xiaosai/5447453ac9cd82c09c231c094647c4be.png)
+![5447453ac9cd82c09c231c094647c4be\.png](/images/xiaosai/5447453ac9cd82c09c231c094647c4be.webp)
 
 1. 程序要求输入 24 个字符。
 
@@ -192,11 +192,11 @@ main函数
 > 
 > 
 
-![57ff67f891f5c87a8362258a4db0866b\.png](/images/xiaosai/57ff67f891f5c87a8362258a4db0866b.png)
+![57ff67f891f5c87a8362258a4db0866b\.png](/images/xiaosai/57ff67f891f5c87a8362258a4db0866b.webp)
 
 标红或是loc开头的函数 一般为不被调用的函数
 
-![116daaca58cc8b07aacec7ad89b5dfae\.png](/images/xiaosai/116daaca58cc8b07aacec7ad89b5dfae.png)
+![116daaca58cc8b07aacec7ad89b5dfae\.png](/images/xiaosai/116daaca58cc8b07aacec7ad89b5dfae.webp)
 
 刚好24个函数对应上了
 
@@ -263,35 +263,35 @@ flag: flag\{jieyuan\_archive\_weave\_solved\}
 
 之前未涉足二进制的领地 因此借助ai学习
 
-![0c7e09c97d635ab3735b6ae95b3c03db\.png](/images/xiaosai/0c7e09c97d635ab3735b6ae95b3c03db.png)
+![0c7e09c97d635ab3735b6ae95b3c03db\.png](/images/xiaosai/0c7e09c97d635ab3735b6ae95b3c03db.webp)
 
-![11868d9d9d7e306d3cdd1c92c73d61de\.png](/images/xiaosai/11868d9d9d7e306d3cdd1c92c73d61de.png)
+![11868d9d9d7e306d3cdd1c92c73d61de\.png](/images/xiaosai/11868d9d9d7e306d3cdd1c92c73d61de.webp)
 
-![381503d0d86ce9ef5d27091ab7f510aa\.png](/images/xiaosai/381503d0d86ce9ef5d27091ab7f510aa.png)
+![381503d0d86ce9ef5d27091ab7f510aa\.png](/images/xiaosai/381503d0d86ce9ef5d27091ab7f510aa.webp)
 
-![8d5a3e1084026bfb341c477a96261ae3\.png](/images/xiaosai/8d5a3e1084026bfb341c477a96261ae3.png)
+![8d5a3e1084026bfb341c477a96261ae3\.png](/images/xiaosai/8d5a3e1084026bfb341c477a96261ae3.webp)
 
-![6b4553d0fdfa5cfb1aba672a8259600c\.png](/images/xiaosai/6b4553d0fdfa5cfb1aba672a8259600c.png)
+![6b4553d0fdfa5cfb1aba672a8259600c\.png](/images/xiaosai/6b4553d0fdfa5cfb1aba672a8259600c.webp)
 
-![263b5729ff0c2feb10f61ae7abecd2c3\.png](/images/xiaosai/263b5729ff0c2feb10f61ae7abecd2c3.png)
+![263b5729ff0c2feb10f61ae7abecd2c3\.png](/images/xiaosai/263b5729ff0c2feb10f61ae7abecd2c3.webp)
 
-![5e4e42b98342888ea61f1476e905b7da\.png](/images/xiaosai/5e4e42b98342888ea61f1476e905b7da.png)
+![5e4e42b98342888ea61f1476e905b7da\.png](/images/xiaosai/5e4e42b98342888ea61f1476e905b7da.webp)
 
-![03cc2d4bc74f41583fde07f2257eadb2\.png](/images/xiaosai/03cc2d4bc74f41583fde07f2257eadb2.png)
+![03cc2d4bc74f41583fde07f2257eadb2\.png](/images/xiaosai/03cc2d4bc74f41583fde07f2257eadb2.webp)
 
 ### 符号
 
-![79c987b209f61b8b78a3787c03177084\.png](/images/xiaosai/79c987b209f61b8b78a3787c03177084.png)
+![79c987b209f61b8b78a3787c03177084\.png](/images/xiaosai/79c987b209f61b8b78a3787c03177084.webp)
 
-![e0ea242ccab1488c7e1613992422c2c8\.png](/images/xiaosai/e0ea242ccab1488c7e1613992422c2c8.png)
+![e0ea242ccab1488c7e1613992422c2c8\.png](/images/xiaosai/e0ea242ccab1488c7e1613992422c2c8.webp)
 
-![a2b16e78976e10b14fd279e51c132b1f\.png](/images/xiaosai/a2b16e78976e10b14fd279e51c132b1f.png)
+![a2b16e78976e10b14fd279e51c132b1f\.png](/images/xiaosai/a2b16e78976e10b14fd279e51c132b1f.webp)
 
 ### 梳理
 
-![QQ\_1785572485493\.png](/images/xiaosai/QQ_1785572485493.png)
+![QQ\_1785572485493\.png](/images/xiaosai/QQ_1785572485493.webp)
 
-![165a553dc3dec9bbb1c2c05d0c902226\.png](/images/xiaosai/165a553dc3dec9bbb1c2c05d0c902226.png)
+![165a553dc3dec9bbb1c2c05d0c902226\.png](/images/xiaosai/165a553dc3dec9bbb1c2c05d0c902226.webp)
 
 ```Python
 # 直接从 IDA 中提取的 34 字节密文

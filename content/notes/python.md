@@ -1214,7 +1214,7 @@ os.system("ls -l")
 
 #### try/except
 
-![](/images/python/QQ_1791865541488.png)
+![](/images/python/QQ_1791865541488.webp)
 
 Eg\.
 
@@ -1268,7 +1268,7 @@ except:
 
 else 子句将在 try 子句没有发生任何异常的时候执行。
 
-![](/images/python/QQ_1791865776560.png)
+![](/images/python/QQ_1791865776560.webp)
 
 Eg\.
 
@@ -1289,7 +1289,7 @@ for arg in sys.argv[1:]:
 
 try\-finally 语句无论是否发生异常都将执行最后的代码。
 
-![](/images/python/QQ_1791865871471.png)
+![](/images/python/QQ_1791865871471.webp)
 
 Eg\.
 

@@ -30,7 +30,7 @@ memcmp的返回值没有被if、while、return或任何变量修改，只是被�
 
 因此我们重点是放在另一个函数中 sub17D0：
 
-![QQ\_1789052746687\.png](/images/hdctf/QQ_1789052746687.png)
+![QQ\_1789052746687\.png](/images/hdctf/QQ_1789052746687.webp)
 
 通过这中间的v10是固定常数 锁定出这道应该是一个tea 且是一个xxtea
 
@@ -110,13 +110,13 @@ flag:HDCTF\{7h3\_w31gh75\_0f\_7ru7h\_4r3\_n07\_4lw4y5\_3qu4l\}
 
 通过字符串锁定到主函数处
 
-![QQ\_1789225683056\.png](/images/hdctf/QQ_1789225683056.png)
+![QQ\_1789225683056\.png](/images/hdctf/QQ_1789225683056.webp)
 
 ##### 分析伪代码
 
 主函数
 
-![QQ\_1789226102183\.png](/images/hdctf/QQ_1789226102183.png)
+![QQ\_1789226102183\.png](/images/hdctf/QQ_1789226102183.webp)
 
 ```Python
 EXPECTED_OUT2 = [0x0b, 0x3a, 0xcc, 0xb2, 0xdf, 0xbe, 0x9a, 0x9e, 0x40, 0xb8, 0x13, 0x2f, 0x25, 0x12, 0x17, 0xf6]
@@ -386,9 +386,9 @@ console.log('\n[*] 就绪');
 
 发现还是绕不过 
 
-![b254b1e1cc7cf7c52740e8021ae9ceda\.png](/images/hdctf/b254b1e1cc7cf7c52740e8021ae9ceda.png)
+![b254b1e1cc7cf7c52740e8021ae9ceda\.png](/images/hdctf/b254b1e1cc7cf7c52740e8021ae9ceda.webp)
 
-![1236de277439f977332f70f094d5290f\.png](/images/hdctf/1236de277439f977332f70f094d5290f.png)
+![1236de277439f977332f70f094d5290f\.png](/images/hdctf/1236de277439f977332f70f094d5290f.webp)
 
 这里的看广告复活实际上是没用的 这个问卷只是一个摆设而已 没用填对填错的说法
 
@@ -408,11 +408,11 @@ CAP = {};
 
 最后的问卷随便填写 直接拿到flag
 
-![6c343797968b91650c52befcf76c575c\.png](/images/hdctf/6c343797968b91650c52befcf76c575c.png)
+![6c343797968b91650c52befcf76c575c\.png](/images/hdctf/6c343797968b91650c52befcf76c575c.webp)
 
-![QQ\_1789219729549\.png](/images/hdctf/QQ_1789219729549.png)
+![QQ\_1789219729549\.png](/images/hdctf/QQ_1789219729549.webp)
 
-![65320ef0fbb8c25ddaef0aa8c79d6cec\.png](/images/hdctf/65320ef0fbb8c25ddaef0aa8c79d6cec.png)
+![65320ef0fbb8c25ddaef0aa8c79d6cec\.png](/images/hdctf/65320ef0fbb8c25ddaef0aa8c79d6cec.webp)
 
 #### **菲比的破碎解释器**
 
@@ -420,9 +420,9 @@ flag：HDCTF\{feibi\_feibijiubi\_miao\!\}
 
 一开始找不到main函数 通过字符串找到 correct 等等的字符串
 
-![QQ\_1789198374683\.png](/images/hdctf/QQ_1789198374683.png)
+![QQ\_1789198374683\.png](/images/hdctf/QQ_1789198374683.webp)
 
-![QQ\_1789198428280\.png](/images/hdctf/QQ_1789198428280.png)
+![QQ\_1789198428280\.png](/images/hdctf/QQ_1789198428280.webp)
 
 看出1440是主函数
 
@@ -648,7 +648,7 @@ flag:HDCTF\{Zh3n\_Sh1\_zako\_zako\_\!\!\!\}
 
 题目本体是一个伪装成「三件事」待办 App（`ThreeThingsApp` / `MainActivity` / Room 数据库）的广告马甲包，真正的校验逻辑藏在 **`SettingsActivity`** 点击进入的隐藏 Activity `TideRelayActivity`里，类名与 `TideRelayActivity.kt` 同源（`RiftGate.smali` 的 `.source` 也是 `TideRelayActivity.kt`）。
 
-![QQ\_1789202254442\.png](/images/hdctf/QQ_1789202254442.png)
+![QQ\_1789202254442\.png](/images/hdctf/QQ_1789202254442.webp)
 
 ##### 地图
 
@@ -898,7 +898,7 @@ https://www\.zzzmode\.com/mytools/charles/ 破解网站
 
 感觉这道题也很有意思！
 
-![QQ\_1789270795163\.png](/images/hdctf/QQ_1789270795163.png)
+![QQ\_1789270795163\.png](/images/hdctf/QQ_1789270795163.webp)
 
 ### MISC
 
@@ -912,7 +912,7 @@ SERDVEZ7VzNsYzBtZV90MF9IRENURl8yMDI2X0x1Y2t5X0QwZyEhIX0=
 
 猜base64解码：
 
-![78e904ac2c3354cabcd003e0a248db2f\.png](/images/hdctf/78e904ac2c3354cabcd003e0a248db2f.png)
+![78e904ac2c3354cabcd003e0a248db2f\.png](/images/hdctf/78e904ac2c3354cabcd003e0a248db2f.webp)
 
 flag:HDCTF\{W3lc0me\_t0\_HDCTF\_2026\_Lucky\_D0g\!\!\!\}
 
@@ -938,11 +938,11 @@ flag:HDCTF\{W3lc0me\_t0\_HDCTF\_2026\_Lucky\_D0g\!\!\!\}
 
 找到word/document\.xml 发现了一点小彩蛋
 
-![QQ\_1789265848527\.png](/images/hdctf/QQ_1789265848527.png)
+![QQ\_1789265848527\.png](/images/hdctf/QQ_1789265848527.webp)
 
 根据题目描述 有个署名 查exif 用 **exiftool**
 
-![83e1327dc90c5e00d59bb6f1e1b85cf4\.png](/images/hdctf/83e1327dc90c5e00d59bb6f1e1b85cf4.png)
+![83e1327dc90c5e00d59bb6f1e1b85cf4\.png](/images/hdctf/83e1327dc90c5e00d59bb6f1e1b85cf4.webp)
 
 解密emoji需要密码 靠猜  
 

@@ -112,13 +112,13 @@ DNSpy 是最强大的工具之一，它能够深入解析\.NET 二进制代码�
 
 https://github\.com/dnSpyEx/dnSpy
 
-![](/images/unity逆向/QQ_1791432950864.png)
+![](/images/unity逆向/QQ_1791432950864.webp)
 
 #### 功能和使用★★★
 
 dnSpy 主要用于交互式调试。当代码在眼前时，你可以点击任何行左边的位置来设置断点。然后按下 
 
-![](/images/unity逆向/qUpIqmV2.png)
+![](/images/unity逆向/qUpIqmV2.webp)
 
 按钮，就可以运行程序，并**在设定的断点处暂停**，以检查当前的状态。在底部面板中，你会看到“局部变量”和“调用栈”选项，可以查看当前正在使用的变量和函数。
 
@@ -216,7 +216,7 @@ Mono 打包方式逆向比较简单，其**核心代码都在 **`game/assets/bin
 
 当我们拿到一个 Unity 游戏时，首先要判断它是 Mono 打包还是 IL2CPP 打包，判断方法很简单：如果在游戏目录下的 **`Data/Managed`** 文件夹中能找到 **`Assembly-CSharp.dll`** 文件，那就是 Mono 打包；如果在游戏目录下能找到一个很大的 **`GameAssembly.dll`** 文件以及 **`Data/il2cpp_data`** 文件夹，那就是 IL2CPP 打包。
 
-![](/images/unity逆向/image%202.png)
+![](/images/unity逆向/image%202.webp)
 
 
 
@@ -244,7 +244,7 @@ Mono 打包的游戏文件结构通常如下：游戏根目录下有一个 `Data
 
 IL2CPP 的工作原理是将 C\# 代码编译成 IL 中间语言后，再通过 IL2CPP 工具将 IL 代码转换为 C\+\+ 代码，最后使用平台对应的 C\+\+ 编译器将 C\+\+ 代码编译成机器码。这个过程相比 Mono 的 JIT（Just\-In\-Time）编译方式有几个明显的优势：首先是性能提升，因为代码是提前编译成机器码的，运行时不需要 JIT 编译，所以执行效率更高；其次是安全性提升，因为代码已经被编译成机器码，逆向难度大大增加，不像 Mono 那样可以直接反编译成源码；最后是平台兼容性更好，因为 IL2CPP 可以将代码编译成各个平台的原生代码，不需要依赖 Mono 运行时。
 
-![](/images/unity逆向/image%205.png)
+![](/images/unity逆向/image%205.webp)
 
 从逆向的角度来看，IL2CPP 打包的游戏主要有两个特征文件：一个是 **`GameAssembly.dll`**（Windows 平台）或 **`libil2cpp.so`**（Android/Linux 平台），这个文件包含了游戏的所有机器码，体积通常比较大；另一个是 **`global-metadata.dat`** 文件，位于 **`Data/il2cpp_data/Metadata`** 目录下，这个文件包含了**游戏的元数据信息，包括类名、方法名、字符串常量等**。虽然代码已经被编译成机器码，但是 Unity 为了支持反射等功能，必须保留这些元数据信息，这就给我们的逆向分析提供了突破口。
 
@@ -260,7 +260,7 @@ Il2CppDumper 是一个开源的 IL2CPP 逆向工具，
 
 这个工具可以从 **`GameAssembly.dll`** 和 **`global-metadata.dat`** 文件中提取出游戏的**符号信息**，包括类名、方法名、字段名、字符串常量等，然后生成可以导入 IDA、Ghidra 等反汇编工具的脚本文件。Il2CppDumper 的工作原理是解析 `global-metadata.dat` 文件获取元数据信息，然后分析 `GameAssembly.dll` 文件找到对应的函数地址，最后将元数据和地址信息关联起来生成输出文件。这个工具是 IL2CPP 逆向的必备工具，几乎所有的 IL2CPP 逆向工作都需要先使用 Il2CppDumper 提取符号信息。
 
-![](/images/unity逆向/image%203.png)
+![](/images/unity逆向/image%203.webp)
 
 Il2CppDumper 的使用非常简单，直接运行 `Il2CppDumper.exe` 并依次选择 IL2CPP 的可执行文件（`GameAssembly.dll`）和 `global-metadata.dat` 文件，然后根据提示输入相应信息即可。程序会首先提示选择模式，通常有自动模式（Auto）、手动模式（Manual）和自动加强模式（Auto\(Advanced\)）等选项。自动模式会尝试自动识别平台和架构，适用于大多数情况；手动模式需要用户手动选择平台、架构、Unity 版本等信息，适用于自动识别失败的情况；自动加强模式会使用更复杂的算法来识别，但可能需要更长的时间。对于常见的 Windows x64 游戏，选择自动模式即可。
 
@@ -316,7 +316,7 @@ Il2CppDumper 的使用非常简单，直接运行 `Il2CppDumper.exe` 并依次�
 
 虽然 IL2CPP 将代码编译成了机器码，但是 CE（Cheat Engine）工具仍然可以用于动态分析 IL2CPP 游戏。CE 是一个功能强大的**内存编辑和调试**工具，最初是为游戏修改而设计的，但在逆向工程中也有广泛的应用。CE 的 Mono 功能虽然**主要针对 Mono 游戏，可以直接查看和修改 Mono 对象、调用 Mono 方法，但是对于 IL2CPP 游戏，我们仍然可以使用 CE 的内存搜索和修改功能**。通过 CE 附加到游戏进程，我们可以**搜索和修改游戏中的变量值，比如金币数量、血量、经验值、物品数量等**。虽然我们看不到像 Mono 游戏那样清晰的类结构和对象层次，但是通过内存搜索仍然可以找到关键数据的位置。
 
-![](/images/unity逆向/QQ_1792037828130.png)
+![](/images/unity逆向/QQ_1792037828130.webp)
 
 CE 的**内存搜索**功能非常强大，支持多种数据类型（整数、浮点数、字符串、字节数组等）和搜索方式（精确值、未知初始值、增加了、减少了等）。对于 IL2CPP 游戏，最常用的搜索方式是精确值搜索和变化值搜索。精确值搜索适用于我们知道变量当前值的情况，比如游戏界面显示金币数量为 100，我们就可以搜索值为 100 的内存地址。变化值搜索适用于我们不知道变量具体值但知道变化规律的情况，比如我们知道某个操作会使某个值增加，就可以使用"增加了"搜索来筛选地址。通过多次搜索和筛选，我们通常可以将候选地址缩小到几个甚至一个，然后就可以修改这个地址的值来改变游戏行为。
 
@@ -346,7 +346,7 @@ https://www\.nssctf\.cn/problem/7087
 
 ##### 方法一找明文
 
-![](/images/unity逆向/4e466c1d6436f1cbdd99ca54ef115786.png)
+![](/images/unity逆向/4e466c1d6436f1cbdd99ca54ef115786.webp)
 
 发现文件有`Assembly-Csharp.dll` 从而确定是JIT编译方式 Mono方式
 
@@ -356,7 +356,7 @@ https://www\.nssctf\.cn/problem/7087
 
 发现其实慢就是快啊 欲速则不达。（又在感悟什么
 
-![](/images/unity逆向/QQ_1792036903055.png)
+![](/images/unity逆向/QQ_1792036903055.webp)
 
 看到这个showanswer的函数显示了flag明文：\_reverse\_unity\} 应该是flag的后半段
 
@@ -376,7 +376,7 @@ https://www\.nssctf\.cn/problem/7087
 
 在这个`.dll`文件中找不到flag前半段 看了别人的wp说是要在data文件夹里找
 
-![](/images/unity逆向/QQ_1792117276335.png)
+![](/images/unity逆向/QQ_1792117276335.webp)
 
 `fire_bird_Data` 是Unity游戏的**标准数据文件夹**
 
@@ -392,7 +392,7 @@ https://www\.nssctf\.cn/problem/7087
 
 我们在`level0`文件中发现了端倪
 
-![](/images/unity逆向/QQ_1792119509749.png)
+![](/images/unity逆向/QQ_1792119509749.webp)
 
 因此拼接之后的flag为：NSSCTF\{y0u\_kn0w\_reverse\_unity\}
 
@@ -412,13 +412,13 @@ https://www\.nssctf\.cn/problem/7087
 
 打开之后
 
-![](/images/unity逆向/QQ_1792121673438.png)
+![](/images/unity逆向/QQ_1792121673438.webp)
 
 让它加载bird中data这个文件夹
 
-![](/images/unity逆向/image%206.png)
+![](/images/unity逆向/image%206.webp)
 
-![](/images/unity逆向/QQ_1792122594932.png)
+![](/images/unity逆向/QQ_1792122594932.webp)
 
 > `Export Unity Project`（导出Unity工程）
 > `Export Primary Content`（仅导出主资源）
@@ -427,7 +427,7 @@ https://www\.nssctf\.cn/problem/7087
 > 
 > 
 
-![](/images/unity逆向/QQ_1792123366734.png)
+![](/images/unity逆向/QQ_1792123366734.webp)
 
 我们重点关注 `ExportedProject` 这个文件夹
 
@@ -443,11 +443,11 @@ https://www\.nssctf\.cn/problem/7087
 
 - `Scenes`里是场景文件。
 
-![](/images/unity逆向/QQ_1792123513190.png)
+![](/images/unity逆向/QQ_1792123513190.webp)
 
 直接打开`level0.unity`文件 这个直接将我们的二进制转为明文了
 
-![](/images/unity逆向/QQ_1792123590474.png)
+![](/images/unity逆向/QQ_1792123590474.webp)
 
 我们也能找到flag的前半段然后进行拼接
 
@@ -490,15 +490,15 @@ AssetRipper 导出的 `level0.unity` 是带有层级结构的 YAML 文本。你�
 
 ##### 方法三CE
 
-![](/images/unity逆向/492a96a9cf5900cec56aabc396755b02.png)
+![](/images/unity逆向/492a96a9cf5900cec56aabc396755b02.webp)
 
-![](/images/unity逆向/QQ_1792117153406.png)
+![](/images/unity逆向/QQ_1792117153406.webp)
 
 通过观察逻辑 我们能够发现当金币数量为100时，会调用show answer函数
 
 但是这个游戏根本达不到100分
 
-![](/images/unity逆向/image%201.png)
+![](/images/unity逆向/image%201.webp)
 
 ###### CE ★★★
 
@@ -512,15 +512,15 @@ AssetRipper 导出的 `level0.unity` 是带有层级结构的 YAML 文本。你�
 
 （教程有点长啊 但是还是很值得学习的 我学累了已经
 
-![](/images/unity逆向/QQ_1792136973553.png)
+![](/images/unity逆向/QQ_1792136973553.webp)
 
-![](/images/unity逆向/QQ_1792137622629.png)
+![](/images/unity逆向/QQ_1792137622629.webp)
 
 ###### 7
 
-![](/images/unity逆向/QQ_1792141768364.png)
+![](/images/unity逆向/QQ_1792141768364.webp)
 
-![](/images/unity逆向/image%204.png)
+![](/images/unity逆向/image%204.webp)
 
 找到扣血代码 nop掉换成加血
 
@@ -599,7 +599,7 @@ returnhere:
 > 
 > 
 
-![](/images/unity逆向/QQ_1792143715900.png)
+![](/images/unity逆向/QQ_1792143715900.webp)
 
 发现我们的血量比敌人的少很多 然后我们要做的就是把自己改为无敌 然后只让敌人掉血 
 
@@ -607,7 +607,7 @@ returnhere:
 
 首先我们需要找到扣血代码
 
-![](/images/unity逆向/QQ_1792143948715.png)
+![](/images/unity逆向/QQ_1792143948715.webp)
 
 - 此时 `RBX = 02AF5190`，这是敌方 HAL 的“对象基址”。
 
@@ -617,7 +617,7 @@ returnhere:
 
 而当我们寻找自己血量地址的时候会发现
 
-![](/images/unity逆向/QQ_1792144603764.png)
+![](/images/unity逆向/QQ_1792144603764.webp)
 
 - 当敌人掉血时，`RBX = 02AF5190`，扣血代码是 `movss [rbx+08], xmm0`。
 
@@ -631,9 +631,9 @@ returnhere:
 
 我们浏览一下敌人和我们的内存区域
 
-![](/images/unity逆向/QQ_1792145042488.png)
+![](/images/unity逆向/QQ_1792145042488.webp)
 
-![](/images/unity逆向/QQ_1792145080857.png)
+![](/images/unity逆向/QQ_1792145080857.webp)
 
 分析结果：
 
@@ -659,7 +659,7 @@ returnhere:
 
 我们回到CE反汇编窗口，然后对血量进行代码注入
 
-![](/images/unity逆向/QQ_1792146189670.png)
+![](/images/unity逆向/QQ_1792146189670.webp)
 
 原代码为：
 
@@ -756,13 +756,13 @@ returnhere:
 
 找到金币所在的内存处 将其值改为100然后重新进入游戏
 
-![](/images/unity逆向/QQ_1792204640539.png)
+![](/images/unity逆向/QQ_1792204640539.webp)
 
 要多找几次 多玩几次变动一下金币值
 
 然后我们就可以看到flag了
 
-![](/images/unity逆向/image.png)
+![](/images/unity逆向/image.webp)
 
 这个应该是没显示全 官方也挺佛系的 说知道意思就好
 

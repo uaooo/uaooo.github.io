@@ -10,7 +10,7 @@ showtoc = true
 
 ## signin
 
-![](/images/0xGame-Week1/d6f9b5170fb5e04e4b2bbba45fd6786c.png)
+![](/images/0xGame-Week1/d6f9b5170fb5e04e4b2bbba45fd6786c.webp)
 
 ### Exp
 
@@ -35,23 +35,23 @@ flag：0xGame\{0pen\_1DA\_4nd\_start\_y0ur\_reverse\_Engineering\!\}
 
 ## ez\_upx
 
-![](/images/0xGame-Week1/d6de969295500bc00e6bf7d749ee1e93.png)
+![](/images/0xGame-Week1/d6de969295500bc00e6bf7d749ee1e93.webp)
 
 主函数
 
-![](/images/0xGame-Week1/f574acdd36dc46164ad8714689f467db.png)
+![](/images/0xGame-Week1/f574acdd36dc46164ad8714689f467db.webp)
 
-![](/images/0xGame-Week1/076292a8f9b1e0de71f784c25ccc907e.png)
+![](/images/0xGame-Week1/076292a8f9b1e0de71f784c25ccc907e.webp)
 
 函数4015C7 很明显的base64特征 并且后面还有标准字母表
 
-![](/images/0xGame-Week1/ea70d1127025ec38ce4c5959b5f33d8d.png)
+![](/images/0xGame-Week1/ea70d1127025ec38ce4c5959b5f33d8d.webp)
 
-![](/images/0xGame-Week1/473c0aa34f1f6ceb6388c3fb43aac286.png)
+![](/images/0xGame-Week1/473c0aa34f1f6ceb6388c3fb43aac286.webp)
 
 这个`aVivo50`是IDA自己取的名 点进之后发现原字符串是`vivo50`全小写
 
-![](/images/0xGame-Week1/QQ_1790586789812.png)
+![](/images/0xGame-Week1/QQ_1790586789812.webp)
 
 ### 流程
 
@@ -85,7 +85,7 @@ flag：0xGame\{N0www\_y0u\_kn0w\_UPX\!\!\!\}
 
 ## 欸？云朵
 
-![](/images/0xGame-Week1/QQ_1790588570335.png)
+![](/images/0xGame-Week1/QQ_1790588570335.webp)
 
 **这是典型的 Win32 窗口程序模板**
 
@@ -179,7 +179,7 @@ WndClass.lpfnWndProc = (WNDPROC)sub_401871;
 
 因此 我们的核心函数就是401871
 
-![](/images/0xGame-Week1/QQ_1790589358887.png)
+![](/images/0xGame-Week1/QQ_1790589358887.webp)
 
 分析伪代码：
 
@@ -209,7 +209,7 @@ sub_401D40(Source, 27);      // 也是清理，不用管
 EndPaint(a1, &Paint);        // 结束绘图
 ```
 
-![](/images/0xGame-Week1/QQ_1790590626056.png)
+![](/images/0xGame-Week1/QQ_1790590626056.webp)
 
 **伪代码解析：**
 
@@ -287,7 +287,7 @@ flag：0xGame\{Dyn4m1c\_1$\_s0\_Fun\!\}
 
 [attachment3\.zip](图片和附件/attachment3.zip)
 
-![](/images/0xGame-Week1/QQ_1790596703008.png)
+![](/images/0xGame-Week1/QQ_1790596703008.webp)
 
 一开始看到还以为加壳了 其实不然
 
@@ -444,7 +444,7 @@ flag：0xGame\{JuS7\_g1v3\_16bit7t\_@\_try\!\!\}
 
 ## z3\_solver
 
-![](/images/0xGame-Week1/QQ_1790599642372.png)
+![](/images/0xGame-Week1/QQ_1790599642372.webp)
 
 这个循环非常巧妙，它不是单独检查某个字符，而是把23个字符编织在一起。注意代码里的取余符号 `% 23`：
 
@@ -558,13 +558,13 @@ flag：0xGame\{z3\_Se3ms\_ezzz2z\}
 
 先解包试试
 
-![](/images/0xGame-Week1/QQ_1790601399870.png)
+![](/images/0xGame-Week1/QQ_1790601399870.webp)
 
 ```Bash
 py -3.8 pyinstxtractor.py attachment.exe
 ```
 
-![](/images/0xGame-Week1/QQ_1790601476304.png)
+![](/images/0xGame-Week1/QQ_1790601476304.webp)
 
 Python version3\.14 说明非常新 
 
@@ -572,7 +572,7 @@ Python version3\.14 说明非常新
 
 使用在线反编译工具https://pylingual\.io/
 
-![](/images/0xGame-Week1/QQ_1790602469334.png)
+![](/images/0xGame-Week1/QQ_1790602469334.webp)
 
 反编译代码
 
@@ -776,16 +776,16 @@ flag：0xGame\{WoW\_Th3\_f1ow3r$\_@re\_SOo0oo b3@u7ifull\!\!\}
 
 ### 静态
 
-![](/images/0xGame-Week1/QQ_1790666825334.png)
+![](/images/0xGame-Week1/QQ_1790666825334.webp)
 
-![](/images/0xGame-Week1/QQ_1790667196198.png)
+![](/images/0xGame-Week1/QQ_1790667196198.webp)
 
 1. `jz short near ptr loc_401112+1`：
 这是一个非常经典的“**跳入指令中间**”技巧。它跳到了 `loc_401112+1`，也就是 `xchg ax, ax`（机器码 `66 90`）的第二个字节 `90` 处。`90` 在汇编里恰好是 `NOP`（空指令）。如果 IDA 傻一点，就会从 `401113` 开始反汇编，导致后面的代码全乱套。但 IDA 硬是识破了。
 
 2. 第二处的 `jz` 和 `jnz` 同目标，为恒跳转花指令
 
-![](/images/0xGame-Week1/QQ_1790667477478.png)
+![](/images/0xGame-Week1/QQ_1790667477478.webp)
 
 > 1. `push 0FDE9h` \+ `call SetConsoleOutputCP`
 > 
@@ -825,7 +825,7 @@ flag：0xGame\{WoW\_Th3\_f1ow3r$\_@re\_SOo0oo b3@u7ifull\!\!\}
 > 
 > 
 
-![](/images/0xGame-Week1/QQ_1790667758271.png)
+![](/images/0xGame-Week1/QQ_1790667758271.webp)
 
 **这是一个典型的“获取有效输入长度”的循环。**
 
@@ -863,7 +863,7 @@ flag：0xGame\{WoW\_Th3\_f1ow3r$\_@re\_SOo0oo b3@u7ifull\!\!\}
 
 即计算输入字符串的长度，并且顺便去掉末尾的换行符。
 
-![](/images/0xGame-Week1/QQ_1790668062978.png)
+![](/images/0xGame-Week1/QQ_1790668062978.webp)
 
 这个程序要求我们输入的密码长度必须正好是 47 个字符（0x2F）
 
@@ -876,7 +876,7 @@ flag：0xGame\{WoW\_Th3\_f1ow3r$\_@re\_SOo0oo b3@u7ifull\!\!\}
 .text:004011ED jmp short loc_4011F8        ; 进入核心比较循环
 ```
 
-![](/images/0xGame-Week1/QQ_1790668205167.png)
+![](/images/0xGame-Week1/QQ_1790668205167.webp)
 
 这是一个循环生成密码的过程：
 
@@ -892,7 +892,7 @@ for (j = 0; j < 47; j++) {
 
 提取数组
 
-![](/images/0xGame-Week1/QQ_1790668701432.png)
+![](/images/0xGame-Week1/QQ_1790668701432.webp)
 
 然后发现这个解密出来是乱码
 
@@ -949,11 +949,11 @@ flag：0xGame\{WoW\_Th3\_f1ow3r$\_@re\_SOo0oo b3@u7ifull\!\!\}
 
 下断点 输入47个A
 
-![](/images/0xGame-Week1/QQ_1790668971255.png)
+![](/images/0xGame-Week1/QQ_1790668971255.webp)
 
 寄存器值：
 
-![](/images/0xGame-Week1/QQ_1790669006921.png)
+![](/images/0xGame-Week1/QQ_1790669006921.webp)
 
 #### 计算明文地址
 
@@ -1002,7 +1002,7 @@ sub esp, 0E8h   ; 抬高栈顶，为局部变量分配 0xE8 大小的空间
 
 #### 跳转到明文地址
 
-![](/images/0xGame-Week1/QQ_1790827880064.png)
+![](/images/0xGame-Week1/QQ_1790827880064.webp)
 
 得到明文：
 
@@ -1020,7 +1020,7 @@ sub esp, 0E8h   ; 抬高栈顶，为局部变量分配 0xE8 大小的空间
 
 [attachment7\.zip](图片和附件/attachment7.zip)
 
-![](/images/0xGame-Week1/QQ_1790838826420.png)
+![](/images/0xGame-Week1/QQ_1790838826420.webp)
 
 对比云朵那道题目的伪代码
 
@@ -1105,7 +1105,7 @@ for ( i = a2; ; ... )
 
 #### sub\_401768
 
-![](/images/0xGame-Week1/QQ_1790842644831.png)
+![](/images/0xGame-Week1/QQ_1790842644831.webp)
 
 我刚刚试了半天动态调试 到处乱飞 回静态函数一看有个反调试。。。
 
@@ -1161,11 +1161,11 @@ unsigned char ida_chars[] =
 
 跳转提取密文和密钥：
 
-![](/images/0xGame-Week1/QQ_1790844128894.png)
+![](/images/0xGame-Week1/QQ_1790844128894.webp)
 
-![](/images/0xGame-Week1/QQ_1790844168382.png)
+![](/images/0xGame-Week1/QQ_1790844168382.webp)
 
-![](/images/0xGame-Week1/QQ_1790844249754.png)
+![](/images/0xGame-Week1/QQ_1790844249754.webp)
 
 另一个函数依然是RC4
 
@@ -1185,7 +1185,7 @@ AI原话：
 
 回看函数401768
 
-![](/images/0xGame-Week1/image.png)
+![](/images/0xGame-Week1/image.webp)
 
 正常题目一般都是反调试 即若有调试器附加 则`IsDebuggerPresent`返回1 即不让我们动态调试
 
@@ -1215,7 +1215,7 @@ unsigned char ida_chars[] =
 
     - 这是密钥指针。它指向 `0x405048` 地址，那里存放着字符串 `"0xGame2026"`。
 
-![](/images/0xGame-Week1/QQ_1790848010689.png)
+![](/images/0xGame-Week1/QQ_1790848010689.webp)
 
 - 第 3 个 8 字节：`10, 0, 0, 0, 0, 0, 0, 0` \-\> 转为小端序是 `0x0A`，即 10。
 
@@ -1223,7 +1223,7 @@ unsigned char ida_chars[] =
 
 - 第 4 个 8 字节：`173, 80, 64, 0, 0, 0, 0, 0` \-\> 转为小端序是 `0x4050AD`。
 
-![](/images/0xGame-Week1/QQ_1790848114124.png)
+![](/images/0xGame-Week1/QQ_1790848114124.webp)
 
 这个并不是密文！只是msg提示！
 
@@ -1296,7 +1296,7 @@ sub_401620(Source, *(_QWORD *)(v12 + 8), *(_QWORD *)(v12 + 16), *(_QWORD *)(v12 
 0x4050C8  1F 00 00 00 00 00 00 00  = 31                   ← "第一个 8 字节 31"
 ```
 
-![](/images/0xGame-Week1/QQ_1790848371560.png)
+![](/images/0xGame-Week1/QQ_1790848371560.webp)
 
 #### Exp
 
@@ -1354,6 +1354,6 @@ plain = rc4(key_A, shuffle(cipher_A))
 print("最终 Flag:", plain.decode(errors='ignore'))
 ```
 
-![](/images/0xGame-Week1/QQ_1790848572357.png)
+![](/images/0xGame-Week1/QQ_1790848572357.webp)
 
 flag：0xGame\{Dyn4m1c\_Dyn4m1c\_Dyn4m1c\}

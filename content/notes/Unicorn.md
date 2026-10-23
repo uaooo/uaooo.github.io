@@ -409,7 +409,7 @@ emulate_mips_vuln()  #调用执行上述函数
 
 ## 常见问题
 
-![](/images/Unicorn/QQ_1791360647771.png)
+![](/images/Unicorn/QQ_1791360647771.webp)
 
 
 

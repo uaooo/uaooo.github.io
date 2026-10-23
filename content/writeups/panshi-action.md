@@ -268,7 +268,7 @@ Encrypted[v9]=ROL^C0[i]^A0[i]
 
 **核心：加密校验 401520**
 
-![a6c24814e406473538871237c5b17c13\.png](/images/panshi-action/a6c24814e406473538871237c5b17c13.png)
+![a6c24814e406473538871237c5b17c13\.png](/images/panshi-action/a6c24814e406473538871237c5b17c13.webp)
 
 发现c语言401880的伪代码中有\_\_ROL4\_\_  \-\>是**4字节**循环左移的编译器内置函数
 
@@ -292,7 +292,7 @@ python中我们用z3的内置函数 RotateLeft\-\-循环左移 是将一个二�
 
 最后提取一下要用的数据
 
-![afdad2bd22f521ecef570e4223063e9b\.png](/images/panshi-action/afdad2bd22f521ecef570e4223063e9b.png)
+![afdad2bd22f521ecef570e4223063e9b\.png](/images/panshi-action/afdad2bd22f521ecef570e4223063e9b.webp)
 
 写出最终的脚本
 

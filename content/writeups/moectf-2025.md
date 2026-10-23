@@ -21,7 +21,7 @@ showtoc = true
 
 任何 UPX 加壳的程序，在文件开头的某个固定位置（通常是 偏移量 0x40 到 0x44 附近），都会有一串固定的标记：**`55 50 58 21`**（这就是 ASCII 码的 **`U`** **`P`** **`X`** **`!`**）。
 
-![QQ\_1788406529259\.png](/images/moectf-2025/QQ_1788406529259.png)
+![QQ\_1788406529259\.png](/images/moectf-2025/QQ_1788406529259.webp)
 
 第一次做只知道是改为UPX\! 但是不知道是在哪里改 所以就头脑简单地选择了和UPX长得最像的地方 但是改了之后发现脱壳还是不成功。
 
@@ -45,11 +45,11 @@ showtoc = true
 
 - 扩展头（Optional Header）的大小不固定，但它的大小值就写在文件头的第 17\-18 个字节处（即 `e_lfanew + 0x14` 处）。
 
-![QQ\_1788409528363\.png](/images/moectf-2025/QQ_1788409528363.png)
+![QQ\_1788409528363\.png](/images/moectf-2025/QQ_1788409528363.webp)
 
 修改之后即能完成脱壳。
 
-![b8a8699cb3f3ea82324380080eccb72b\.png](/images/moectf-2025/b8a8699cb3f3ea82324380080eccb72b.png)
+![b8a8699cb3f3ea82324380080eccb72b\.png](/images/moectf-2025/b8a8699cb3f3ea82324380080eccb72b.webp)
 
 再将脱壳之后的文件拖入ida
 
@@ -119,7 +119,7 @@ v25[0] = v11;      //  关键！把拷贝好的数据（即输入内容）放进
 
 1300处的函数又臭又长。。ai居然一眼就看出来base64我不中了。
 
-![QQ\_1788427927612\.png](/images/moectf-2025/QQ_1788427927612.png)
+![QQ\_1788427927612\.png](/images/moectf-2025/QQ_1788427927612.webp)
 
 回忆一下 Base64 的核心算法：
 
@@ -149,7 +149,7 @@ v12 = *((_BYTE *)v11 + ((v7 >> 18) & 0x3F)); // ← v11 就是 a3！
 
 接着我们由block这个参数锁定到函数1230
 
-![fd336a5c94c94ca61d40fb42bbbd3888\.png](/images/moectf-2025/fd336a5c94c94ca61d40fb42bbbd3888.png)
+![fd336a5c94c94ca61d40fb42bbbd3888\.png](/images/moectf-2025/fd336a5c94c94ca61d40fb42bbbd3888.webp)
 
 核心循环：
 
@@ -183,7 +183,7 @@ print(custom.decode('latin-1'))
 OLMJKHIFGDEBC@A^_\]Z[XYVWTolmjkhifgdebc`a~|}z{xyvwt>?<=:;8967%!
 ```
 
-![1f45935e2952f61467b7651d31100494\.png](/images/moectf-2025/1f45935e2952f61467b7651d31100494.png)
+![1f45935e2952f61467b7651d31100494\.png](/images/moectf-2025/1f45935e2952f61467b7651d31100494.webp)
 
 但是如果直接用cyberchef的话要注意input的双斜杠 要删掉两个中的一个 否则会出现乱码
 
@@ -252,7 +252,7 @@ UPX 文件里 **`"UPX!"`**（hex **`55 50 58 21`**）这个 4 字节串应该精
 
 我们先下载一个ELF的模板 然后加载
 
-![f2ef1601a85068df96ed5cad23c5d133\.png](/images/moectf-2025/f2ef1601a85068df96ed5cad23c5d133.png)
+![f2ef1601a85068df96ed5cad23c5d133\.png](/images/moectf-2025/f2ef1601a85068df96ed5cad23c5d133.webp)
 
 `e_phoff`（程序头偏移）
 
@@ -311,7 +311,7 @@ ai说这是一道 `伪 UPX + 非标准 ELF`
 
 ## **Flower \-\-？**
 
-![QQ\_1788514435270\.png](/images/moectf-2025/QQ_1788514435270.png)
+![QQ\_1788514435270\.png](/images/moectf-2025/QQ_1788514435270.webp)
 
 > 虽然 IDA 没有“飘红”（**红色通常指函数名未识别或指令解析失败**），但伪代码里的函数调用参数和逻辑已经完全错乱了。这种“看起来能编译，但逻辑狗屁不通”恰恰是花指令最成功的效果。
 > 
@@ -400,11 +400,11 @@ flag:moectf\{Y0u\_C4n\_G00d\_At\_B45e64\!\!\}
 
 由题目名字看出base解码 结果一把梭就试出来了
 
-![d283423c36ff3b4a8a8caed10829b893\.png](/images/moectf-2025/d283423c36ff3b4a8a8caed10829b893.png)
+![d283423c36ff3b4a8a8caed10829b893\.png](/images/moectf-2025/d283423c36ff3b4a8a8caed10829b893.webp)
 
 但是还是看一眼伪代码是怎么实现的
 
-![QQ\_1788512529039\.png](/images/moectf-2025/QQ_1788512529039.png)
+![QQ\_1788512529039\.png](/images/moectf-2025/QQ_1788512529039.webp)
 
 核心算法：3 字节转 4 字符
 代码中提取了三个输入字节（`v16`、`v14`、`v15`），并严格按照 Base64 的位操作规则生成四个索引：
@@ -417,7 +417,7 @@ flag:moectf\{Y0u\_C4n\_G00d\_At\_B45e64\!\!\}
 
 - `v15 & 0x3F`：取第3个字节的低6位。
 
-![QQ\_1788512664584\.png](/images/moectf-2025/QQ_1788512664584.png)
+![QQ\_1788512664584\.png](/images/moectf-2025/QQ_1788512664584.webp)
 
 这里的 `*`（乘号）本质上就是“左移”（`<<`），是反编译器（IDA）没有识别出位移优化而生成的等效数学表达。
 
@@ -453,7 +453,7 @@ flag:moectf\{Y0u\_C4n\_G00d\_At\_B45e64\!\!\}
 
 锁定函数的主入口：`com.example.ezandroid.MainActivity`
 
-![d7c361257b0ee2865d32dc34f5e5e95d\.png](/images/moectf-2025/d7c361257b0ee2865d32dc34f5e5e95d.png)
+![d7c361257b0ee2865d32dc34f5e5e95d\.png](/images/moectf-2025/d7c361257b0ee2865d32dc34f5e5e95d.webp)
 
 ```C
 if (MainActivity.this.base64Encode(
@@ -467,7 +467,7 @@ if (MainActivity.this.base64Encode(
 
 即把输入的内容先做 Base64 编码，然后和那一长串 Base64 字符串比较。
 
-![18eec6cc050db701b007a24cd842376c\.png](/images/moectf-2025/18eec6cc050db701b007a24cd842376c.png)
+![18eec6cc050db701b007a24cd842376c\.png](/images/moectf-2025/18eec6cc050db701b007a24cd842376c.webp)
 
 flag:moectf\{android\_Reverse\_I5\_easy\}
 
@@ -495,7 +495,7 @@ flag:moectf\{Y0u\_Kn0w\_z3\_S0Iv3r\_N0w\_a1f2bdce4a9\}
 
 真正的逻辑处在check函数中
 
-![a120c2dfdb0b233757838ea503bd80e4\.png](/images/moectf-2025/a120c2dfdb0b233757838ea503bd80e4.png)
+![a120c2dfdb0b233757838ea503bd80e4\.png](/images/moectf-2025/a120c2dfdb0b233757838ea503bd80e4.webp)
 
 设输入的第 `i` 个字符的 ASCII 值为 `x[i]`（0 ≤ i ≤ 33），变换过程如下：
 
@@ -512,7 +512,7 @@ flag:moectf\{Y0u\_Kn0w\_z3\_S0Iv3r\_N0w\_a1f2bdce4a9\}
 
 最后，如果每一位算出来的 `b[i]` 都和全局数组 `a[i]` 完全相等，就返回 1（正确），否则返回 0。
 
-![QQ\_1788613612929\.png](/images/moectf-2025/QQ_1788613612929.png)
+![QQ\_1788613612929\.png](/images/moectf-2025/QQ_1788613612929.webp)
 
 ```C
 unsigned char a[] =
@@ -643,7 +643,7 @@ for idx, s in enumerate(solutions):
     print(f"{idx}: {s}")
 ```
 
-![QQ\_1788614505973\.png](/images/moectf-2025/QQ_1788614505973.png)
+![QQ\_1788614505973\.png](/images/moectf-2025/QQ_1788614505973.webp)
 
 能看出第三个解比较合理一些 因此flag为:moectf\{Y0u\_Kn0w\_z3\_S0Iv3r\_N0w\_a1f2bdce4a9\}
 
@@ -653,7 +653,7 @@ flag:moectf\{SM4\_Android\_I5\_Funing\!\!\!\}
 
 找到主函数入口
 
-![f01d9e840b1904f1822a7a889a96dba3\.png](/images/moectf-2025/f01d9e840b1904f1822a7a889a96dba3.png)
+![f01d9e840b1904f1822a7a889a96dba3\.png](/images/moectf-2025/f01d9e840b1904f1822a7a889a96dba3.webp)
 
 题目提示说 涉及到native层的相关知识：
 
@@ -715,7 +715,7 @@ SM4 密钥扩展时用到 4 个固定常数：
 pip install gmssl
 ```
 
-![765504a9d95e4d2a0b379aa21c78f00e\.png](/images/moectf-2025/765504a9d95e4d2a0b379aa21c78f00e.png)
+![765504a9d95e4d2a0b379aa21c78f00e\.png](/images/moectf-2025/765504a9d95e4d2a0b379aa21c78f00e.webp)
 
 ### 伪代码分析
 
@@ -723,7 +723,7 @@ pip install gmssl
 
 既然题目说了主要的加密逻辑是在so文件中 我们就用ida查看so文件
 
-![33b518785064e5bb514e6400eff0737c\.png](/images/moectf-2025/33b518785064e5bb514e6400eff0737c.png)
+![33b518785064e5bb514e6400eff0737c\.png](/images/moectf-2025/33b518785064e5bb514e6400eff0737c.webp)
 
 很容易看出是sm4
 
@@ -850,13 +850,13 @@ print(pt_padded)
 
 flag:moectf\{Y0u\_P4ssEd\!\!\}
 
-![QQ\_1788704269129\.png](/images/moectf-2025/QQ_1788704269129.png)
+![QQ\_1788704269129\.png](/images/moectf-2025/QQ_1788704269129.webp)
 
 很自然地去查看Str2
 
 ？欺骗啊欺骗 浪费我的感情 这是假的flag！
 
-![b1661bf2413f4702436724c04f3b8857\.png](/images/moectf-2025/b1661bf2413f4702436724c04f3b8857.png)
+![b1661bf2413f4702436724c04f3b8857\.png](/images/moectf-2025/b1661bf2413f4702436724c04f3b8857.webp)
 
 ### 为什么 `Str2` 里的内容是假的
 
@@ -904,7 +904,7 @@ if ( Thread )
 
 ### 静态做法
 
-![a29626bc81ebdaf3f360a570be271c2d\.png](/images/moectf-2025/a29626bc81ebdaf3f360a570be271c2d.png)
+![a29626bc81ebdaf3f360a570be271c2d\.png](/images/moectf-2025/a29626bc81ebdaf3f360a570be271c2d.webp)
 
 > 原来这个 `0x401510` 假函数，被当作“替补队员”的地址，打包成参数，准备交给 `sub_401570` 去替换系统真正的 `strncmp`。
 > 
@@ -912,9 +912,9 @@ if ( Thread )
 
 作者写了一个函数 里面有完整的密文和加密逻辑
 
-![29503f5ccc74151080df7b8489d9b1d3\.png](/images/moectf-2025/29503f5ccc74151080df7b8489d9b1d3.png)
+![29503f5ccc74151080df7b8489d9b1d3\.png](/images/moectf-2025/29503f5ccc74151080df7b8489d9b1d3.webp)
 
-![QQ\_1788783577359\.png](/images/moectf-2025/QQ_1788783577359.png)
+![QQ\_1788783577359\.png](/images/moectf-2025/QQ_1788783577359.webp)
 
 密文
 
@@ -955,7 +955,7 @@ flag：moectf\{Y0u\_P4ssEd\!\!\}
 
 在命令栏敲 `bp strncmp` 下断点：
 
-![QQ\_1788705817893\.png](/images/moectf-2025/QQ_1788705817893.png)
+![QQ\_1788705817893\.png](/images/moectf-2025/QQ_1788705817893.webp)
 
 > 输入 `bp strncmp` 后，x64dbg 确实设置了断点。当你按 `F9` 运行并输入字符串后，程序调用了 `strncmp`，所以断点被触发，你被带到了 `strncmp` 的“肚子里”（系统代码里）。
 > 
@@ -963,7 +963,7 @@ flag：moectf\{Y0u\_P4ssEd\!\!\}
 
 接着同时按下 `Alt + K`，打开调用堆栈窗口（Call Stack）
 
-![2346f423a2193b8f146adceca09919a3\.png](/images/moectf-2025/2346f423a2193b8f146adceca09919a3.png)
+![2346f423a2193b8f146adceca09919a3\.png](/images/moectf-2025/2346f423a2193b8f146adceca09919a3.webp)
 
 
 
@@ -979,13 +979,13 @@ flag：moectf\{RrRRccCc44$$\_w1th\_fl0w3r\!\!\_3c6a11b5\}
 
 先看看字符串
 
-![QQ\_1788838899564\.png](/images/moectf-2025/QQ_1788838899564.png)
+![QQ\_1788838899564\.png](/images/moectf-2025/QQ_1788838899564.webp)
 
 说是玩一个猜数字的游戏 从0到99 如果猜对了就给我flag
 
 不过我敏锐地发现了有玄机
 
-![QQ\_1788839917449\.png](/images/moectf-2025/QQ_1788839917449.png)
+![QQ\_1788839917449\.png](/images/moectf-2025/QQ_1788839917449.webp)
 
 有一个密钥 还有一串看起来像密文的数字
 
@@ -1015,7 +1015,7 @@ except:
 
 ```
 
-![QQ\_1788840224494\.png](/images/moectf-2025/QQ_1788840224494.png)
+![QQ\_1788840224494\.png](/images/moectf-2025/QQ_1788840224494.webp)
 
 非也。
 
@@ -1111,7 +1111,7 @@ DLL（Dynamic Link Library，动态链接库） 就是 Windows 系统里预先�
 
 全部的dll太多了 我们要抓一些重点来看
 
-![QQ\_1788941211728\.png](/images/moectf-2025/QQ_1788941211728.png)
+![QQ\_1788941211728\.png](/images/moectf-2025/QQ_1788941211728.webp)
 
 最先关注第一类：
 
@@ -1182,7 +1182,7 @@ lea eax, [rcx + rcx*4]   ; 相当于 eax = rcx * 5
 
 这时候它根本不是取地址，纯粹是在用地址计算器做乘法。如果你以后看到 `lea` 后面的方括号里是乱七八糟的寄存器和系数相加
 
-![bd443217a1571f6f0e5e2ee32358b51e\.png](/images/moectf-2025/bd443217a1571f6f0e5e2ee32358b51e.png)
+![bd443217a1571f6f0e5e2ee32358b51e\.png](/images/moectf-2025/bd443217a1571f6f0e5e2ee32358b51e.webp)
 
 发现了！不管是否相等 都会跳转到同一个地址去！！
 
@@ -1270,7 +1270,7 @@ call    _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc ; operator<<
 
 接下来我们跳转到那个函数中
 
-![QQ\_1788945073421\.png](/images/moectf-2025/QQ_1788945073421.png)
+![QQ\_1788945073421\.png](/images/moectf-2025/QQ_1788945073421.webp)
 
 还是无法进行反编译
 
@@ -1300,7 +1300,7 @@ mov     [rbp+var_18], eax  ; 保存到局部变量
 聪明的编译器（GCC/MinGW 开了 O2 优化）会干一件事：**用“乘法 \+ 移位”来替代“除法”。**
 因为乘法（`imul`）和移位（`shr`）在 CPU 里极快，所以编译器会预先计算好一个魔数（Magic Number）。
 
-![QQ\_1788946378645\.png](/images/moectf-2025/QQ_1788946378645.png)
+![QQ\_1788946378645\.png](/images/moectf-2025/QQ_1788946378645.webp)
 
 ```Assembly language
 imul    ecx, eax, 64h   ; ecx = 商 * 100
@@ -1334,11 +1334,11 @@ sub     eax, ecx        ; eax = 原始随机数 - 商*100
 
 继续向下跳转：
 
-![QQ\_1788946732510\.png](/images/moectf-2025/QQ_1788946732510.png)
+![QQ\_1788946732510\.png](/images/moectf-2025/QQ_1788946732510.webp)
 
 继续跳转：
 
-![f3ad8f5533d3316a43ad4eb783f4c1dd\.png](/images/moectf-2025/f3ad8f5533d3316a43ad4eb783f4c1dd.png)
+![f3ad8f5533d3316a43ad4eb783f4c1dd\.png](/images/moectf-2025/f3ad8f5533d3316a43ad4eb783f4c1dd.webp)
 
 发现这个最关键的代码就只显示了一行 这应该是之前花指令留下的残骸
 
@@ -1352,7 +1352,7 @@ guess.exe+1B41
 
 下断点
 
-![QQ\_1788947615214\.png](/images/moectf-2025/QQ_1788947615214.png)
+![QQ\_1788947615214\.png](/images/moectf-2025/QQ_1788947615214.webp)
 
 哈哈 这个程序有反调试我忘了我服了 ~~我是傻子~~
 
@@ -1362,7 +1362,7 @@ Ai这双眼睛到底看来多远。。。。
 
 不是这个到底除了ai能通读我咋能发现呀 瞪眼法纯蹬吗 到时候函数名换一个不是炸了吗
 
-![468f875f50ab13030b0c4f434f7c25e6\.png](/images/moectf-2025/468f875f50ab13030b0c4f434f7c25e6.png)
+![468f875f50ab13030b0c4f434f7c25e6\.png](/images/moectf-2025/468f875f50ab13030b0c4f434f7c25e6.webp)
 
 看出是rc4
 
@@ -1374,7 +1374,7 @@ Ai这双眼睛到底看来多远。。。。
 
 发现rc4被魔改了：
 
-![296e6111e0f302b572f5c74b831e922b\.png](/images/moectf-2025/296e6111e0f302b572f5c74b831e922b.png)
+![296e6111e0f302b572f5c74b831e922b\.png](/images/moectf-2025/296e6111e0f302b572f5c74b831e922b.webp)
 
 ```C
 for ( i = 0; i <= 255; ++i )

@@ -13,15 +13,15 @@ showtoc = true
 
 JDK是Java的环境。很多工具（包括 Ghidra、Apktool）都依赖 Java，必须最先装。
 
-![QQ\_1787641682128\.png](/images/android-reverse/QQ_1787641682128.png)
+![QQ\_1787641682128\.png](/images/android-reverse/QQ_1787641682128.webp)
 
-![QQ\_1787641761298\.png](/images/android-reverse/QQ_1787641761298.png)
+![QQ\_1787641761298\.png](/images/android-reverse/QQ_1787641761298.webp)
 
 ### apktool
 
-![QQ\_1787664092595\.png](/images/android-reverse/QQ_1787664092595.png)
+![QQ\_1787664092595\.png](/images/android-reverse/QQ_1787664092595.webp)
 
-![ed68030782a29cb974a3f1566a57bec2\.png](/images/android-reverse/ed68030782a29cb974a3f1566a57bec2.png)
+![ed68030782a29cb974a3f1566a57bec2\.png](/images/android-reverse/ed68030782a29cb974a3f1566a57bec2.webp)
 
 - 它是干嘛的：**它能把 APK 拆成 Smali 汇编代码（比 Java 更底层）和图片、布局文件；修改后还能重新打包成 APK（比如去广告、破解内购常用）。**
 
@@ -35,7 +35,7 @@ JDK是Java的环境。很多工具（包括 Ghidra、Apktool）都依赖 Java，
 
 ### adb\-\-Android Debug Bridge
 
-![e38949cad93b71f0059cffefb5c64e10\.png](/images/android-reverse/e38949cad93b71f0059cffefb5c64e10.png)
+![e38949cad93b71f0059cffefb5c64e10\.png](/images/android-reverse/e38949cad93b71f0059cffefb5c64e10.webp)
 
 - 它是干嘛的：**让你的电脑和手机/模拟器通信的工具。装应用、看日志（Logcat）、传文件、执行 Shell 命令全靠它。**
 
@@ -55,15 +55,15 @@ JDK是Java的环境。很多工具（包括 Ghidra、Apktool）都依赖 Java，
 
 其实原来已经有了bandi zip 但是还是也下一下吧
 
-![22e3aa7991eb1c2b92f56e49c4a6fdca\.png](/images/android-reverse/22e3aa7991eb1c2b92f56e49c4a6fdca.png)
+![22e3aa7991eb1c2b92f56e49c4a6fdca\.png](/images/android-reverse/22e3aa7991eb1c2b92f56e49c4a6fdca.webp)
 
 APK 本质就是个压缩包。用 7\-Zip 可以直接右键解压 APK，瞬间拿到里面的 `lib` 文件夹、`AndroidManifest.xml` 等资源，比改后缀为 `.zip` 再解压快得多。
 
 ### Frida
 
-![QQ\_1787662781256\.png](/images/android-reverse/QQ_1787662781256.png)
+![QQ\_1787662781256\.png](/images/android-reverse/QQ_1787662781256.webp)
 
-![QQ\_1787662844505\.png](/images/android-reverse/QQ_1787662844505.png)
+![QQ\_1787662844505\.png](/images/android-reverse/QQ_1787662844505.webp)
 
 **Frida \(动态插桩/热补丁——大招\)**
 
@@ -75,9 +75,9 @@ APK 本质就是个压缩包。用 7\-Zip 可以直接右键解压 APK，瞬间�
 
 ### Ghidra
 
-![QQ\_1787652928105\.png](/images/android-reverse/QQ_1787652928105.png)
+![QQ\_1787652928105\.png](/images/android-reverse/QQ_1787652928105.webp)
 
-![QQ\_1787652931687\.png](/images/android-reverse/QQ_1787652931687.png)
+![QQ\_1787652931687\.png](/images/android-reverse/QQ_1787652931687.webp)
 
 - 它是干嘛的：把看不懂的 `0x01 0x02` 机器码，按 F5 **一键变成近乎 C 语言的伪代码**。
 
@@ -342,11 +342,11 @@ public class InheritanceDemo {
 }
 ```
 
-![QQ\_1787728407385\.png](/images/android-reverse/QQ_1787728407385.png)
+![QQ\_1787728407385\.png](/images/android-reverse/QQ_1787728407385.webp)
 
 **那如果“子类要调用父类”应该怎么写？**（终极总结）
 
-![QQ\_1787731322298\.png](/images/android-reverse/QQ_1787731322298.png)
+![QQ\_1787731322298\.png](/images/android-reverse/QQ_1787731322298.webp)
 
 - 看到 `extends` 就是继承
 
@@ -432,7 +432,7 @@ Java 的设计铁律： 一个人只能有一个“身份”（单继承），�
 
 ai举的例子 展示接口重要性
 
-![5e2809e004ef5b758dd96a30b295433a\.png](/images/android-reverse/5e2809e004ef5b758dd96a30b295433a.png)
+![5e2809e004ef5b758dd96a30b295433a\.png](/images/android-reverse/5e2809e004ef5b758dd96a30b295433a.webp)
 
 ### 2\.7内部类（高频）
 
@@ -661,7 +661,7 @@ public class MapDemo {
 
 ai举的例子：
 
-![QQ\_1788019981541\.png](/images/android-reverse/QQ_1788019981541.png)
+![QQ\_1788019981541\.png](/images/android-reverse/QQ_1788019981541.webp)
 
 ### 3\.5 数组
 
@@ -782,7 +782,7 @@ public class ExceptionDemo {
 
 依旧ai举例：
 
-![b898a2a229c20c11f53199d162e46d89\.png](/images/android-reverse/b898a2a229c20c11f53199d162e46d89.png)
+![b898a2a229c20c11f53199d162e46d89\.png](/images/android-reverse/b898a2a229c20c11f53199d162e46d89.webp)
 
 try是代码尝试 catch是加入遇到异常程序应该做出如何反应 finally是每次结束前必须完成的动作（无论是否触发异常）。
 
