@@ -257,9 +257,11 @@ textarea:-webkit-autofill {
     .post-single details.toc {
         position: fixed;
         top: 96px;
-        /* 目录放到正文左侧，和正文之间留 48px 空隙（原来贴得很近）。
-           left = 50vw - 正文半宽(360) - 目录宽(240) - 间距(48) */
-        left: max(16px, calc(50vw - 648px));
+        /* 目录放在「屏幕左边缘」和「正文左边缘」之间的空白区域正中间：
+             左侧空白宽度 = 50vw - 360
+             目录居中     = (50vw - 360 - 240) / 2 = 25vw - 300
+           窄屏时如果算出来太小，就贴到 16px。 */
+        left: max(16px, calc(25vw - 300px));
         right: auto;
         width: var(--toc-width);
         max-height: calc(100vh - 140px);
@@ -363,6 +365,40 @@ textarea:-webkit-autofill {
 
 .md-content h6 {
     font-size: 16px;
+}
+
+
+/* ==========================================================
+   引用块（blockquote）
+   ----------------------------------------------------------
+   PaperMod 默认只画一条 3px 的左边框、没有底色，
+   在带背景照片的页面上几乎看不出来。
+   这里给它一块明确的「卡片」：
+     · 左侧彩色竖条（比默认粗）
+     · 半透明底色 + 右侧圆角
+     · 上下留白拉开，和正文区分开
+   ========================================================== */
+.md-content blockquote {
+    margin: 1.6rem 0;
+    padding: 0.9rem 1.15rem;
+    border-inline-start: 4px solid var(--primary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: var(--entry);
+    color: var(--content);
+    font-style: normal;
+}
+
+.md-content blockquote p {
+    margin: 0;
+}
+
+.md-content blockquote p + p {
+    margin-top: 0.6rem;
+}
+
+/* 引用里再套引用时，第二层底色稍微加深一点，避免糊成一片 */
+.md-content blockquote blockquote {
+    background: var(--code-bg);
 }
 
 

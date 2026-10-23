@@ -86,7 +86,7 @@ buildExpired = false
 
   # 首页头像：图片放在 static/images/ 下，这里写站内路径。
   # 不想要头像就把这一行删掉或留空。
-  avatar = "/images/avatar.jpg"
+  avatar = "/images/avatar.webp"
 
   # 首页「写在前面」。支持 Markdown，段落之间空一行。
   #   位置在签名下方（见 layouts/_partials/home_info.html）。
