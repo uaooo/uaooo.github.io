@@ -1,4 +1,4 @@
-# ============================================================
+﻿# ============================================================
 #  友链列表
 # ------------------------------------------------------------
 #  想加人 / 删人，只改这个文件就行，不用动模板。
@@ -13,28 +13,28 @@
 name = "MarioYang525"
 url = "https://marioyang525.github.io/"
 desc = "特别厉害的 web 手"
-avatar = "/images/friends/mario.png"
+avatar = "/images/friends/mario.webp"
 
 [[friends]]
 name = "clover"
 url = "https://clover0816.github.io/my_blog/"
 desc = "cry 手 之前是 OIer 完全六边形战士"
-avatar = "/images/friends/yifan.jpg"
+avatar = "/images/friends/yifan.webp"
 
 [[friends]]
 name = "Pay3Cents"
 url = "https://icent-f.github.io/"
 desc = "misc 大师 特别热心"
-avatar = "/images/friends/icent.jpg"
+avatar = "/images/friends/icent.webp"
 
 [[friends]]
 name = "漫宿骄盛"
 url = "https://www.cnblogs.com/msjs"
 desc = "超级厉害的 re 手 是我的偶像"
-avatar = "/images/friends/msjs.jpg"
+avatar = "/images/friends/msjs.webp"
 
 [[friends]]
 name = "Lamb"
 url = "https://lamb-fish.github.io/"
 desc = "crypto 大手子"
-avatar = "/images/friends/lamb.jpg"
+avatar = "/images/friends/lamb.webp"
