@@ -40,7 +40,8 @@ echo.
 echo    Section: %SECTION%
 echo.
 
-uv run python _import.py %SECTION%
+REM markdown-it-py is used to clean up broken ** markers from Feishu exports.
+uv run --with markdown-it-py python _import.py %SECTION%
 
 echo.
 pause

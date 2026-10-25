@@ -17,12 +17,18 @@
   uv run python _import.py musings
 """
 
+import itertools
 import re
 import shutil
 import sys
 import zipfile
 from datetime import datetime
 from pathlib import Path
+
+try:
+    from markdown_it import MarkdownIt
+except ImportError:      # 没装依赖时跳过 ** 修复，不影响正常导入
+    MarkdownIt = None
 
 ROOT = Path(__file__).resolve().parent
 INBOX = ROOT / "inbox"
@@ -40,6 +46,11 @@ def safe_name(name: str) -> str:
     """把标题转成能当文件名 / URL 的形式"""
     name = re.sub(r'[<>:"/\\|?*\x00-\x1f]', "_", name).strip().rstrip(".")
     return (name[:80] or "untitled")
+
+
+def safe_img_name(name: str) -> str:
+    """图片名里的空格会让 URL 变丑（image%201.png），统一换成连字符"""
+    return re.sub(r"\s+", "-", name.strip())
 
 
 def find_body_md(folder: Path):
@@ -91,12 +102,103 @@ def rewrite_images(text: str, slug: str) -> str:
         url = m.group(1).strip()
         if url.lower().startswith(("http://", "https://", "data:")):
             return m.group(0)
-        name = url.replace("\\", "/").split("/")[-1]
+        name = safe_img_name(url.replace("\\", "/").split("/")[-1])
         if not re.search(r"\.(png|jpe?g|gif|webp|bmp|svg)$", name, re.I):
             return m.group(0)
         return f"![]({('/images/' + slug + '/' + name)})"
 
     return IMG_MD_RE.sub(repl, text)
+
+
+# ----------------------------------------------------------------------
+#  飞书导出的 Markdown 经常把 ** 和行内代码挤在一起，例如
+#      **`Application`**** 被替换成了壳的 Application**
+#  渲染后会在页面上留下字面的 **。下面按行穷举要删掉哪几个 **，
+#  取「页面上看不到 **，且保留的加粗最多」的方案。
+#  代码块（``` 包起来的部分）完全不动：里面的 ** 可能是指针语法。
+# ----------------------------------------------------------------------
+_TAG_RE = re.compile(r"<[^>]+>")
+_HTML_CODE_RE = re.compile(r"<code>.*?</code>", re.S)
+
+
+def _visible_count(md, s: str):
+    """返回 (页面上会看到的 ** 数量, 加粗数量)"""
+    # 用 renderInline：render() 会把行首 4 空格当成代码块，
+    # 那样 ** 原样保留，会误判成「没修好」。
+    out = md.renderInline(s)
+    plain = _TAG_RE.sub("", _HTML_CODE_RE.sub("", out))
+    return plain.count("**"), out.count("<strong>")
+
+
+def _fix_bold_line(md, line: str):
+    """返回修好的行；本来就没问题、或找不到安全方案时返回 None"""
+    if "**" not in line:
+        return None
+
+    codes = []
+
+    def save(m):
+        codes.append(m.group(0))
+        return "ZZCODE%dZZ" % (len(codes) - 1)
+
+    # 行内代码先换成占位符，避免把代码里的 ** 当成错误标记
+    prot = re.sub(r"`[^`\n]*`", save, line)
+    if _visible_count(md, prot)[0] == 0:
+        return None
+
+    pos = [m.start() for m in re.finditer(r"\*\*", prot)]
+    if not pos or len(pos) > 14:      # 组合爆炸保护
+        return None
+
+    best = None
+    for r in range(len(pos) + 1):
+        for combo in itertools.combinations(pos, r):
+            chars = list(prot)
+            for p in combo:
+                chars[p] = ""
+                chars[p + 1] = ""
+            cand = "".join(chars)
+            bad, strong = _visible_count(md, cand)
+            if bad == 0:
+                score = (strong, -r)
+                if best is None or score > best[0]:
+                    best = (score, cand)
+
+    if best is None:
+        return None
+
+    cand = best[1]
+    for i, c in enumerate(codes):
+        cand = cand.replace("ZZCODE%dZZ" % i, c)
+    return cand
+
+
+def fix_bold(text: str):
+    """修复正文里的 ** 错位，返回 (新正文, 仍需人工处理的行号)"""
+    if MarkdownIt is None:
+        return text, []
+
+    md = MarkdownIt("commonmark")
+    out, in_code, warnings = [], False, []
+
+    for i, line in enumerate(text.split("\n"), 1):
+        if line.strip().startswith("```"):
+            in_code = not in_code
+            out.append(line)
+            continue
+        if in_code or "**" not in line:
+            out.append(line)
+            continue
+
+        fixed = _fix_bold_line(md, line)
+        if fixed is None:
+            if _visible_count(md, line)[0] > 0:
+                warnings.append(i)
+            out.append(line)
+        else:
+            out.append(fixed)
+
+    return "\n".join(out), warnings
 
 
 def front_matter(title: str, section: str) -> str:
@@ -150,6 +252,7 @@ def process_one(src: Path, section: str) -> str:
     # 3. 正文：标题下移一级，图片路径改写成站内路径
     body = "\n".join(shift_headings(lines)).strip("\n")
     body = rewrite_images(body, slug)
+    body, bold_warn = fix_bold(body)
 
     # 4. 图片：摊出来的所有图片都搬进 static/images/<slug>/
     img_dst = IMAGES / slug
@@ -157,7 +260,7 @@ def process_one(src: Path, section: str) -> str:
     for p in work.rglob("*"):
         if p.is_file() and p.suffix.lower() in IMG_EXT:
             img_dst.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(p, img_dst / p.name)
+            shutil.copy2(p, img_dst / safe_img_name(p.name))
             n_img += 1
 
     # 5. 落地
@@ -175,9 +278,14 @@ def process_one(src: Path, section: str) -> str:
 
     # 这里打印完整绝对路径，而不是 content/notes/xxx.md 这种相对写法：
     # 要改的就是这个文件，把路径直接复制到资源管理器地址栏就能打开。
-    return (f"[成功] {title}\n"
-            f"        文章: {out}\n"
-            f"        图片: {n_img} 张 -> {img_dst}")
+    msg = (f"[成功] {title}\n"
+           f"        文章: {out}\n"
+           f"        图片: {n_img} 张 -> {img_dst}")
+    if bold_warn:
+        msg += ("\n        注意: 正文第 "
+                + ", ".join(str(n) for n in bold_warn)
+                + " 行仍有 ** 残留，需要手工处理")
+    return msg
 
 
 def main():
