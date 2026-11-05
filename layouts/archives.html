@@ -32,6 +32,12 @@
   {{- end }}
 </header>
 
+{{- with .Content }}
+<div class="md-content archive-intro">
+  {{ . }}
+</div>
+{{- end }}
+
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
 
 {{- if site.Params.ShowAllPagesInArchive }}

@@ -1,38 +1,18 @@
-{{- /* 开场画面：只在首页显示。
-       原因：每次点开一篇文章都播一遍 1.5 秒的开场，很快就会让人烦。
-       淡出完全由 CSS 动画（delay + forwards）完成，不依赖 JS ——
-       即使脚本挂了，画面也一定会自己消失，不会把页面永久盖住。
-       想让所有页面都播：把下面这行 if 删掉即可。 */ -}}
+{{- /* 开屏动画：只在首页显示。
+       淡出完全由 CSS 的 animation-delay + forwards 完成，
+       即使脚本失败，画面也会自己消失，不会永久盖住页面。 */ -}}
 {{- if .IsHome }}
 <div id="intro" aria-hidden="true">
-    {{- /* 背景图：先清晰亮相，再慢慢放大模糊压暗，给内容让位 */ -}}
     <div class="intro-bg"></div>
-
     <div class="intro-content">
-        {{- /* 头像偏左上、名字偏右下，形成对角 */ -}}
         <div class="intro-scene-1">
             <img class="intro-avatar" src="/images/avatar.webp" alt="">
             <div class="intro-name">SiO₂</div>
         </div>
-
-        {{- /* 一句话，逐字打出。具体时间点见 custom.css 的 .intro-greet */ -}}
-        <div class="intro-greet">希望一起进步！</div>
     </div>
 </div>
 <script>
-    // 开场动画什么时候播：
-    //   · 第一次进站（地址栏打开、从外站链接进来） → 播
-    //   · 按 F5 / Ctrl+R 刷新                     → 播
-    //   · 站内点来点去（比如从文章页点回首页）      → 不播
-    //
-    // 判断办法是看 referrer：
-    //   · 站内导航：referrer 是本站的「另一个」地址
-    //   · 刷新    ：referrer 就是当前地址本身（Chrome/Edge 的行为）
-    //   · 首次进站：referrer 为空
-    // 之所以不用 sessionStorage，正是因为它区分不了「刷新」和「站内返回」。
-    //
-    // 脚本紧跟在这个 div 后面、同步执行，此时页面还没开始绘制，
-    // 所以删除元素不会造成「闪一下再消失」。
+    // 首次进站 / 刷新时播放；从站内点回首页时不重播
     (function () {
         var intro = document.getElementById('intro');
         if (!intro) return;
@@ -47,47 +27,115 @@
 </script>
 {{- end }}
 
-{{- /* 目录滚动高亮：滚到哪一节，侧边目录对应那行就加粗 */ -}}
 <script>
-    // 排查用：按 F12 打开控制台，看到这行说明加载的是最新版本
-    console.log('[blog] 脚本已加载 · 目录高亮生效中');
 
-    // 排查用：在控制台手打 anim() 回车，就能手动重播一次入场动画。
-    //   注意：Edge 会拦截「粘贴代码」，要手打，或者先输入「允许粘贴」放行。
-    window.anim = function () {
-        var sel = '.home-info .home-avatar, .home-info .entry-header, ' +
-            '.home-info .entry-content, .home-info .entry-footer, .post-entry';
-        document.querySelectorAll(sel).forEach(function (el) {
-            el.style.animation = 'none';
-            void el.offsetWidth;          // 强制重排，动画才能重新开始
-            el.style.animation = '';
-        });
-        console.log('[blog] 已重播入场动画 —— 盯着页面顶部看');
-    };
+    /* 粉色花瓣：
+       参考 particles.js 的参数（数量 200、速度 2、向下飘），
+       但用 canvas 直接画花瓣形状，体积更小、形状更接近真的花瓣。
+       只画 hero 区域；滚出屏幕自动暂停，移动端数量减半。 */
+    (function () {
+        var canvas = document.getElementById('page-petals');
+        if (!canvas) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // 排查用：把入场动画的真实状态打出来
-    window.addEventListener('load', function () {
-        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        console.log('[blog] 系统「减少动态效果」= ' + (reduce ? '已开启（这会导致动画被禁用）' : '未开启'));
+        var ctx = canvas.getContext('2d');
+        var W = 0, H = 0;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var petals = [];
+        var running = true;
+        var lastTime = 0;
+        var FALL_SPEED = 2;          // 参考站 move.speed = 2
 
-        var avatar = document.querySelector('.home-info .home-avatar');
-        if (avatar) {
-            var cs = getComputedStyle(avatar);
-            console.log('[blog] 头像动画 => name=' + cs.animationName +
-                ' duration=' + cs.animationDuration +
-                ' delay=' + cs.animationDelay);
-        } else {
-            console.log('[blog] 当前页面没有头像元素（不是首页？）');
+        function rand(a, b) { return a + Math.random() * (b - a); }
+
+        function makePetal(initial) {
+            return {
+                x: rand(0, W),
+                y: initial ? rand(0, H) : rand(-H * 0.25, -10),
+                size: rand(4, 11),
+                speed: rand(FALL_SPEED * 0.6, FALL_SPEED * 1.6),
+                sway: rand(0.4, 1.5),
+                phase: rand(0, Math.PI * 2),
+                spin: rand(-0.02, 0.02),
+                angle: rand(0, Math.PI * 2),
+                alpha: rand(0.3, 0.85)
+            };
         }
-    });
 
+        function resize() {
+            W = Math.max(1, window.innerWidth);
+            H = Math.max(1, window.innerHeight);
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = Math.floor(W * dpr);
+            canvas.height = Math.floor(H * dpr);
+            canvas.style.width = W + 'px';
+            canvas.style.height = H + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            var count = W < 768 ? 70 : 140;
+            petals = [];
+            for (var i = 0; i < count; i++) petals.push(makePetal(true));
+        }
+
+        function drawPetal(p) {
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.angle);
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle = '#ffb7c5';
+            ctx.beginPath();
+            ctx.moveTo(0, -p.size);
+            ctx.bezierCurveTo(
+                p.size * 0.95, -p.size * 0.65,
+                p.size * 0.85, p.size * 0.6,
+                0, p.size
+            );
+            ctx.bezierCurveTo(
+                -p.size * 0.85, p.size * 0.6,
+                -p.size * 0.95, -p.size * 0.65,
+                0, -p.size
+            );
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function tick(now) {
+            if (!running) return;
+            var dt = lastTime ? Math.min((now - lastTime) / 16.67, 3) : 1;
+            lastTime = now;
+
+            ctx.clearRect(0, 0, W, H);
+            for (var i = 0; i < petals.length; i++) {
+                var p = petals[i];
+                p.y += p.speed * dt;
+                p.phase += 0.012 * dt;
+                p.x += Math.sin(p.phase) * p.sway * dt;
+                p.angle += p.spin * dt;
+
+                if (p.y > H + 30) {
+                    p.y = -30;
+                    p.x = rand(0, W);
+                }
+                if (p.x < -30) p.x = W + 30;
+                if (p.x > W + 30) p.x = -30;
+
+                drawPetal(p);
+            }
+            window.requestAnimationFrame(tick);
+        }
+
+        resize();
+        window.addEventListener('resize', resize);
+        window.requestAnimationFrame(tick);
+    })();
+
+    /* 目录滚动高亮：滚到哪一节，侧边目录对应那行就加粗 */
     (function () {
         var toc = document.querySelector('.post-single details.toc');
         if (!toc) return;
 
         // 逐条配对，单条失败不影响整体。
-        // （旧版用 map + decodeURIComponent：只要有一个 href 含 % 就会抛
-        //   URIError，整个脚本直接死掉，表现就是「高亮完全不工作」。）
         var anchors = Array.prototype.slice.call(toc.querySelectorAll('.inner a[href]'));
         var items = [];
 
@@ -102,14 +150,10 @@
             if (el) items.push({ link: a, el: el });
         });
 
-        if (!items.length) {
-            console.log('[blog] 目录锚点和正文标题对不上，高亮未启用');
-            return;
-        }
+        if (!items.length) return;
 
         var current = null;
 
-        // 标题相对整个文档的位置（offsetTop 在嵌套结构里靠不住）
         function topOf(el) {
             return el.getBoundingClientRect().top + window.scrollY;
         }
@@ -120,8 +164,6 @@
             item.link.classList.add('toc-active');
             current = item;
 
-            // 目录自身可以滚动。当前项跑出可视区时把它拉回来，
-            // 但只调整目录的 scrollTop，绝不动整个页面。
             var box = toc.getBoundingClientRect();
             var r = item.link.getBoundingClientRect();
             if (r.top < box.top + 36) {
@@ -132,8 +174,6 @@
         }
 
         function update() {
-            // 判定线放在视口上部 1/3 处：按比例而不是固定像素，
-            // 这样大屏小屏的阅读位置都一致。
             var line = window.scrollY + window.innerHeight * 0.33;
             var found = items[0];
 
@@ -145,7 +185,6 @@
                 }
             }
 
-            // 已经滚到页面底部时，高亮最后一项，避免最后一节永远点不亮
             if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
                 found = items[items.length - 1];
             }
@@ -153,7 +192,6 @@
             setActive(found);
         }
 
-        // 用 rAF 节流，滚动时不掉帧
         var ticking = false;
         window.addEventListener('scroll', function () {
             if (ticking) return;
@@ -167,11 +205,5 @@
         window.addEventListener('resize', update);
         window.addEventListener('load', update);
         update();
-
-        console.log('[blog] 目录高亮已启用，共 ' + items.length + ' 个锚点');
     })();
 </script>
-
-{{- /* 右侧的标签导航已移除。
-       合集总览页本身就把所有合集列了出来，右侧再挂一份是重复的；
-       页面顶部已经有「Home ›」，也不再需要额外的返回入口。 */ -}}

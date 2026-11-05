@@ -128,6 +128,10 @@ buildExpired = false
     minMatchCharLength = 1
     keys = ["title", "permalink", "summary", "content"]
 
+  # 导航栏左上角：头像 + 站名（由主题的 header.html 读取）
+  [params.label]
+    text = "SiO₂'s blog"
+
 # ------------------------------------------------------------
 #  顶部导航栏
 # ------------------------------------------------------------

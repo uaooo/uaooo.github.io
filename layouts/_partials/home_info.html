@@ -1,4 +1,8 @@
 {{- with site.Params.homeInfoParams }}
+{{- /* 花瓣：固定在整个首页上，滚动到文章列表也能看到。
+       只在首页渲染，文章页没有。 */ -}}
+<canvas class="page-petals" id="page-petals" aria-hidden="true"></canvas>
+
 <article class="first-entry home-info">
 
     {{- /* 头像：在 hugo.toml 的 [params] 里配 avatar 路径 */}}
@@ -22,7 +26,7 @@
         {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
     </footer>
 
-    {{- /* 「写在前面」：位置在签名下面，内容在 hugo.toml 的 foreword 参数里改 */}}
+    {{- /* 「写在前面」：内容在 hugo.toml 的 foreword 参数里改 */}}
     {{- with site.Params.foreword }}
     <div class="home-foreword">
         <div class="home-foreword-title">写在前面</div>
