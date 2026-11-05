@@ -9,14 +9,16 @@
    可调参数：想微调背景只改这一段就够了
    ---------------------------------------------------------- */
 :root {
-    /* ---------- 背景照片 ---------- */
-    --bg-photo: url("/images/hero/2.jpg");
+    /* ---------- 背景照片 ----------
+       用 webp 版本（74KB，原 jpg 170KB），减少每次进文章的加载时间。
+       换图时记得重新生成同名的 2.webp。 */
+    --bg-photo: url("/images/hero/2.webp");
 
     /* 照片上方的遮罩：数值越大，背景越淡、文字越好读 */
     --bg-dim: rgba(255, 255, 255, 0.62);
 
-    /* 背景照片本身的模糊 */
-    --bg-photo-blur: 2px;
+    /* 背景照片本身的模糊。0 = 不做 GPU 全屏模糊 */
+    --bg-photo-blur: 0;
 
     /* 比原来更明显一点的蓝灰渐变，和 hero 的蓝色调衔接 */
     --bg-gradient:
@@ -81,7 +83,6 @@ body::before {
     background-repeat: no-repeat;
     pointer-events: none;
     filter: blur(var(--bg-photo-blur));
-    transform: scale(1.02);
 }
 
 /* 柔和光斑（用照片时 --glow-opacity 为 0，等于关闭） */
@@ -213,8 +214,7 @@ textarea:-webkit-autofill {
     border-left: 3px solid var(--primary);
     border-radius: 0 var(--radius) var(--radius) 0;
     background: var(--entry);
-    backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
+    /* 去掉毛玻璃，避免首页滚动时反复做全屏模糊 */
 }
 
 .home-foreword-title {
@@ -265,11 +265,15 @@ textarea:-webkit-autofill {
         font-size: 0.85rem;
         line-height: 1.55;
 
-        background: var(--entry);
+        /* 这块是 position:fixed 的侧边目录。不用毛玻璃：
+           全屏 fixed 面板上做实时 backdrop-filter，滚动时会明显掉帧。 */
+        background: rgba(255, 255, 255, 0.88);
         border: 1px solid var(--glass-border);
         border-radius: var(--radius);
-        backdrop-filter: blur(var(--glass-blur)) saturate(1.5);
-        -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.5);
+    }
+
+    html[data-theme="dark"] .post-single details.toc {
+        background: rgba(30, 36, 48, 0.92);
     }
 
     /* 折叠箭头去掉，侧边栏里它没有意义 */
@@ -1391,20 +1395,14 @@ html[data-theme="dark"] .hero-veil {
     pointer-events: none;
 }
 
-/* 文章详情页：也用 2.jpg，但遮罩更重，
-   只保留背景的蓝色调，避免图案干扰阅读 */
-body:has(.post-single)::before {
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)),
-        url("/images/hero/2.jpg");
-    background-size: cover;
-    background-position: center 35%;
+/* 文章详情页：复用同一张背景图，只把遮罩加重，
+   不再重复定义 background-image（少一次图片解码/图层合成） */
+body:has(.post-single) {
+    --bg-dim: rgba(255, 255, 255, 0.88);
 }
 
-html[data-theme="dark"] body:has(.post-single)::before {
-    background-image:
-        linear-gradient(rgba(15, 23, 36, 0.90), rgba(15, 23, 36, 0.90)),
-        url("/images/hero/2.jpg");
+html[data-theme="dark"] body:has(.post-single) {
+    --bg-dim: rgba(15, 23, 36, 0.90);
 }
 
 
