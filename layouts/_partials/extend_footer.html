@@ -40,11 +40,32 @@
 
         var ctx = canvas.getContext('2d');
         var W = 0, H = 0;
-        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        /* 花瓣很小，不需要 2 倍像素密度。
+           固定 1 倍可以把每帧要填充的像素减少约 75%，高 DPI 屏幕上差很多。 */
+        var dpr = 1;
         var petals = [];
         var running = true;
         var lastTime = 0;
+        var lastDraw = 0;
         var FALL_SPEED = 2;          // 参考站 move.speed = 2
+
+        /* 把花瓣形状预先画进一张小图，之后每帧只做 drawImage。
+           之前每片花瓣每帧都要走一次贝塞尔路径 + 填充，140 片会很吃力。 */
+        var sprite = document.createElement('canvas');
+        var SPRITE_SIZE = 64;
+        sprite.width = sprite.height = SPRITE_SIZE;
+        (function () {
+            var s = sprite.getContext('2d');
+            s.translate(SPRITE_SIZE / 2, SPRITE_SIZE / 2);
+            var r = SPRITE_SIZE / 2 - 2;
+            s.fillStyle = '#ffb7c5';
+            s.beginPath();
+            s.moveTo(0, -r);
+            s.bezierCurveTo(r * 0.95, -r * 0.65, r * 0.85, r * 0.6, 0, r);
+            s.bezierCurveTo(-r * 0.85, r * 0.6, -r * 0.95, -r * 0.65, 0, -r);
+            s.closePath();
+            s.fill();
+        })();
 
         function rand(a, b) { return a + Math.random() * (b - a); }
 
@@ -65,14 +86,13 @@
         function resize() {
             W = Math.max(1, window.innerWidth);
             H = Math.max(1, window.innerHeight);
-            dpr = Math.min(window.devicePixelRatio || 1, 2);
             canvas.width = Math.floor(W * dpr);
             canvas.height = Math.floor(H * dpr);
             canvas.style.width = W + 'px';
             canvas.style.height = H + 'px';
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-            var count = W < 768 ? 70 : 140;
+            var count = W < 768 ? 45 : 90;
             petals = [];
             for (var i = 0; i < count; i++) petals.push(makePetal(true));
         }
@@ -82,28 +102,22 @@
             ctx.translate(p.x, p.y);
             ctx.rotate(p.angle);
             ctx.globalAlpha = p.alpha;
-            ctx.fillStyle = '#ffb7c5';
-            ctx.beginPath();
-            ctx.moveTo(0, -p.size);
-            ctx.bezierCurveTo(
-                p.size * 0.95, -p.size * 0.65,
-                p.size * 0.85, p.size * 0.6,
-                0, p.size
-            );
-            ctx.bezierCurveTo(
-                -p.size * 0.85, p.size * 0.6,
-                -p.size * 0.95, -p.size * 0.65,
-                0, -p.size
-            );
-            ctx.closePath();
-            ctx.fill();
+            ctx.drawImage(sprite, -p.size, -p.size, p.size * 2, p.size * 2);
             ctx.restore();
         }
 
         function tick(now) {
             if (!running) return;
+
+            // 限制到约 30fps：花瓣不需要 60fps，能省一半绘制开销
+            if (now - lastDraw < 33) {
+                window.requestAnimationFrame(tick);
+                return;
+            }
+
             var dt = lastTime ? Math.min((now - lastTime) / 16.67, 3) : 1;
             lastTime = now;
+            lastDraw = now;
 
             ctx.clearRect(0, 0, W, H);
             for (var i = 0; i < petals.length; i++) {
@@ -128,6 +142,29 @@
         resize();
         window.addEventListener('resize', resize);
         window.requestAnimationFrame(tick);
+    })();
+
+    /* 预取文章链接：鼠标悬停/按下时，浏览器提前下载目标页 HTML，
+       点击后不用再等 1～2 秒。不支持 Speculation Rules 的浏览器会自动跳过。 */
+    (function () {
+        if (!(window.HTMLScriptElement && HTMLScriptElement.supports &&
+                HTMLScriptElement.supports('speculationrules'))) return;
+
+        var links = document.querySelectorAll('.post-entry .entry-link');
+        if (!links.length) return;
+
+        var urls = [];
+        links.forEach(function (a) {
+            if (a.href) urls.push(a.href);
+        });
+        if (!urls.length) return;
+
+        var s = document.createElement('script');
+        s.type = 'speculationrules';
+        s.textContent = JSON.stringify({
+            prefetch: [{ source: 'list', urls: urls, eagerness: 'moderate' }]
+        });
+        document.head.appendChild(s);
     })();
 
     /* 目录滚动高亮：滚到哪一节，侧边目录对应那行就加粗 */
